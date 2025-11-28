@@ -20,6 +20,9 @@ export default defineConfig({
       "#components": resolve(__dirname, "src/components"),
       "#constants": resolve(__dirname, "src/constants"),
       "#store": resolve(__dirname, "src/store"),
+      "#hoc": resolve(__dirname, "src/hoc"),
+      "#assets": resolve(__dirname, "src/assets"),
+      "#windows": resolve(__dirname, "src/windows"),
     },
   },
 });

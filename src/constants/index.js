@@ -102,27 +102,91 @@ const blogPosts = [
 const techStack = [
   {
     category: "Frontend",
-    items: ["React.js", "Next.js", "TypeScript"],
+    items: ["React", "Next", "TypeScript", "Redux", "Tanstack"],
   },
   {
-    category: "Mobile",
-    items: ["React Native", "Expo"],
-  },
-  {
-    category: "Styling",
-    items: ["Tailwind CSS", "Sass", "CSS"],
+    category: "3D & Animation",
+    items: ["Three.js", "GSAP", "Framer Motion"],
   },
   {
     category: "Backend",
-    items: ["Node.js", "Express", "NestJS", "Hono"],
+    items: ["Rust", "Node.js", "Express", "NestJS", "Go", "Java"],
+  },
+  {
+    category: "Mobile",
+    items: ["React Native", "Expo", "Flutter"],
   },
   {
     category: "Database",
-    items: ["MongoDB", "PostgreSQL"],
+    items: ["MongoDB", "PostgreSQL", "MySQL", "DynamoDB"],
+  },
+  {
+    category: "Web APIs",
+    items: ["GraphQL", "REST", "WebSockets", "WebRTC", "WebVR"],
+  },
+  {
+    category: "Others",
+    items: ["Redis", "Kafka", "Nx", "Swagger.io", "Drizzle"],
+  },
+  {
+    category: "AI & ML",
+    items: ["Python", "TensorFlow", "n8n", "LangChain"],
+  },
+  {
+    category: "RAG & MCP",
+    items: ["Pinecone", "Weaviate", "AWS Bedrock", "Supabase"],
+  },
+  {
+    category: "DevOps",
+    items: ["Linux", "Ansible", "Kubernetes", "Terraform"],
+  },
+  {
+    category: "AWS",
+    items: ["EC2", "ECR", "S3", "Lambda", "RDS", "CloudFront"],
   },
   {
     category: "Dev Tools",
-    items: ["Git", "GitHub", "Docker"],
+    items: ["Git", "GitHub", "Docker", "Jenkins", "bun", "pnpm"],
+  },
+  {
+    category: "Log/Monitor",
+    items: ["ELK Stack", "Prometheus", "Grafana", "DataDog"],
+  },
+  {
+    category: "CI/CD",
+    items: ["GitHub Actions", "Travis CI", "Argo CD"],
+  },
+  {
+    category: "Cloud",
+    items: ["AWS", "AZURE", "GCP", "Vercel", "Netlify"],
+  },
+  {
+    category: "Styling",
+    items: ["Tailwind CSS", "Sass", "CSS", "Styled-Components"],
+  },
+  {
+    category: "Authentication",
+    items: ["JWT", "BetterAuth", "Cognito", "KeyCloack", "Clerk"],
+  },
+  {
+    category: "System Design",
+    items: ["Microservices", "Serverless", "Design Patterns"],
+  },
+  {
+    category: "Test/Security",
+    items: ["Jest", "Cypress", "E2E", "OWASP", "Postman"],
+  },
+  {
+    category: "Agile Tools",
+    items: ["Jira", "Confluence", "Trello", "Asana", "Slack"],
+  },
+  {
+    category: "CS Concepts",
+    items: ["DSA", "Networking", "OS", "OOP", "Embedded Systems"],
+  },
+  {
+    category: "Web3",
+    items: ["Solidity", "Solana", "Smart Contracts"],
   },
 ];
 
