@@ -70,7 +70,7 @@ const dockApps = [
     id: "trash",
     name: "Archive", // was "Trash"
     icon: "trash.png",
-    canOpen: false,
+    canOpen: true,
   },
 ];
 
@@ -429,7 +429,7 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "url",
           href: "https://youtu.be/LKrX390fJMw?si=cExkuVhf2DTV9G2-",
-          position: "top-10 bottom-20",
+          position: "top-10 right-20",
         },
         {
           id: 4,
@@ -554,11 +554,59 @@ const TRASH_LOCATION = {
   ],
 };
 
+const GALLERY_LOCATION = {
+  id: 5,
+  type: "gallery",
+  name: "Gallery",
+  icon: "/icons/gicon1.svg",
+  kind: "folder",
+  children: [
+    {
+      id: 1,
+      name: "gal1.png",
+      icon: "/images/image.png",
+      kind: "file",
+      fileType: "img",
+      position: "top-10 left-5",
+      imageUrl: "/images/gal1.png",
+    },
+    {
+      id: 2,
+      name: "gal2.png",
+      icon: "/images/image.png",
+      kind: "file",
+      fileType: "img",
+      position: "top-28 right-72",
+      imageUrl: "/images/gal2.png",
+    },
+    {
+      id: 3,
+      name: "gal3.png",
+      icon: "/images/image.png",
+      kind: "file",
+      fileType: "img",
+      position: "top-52 left-80",
+      imageUrl: "/images/gal3.png",
+    },
+    {
+      id: 4,
+      name: "gal4.png",
+      icon: "/images/image.png",
+      kind: "file",
+      fileType: "img",
+      position: "top-60 left-5",
+      imageUrl: "/images/gal4.png",
+    },
+  ],
+};
+
+// Update locations export:
 export const locations = {
   work: WORK_LOCATION,
   about: ABOUT_LOCATION,
   resume: RESUME_LOCATION,
   trash: TRASH_LOCATION,
+  gallery: GALLERY_LOCATION,
 };
 
 const INITIAL_Z_INDEX = 1000;
@@ -572,6 +620,7 @@ const WINDOW_CONFIG = {
   terminal: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   txtfile: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   imgfile: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
+  trash: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
 };
 
 export { INITIAL_Z_INDEX, WINDOW_CONFIG };
