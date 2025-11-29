@@ -97,6 +97,13 @@ const blogPosts = [
     image: "/images/blog3.png",
     link: "https://jsmastery.com/blog/the-ultimate-guide-to-mastering-gsap-animations",
   },
+  {
+    id: 4,
+    date: "Sep 16, 2023",
+    title: "Infinity Image Scrolling Using Intersection Observer API",
+    image: "/images/blog4.png",
+    link: "https://kishorsblog.hashnode.dev/infinity-image-scrolling-using-intersection-observer-api",
+  },
 ];
 
 const techStack = [
@@ -196,28 +203,28 @@ const socials = [
     text: "Github",
     icon: "/icons/github.svg",
     bg: "#f4656b",
-    link: "https://github.com/JavaScript-Mastery-Pro",
-  },
-  {
-    id: 2,
-    text: "Platform",
-    icon: "/icons/atom.svg",
-    bg: "#4bcb63",
-    link: "https://jsmastery.com/",
+    link: "https://github.com/KishorKumarParoi",
   },
   {
     id: 3,
+    text: "Facebook",
+    icon: "/icons/atom.svg",
+    bg: "#4bcb63",
+    link: "https://www.facebook.com/codewithparoi/",
+  },
+  {
+    id: 2,
     text: "Twitter/X",
     icon: "/icons/twitter.svg",
     bg: "#ff866b",
-    link: "https://x.com/jsmasterypro",
+    link: "https://x.com/paroi_kishor",
   },
   {
     id: 4,
     text: "LinkedIn",
     icon: "/icons/linkedin.svg",
     bg: "#05b6f6",
-    link: "https://www.linkedin.com/company/javascriptmastery/posts/?feedView=all",
+    link: "https://www.linkedin.com/in/kishor-paroi-b06344166/",
   },
 ];
 

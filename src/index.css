@@ -234,6 +234,10 @@ body {
         }
       }
     }
+
+    a:hover {
+      @apply ring-2 ring-white/40;
+    }
   }
 
   #photos {
