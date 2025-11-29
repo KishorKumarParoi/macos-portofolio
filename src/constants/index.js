@@ -101,7 +101,7 @@ const blogPosts = [
     id: 4,
     date: "Sep 16, 2023",
     title: "Infinity Image Scrolling Using Intersection Observer API",
-    image: "/images/blog4.png",
+    image: "/images/blog1.png",
     link: "https://kishorsblog.hashnode.dev/infinity-image-scrolling-using-intersection-observer-api",
   },
 ];
@@ -300,7 +300,7 @@ const WORK_LOCATION = {
       icon: "/images/folder.png",
       kind: "folder",
       position: "top-10 left-5", // icon position inside Finder
-      windowPosition: "top-[5vh] left-5", // optional: Finder window position
+      windowPosition: "top-[50vh] left-5", // optional: Finder window position
       children: [
         {
           id: 1,
@@ -353,7 +353,7 @@ const WORK_LOCATION = {
       icon: "/images/folder.png",
       kind: "folder",
       position: "top-52 right-80",
-      windowPosition: "top-[20vh] left-7",
+      windowPosition: "top-[20vh] right-7",
       children: [
         {
           id: 1,
@@ -429,7 +429,7 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "url",
           href: "https://youtu.be/LKrX390fJMw?si=cExkuVhf2DTV9G2-",
-          position: "top-10 right-20",
+          position: "top-10 bottom-20",
         },
         {
           id: 4,
