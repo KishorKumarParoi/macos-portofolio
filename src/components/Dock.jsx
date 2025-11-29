@@ -1,4 +1,5 @@
-import { dockApps } from '#constants'
+import { dockApps, locations } from '#constants'
+import useLocationStore from '#store/location'
 import useWindowStore from '#store/window'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
@@ -7,6 +8,7 @@ import { Tooltip } from 'react-tooltip'
 
 const Dock = () => {
     const { openWindow, closeWindow, windows } = useWindowStore()
+    const { setActiveLocation } = useLocationStore();
 
     const dockRef = useRef(null)
 
@@ -70,6 +72,17 @@ const Dock = () => {
         if (window && window.isOpen) {
             closeWindow(app.id);
         } else {
+            if (app.id === 'trash') {
+                setActiveLocation(locations?.trash);
+                openWindow('finder');
+                return;
+            }
+            else if (app.id === 'photos') {
+                setActiveLocation(locations?.gallery);
+                openWindow('finder');
+                return;
+            }
+
             openWindow(app.id);
         }
 

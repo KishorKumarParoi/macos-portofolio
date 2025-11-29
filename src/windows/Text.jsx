@@ -9,6 +9,8 @@ const Text = () => {
 
     if (!data) return null;
 
+    console.log("Imgfile", data);
+
     const { name, image, subtitle, description } = data;
 
     return (
