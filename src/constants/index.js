@@ -259,20 +259,57 @@ const photosLinks = [
 const gallery = [
   {
     id: 1,
-    img: "/images/gal1.png",
+    img: "/images/1.jpeg",
   },
   {
     id: 2,
-    img: "/images/gal2.png",
+    img: "/images/2.jpeg",
   },
   {
     id: 3,
-    img: "/images/gal3.png",
+    img: "/images/3.jpeg",
   },
   {
     id: 4,
-    img: "/images/gal4.png",
+    img: "/images/4.jpeg",
   },
+  {
+    id: 5,
+    img: "/images/5.jpeg",
+  },
+  {
+    id: 6,
+    img: "/images/6.jpeg",
+  },
+  {
+    id: 7,
+    img: "/images/7.jpg",
+  },
+  {
+    id: 8,
+    img: "/images/8.jpg",
+  },
+  {
+    id: 9,
+    img: "/images/9.jpeg",
+  },
+  {
+    id: 10,
+    img: "/images/10.jpeg",
+  },
+  { id: 11, img: "/images/11.jpg" },
+  { id: 12, img: "/images/12.jpg" },
+  { id: 13, img: "/images/13.jpg" },
+  { id: 14, img: "/images/14.jpg" },
+  { id: 15, img: "/images/15.jpg" },
+  { id: 16, img: "/images/16.jpg" },
+  { id: 17, img: "/images/17.jpg" },
+  { id: 18, img: "/images/18.jpg" },
+  { id: 19, img: "/images/19.jpg" },
+  { id: 20, img: "/images/20.jpg" },
+  { id: 21, img: "/images/21.jpg" },
+  { id: 22, img: "/images/22.jpg" },
+  { id: 23, img: "/images/23.jpg" },
 ];
 
 export {
@@ -289,6 +326,7 @@ export {
 const WORK_LOCATION = {
   id: 1,
   type: "work",
+  path: "work",
   name: "Work",
   icon: "/icons/work.svg",
   kind: "folder",
@@ -299,8 +337,8 @@ const WORK_LOCATION = {
       name: "Nike Ecommerce Website Application",
       icon: "/images/folder.png",
       kind: "folder",
-      position: "top-10 left-5", // icon position inside Finder
-      windowPosition: "top-[50vh] left-5", // optional: Finder window position
+      position: "top-8 left-8",
+      windowPosition: "top-[12vh] left-8",
       children: [
         {
           id: 1,
@@ -308,7 +346,7 @@ const WORK_LOCATION = {
           icon: "/images/txt.png",
           kind: "file",
           fileType: "txt",
-          position: "top-5 left-10",
+          position: "top-8 left-8",
           description: [
             "The Nike eCommerce website is a sleek and modern platform designed for shopping the latest Nike collections.",
             "Instead of a simple online store, it delivers an immersive experience with bold visuals, interactive product displays, and smooth navigation.",
@@ -323,7 +361,7 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "url",
           href: "https://youtu.be/fZdTYswuZjU?si=Awjl-pIst9e09_UU",
-          position: "top-10 right-20",
+          position: "top-8 left-40",
         },
         {
           id: 4,
@@ -331,7 +369,7 @@ const WORK_LOCATION = {
           icon: "/images/image.png",
           kind: "file",
           fileType: "img",
-          position: "top-52 right-80",
+          position: "top-32 left-8",
           imageUrl: "/images/project-1.png",
         },
         {
@@ -341,7 +379,7 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "fig",
           href: "https://google.com",
-          position: "top-60 right-20",
+          position: "top-32 left-40",
         },
       ],
     },
@@ -352,8 +390,8 @@ const WORK_LOCATION = {
       name: "AI Resume Analyzer",
       icon: "/images/folder.png",
       kind: "folder",
-      position: "top-52 right-80",
-      windowPosition: "top-[20vh] right-7",
+      position: "top-8 left-40",
+      windowPosition: "top-[12vh] left-[38vw]",
       children: [
         {
           id: 1,
@@ -361,7 +399,7 @@ const WORK_LOCATION = {
           icon: "/images/txt.png",
           kind: "file",
           fileType: "txt",
-          position: "top-5 right-10",
+          position: "top-8 left-8",
           description: [
             "AI Resume Analyzer is a smart tool that helps you perfect your resume with instant feedback.",
             "Instead of guessing what recruiters want, you get AI-powered insights on keywords, formatting, and overall impact.",
@@ -376,7 +414,7 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "url",
           href: "https://youtu.be/iYOz165wGkQ?si=R1hs8Legl200m0Cl",
-          position: "top-20 left-20",
+          position: "top-8 left-40",
         },
         {
           id: 4,
@@ -384,7 +422,7 @@ const WORK_LOCATION = {
           icon: "/images/image.png",
           kind: "file",
           fileType: "img",
-          position: "top-52 left-80",
+          position: "top-32 left-8",
           imageUrl: "/images/project-2.png",
         },
         {
@@ -394,7 +432,7 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "fig",
           href: "https://google.com",
-          position: "top-60 left-5",
+          position: "top-32 left-40",
         },
       ],
     },
@@ -405,8 +443,8 @@ const WORK_LOCATION = {
       name: "Food Delivery App",
       icon: "/images/folder.png",
       kind: "folder",
-      position: "top-10 left-80",
-      windowPosition: "top-[33vh] left-7",
+      position: "top-8 left-72",
+      windowPosition: "top-[12vh] left-[66vw]",
       children: [
         {
           id: 1,
@@ -414,7 +452,7 @@ const WORK_LOCATION = {
           icon: "/images/txt.png",
           kind: "file",
           fileType: "txt",
-          position: "top-5 left-10",
+          position: "top-8 left-8",
           description: [
             "Our Food Delivery App is a fast and convenient way to order meals from your favorite restaurants.",
             "Instead of making calls or waiting in line, you can browse menus, customize orders, and track deliveries in real time.",
@@ -429,7 +467,7 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "url",
           href: "https://youtu.be/LKrX390fJMw?si=cExkuVhf2DTV9G2-",
-          position: "top-10 right-20",
+          position: "top-8 left-40",
         },
         {
           id: 4,
@@ -437,7 +475,7 @@ const WORK_LOCATION = {
           icon: "/images/image.png",
           kind: "file",
           fileType: "img",
-          position: "top-52 right-80",
+          position: "top-32 left-8",
           imageUrl: "/images/project-3.png",
         },
         {
@@ -447,7 +485,7 @@ const WORK_LOCATION = {
           kind: "file",
           fileType: "fig",
           href: "https://google.com",
-          position: "top-60 right-20",
+          position: "top-32 left-40",
         },
       ],
     },
@@ -457,6 +495,7 @@ const WORK_LOCATION = {
 const ABOUT_LOCATION = {
   id: 2,
   type: "about",
+  path: "about",
   name: "About me",
   icon: "/icons/info.svg",
   kind: "folder",
@@ -467,8 +506,8 @@ const ABOUT_LOCATION = {
       icon: "/images/image.png",
       kind: "file",
       fileType: "img",
-      position: "top-10 left-5",
-      imageUrl: "/images/adrian.jpg",
+      position: "top-8 left-8",
+      imageUrl: "/images/15.jpg",
     },
     {
       id: 2,
@@ -476,7 +515,7 @@ const ABOUT_LOCATION = {
       icon: "/images/image.png",
       kind: "file",
       fileType: "img",
-      position: "top-28 right-72",
+      position: "top-8 left-40",
       imageUrl: "/images/adrian-2.jpg",
     },
     {
@@ -485,7 +524,7 @@ const ABOUT_LOCATION = {
       icon: "/images/image.png",
       kind: "file",
       fileType: "img",
-      position: "top-52 left-80",
+      position: "top-32 left-8",
       imageUrl: "/images/adrian-3.jpeg",
     },
     {
@@ -494,7 +533,7 @@ const ABOUT_LOCATION = {
       icon: "/images/txt.png",
       kind: "file",
       fileType: "txt",
-      position: "top-60 left-5",
+      position: "top-32 left-40",
       subtitle: "Meet the Developer Behind the Code",
       image: "/images/adrian.jpg",
       description: [
@@ -510,6 +549,7 @@ const ABOUT_LOCATION = {
 const RESUME_LOCATION = {
   id: 3,
   type: "resume",
+  path: "resume",
   name: "Resume",
   icon: "/icons/file.svg",
   kind: "folder",
@@ -520,8 +560,7 @@ const RESUME_LOCATION = {
       icon: "/images/pdf.png",
       kind: "file",
       fileType: "pdf",
-      // you can add `href` if you want to open a hosted resume
-      // href: "/your/resume/path.pdf",
+      position: "top-8 left-8",
     },
   ],
 };
@@ -529,6 +568,7 @@ const RESUME_LOCATION = {
 const TRASH_LOCATION = {
   id: 4,
   type: "trash",
+  path: "trash",
   name: "Trash",
   icon: "/icons/trash.svg",
   kind: "folder",
@@ -539,7 +579,7 @@ const TRASH_LOCATION = {
       icon: "/images/image.png",
       kind: "file",
       fileType: "img",
-      position: "top-10 left-10",
+      position: "top-8 left-8",
       imageUrl: "/images/trash-1.png",
     },
     {
@@ -548,7 +588,7 @@ const TRASH_LOCATION = {
       icon: "/images/image.png",
       kind: "file",
       fileType: "img",
-      position: "top-40 left-80",
+      position: "top-8 left-48",
       imageUrl: "/images/trash-2.png",
     },
   ],
@@ -557,48 +597,116 @@ const TRASH_LOCATION = {
 const GALLERY_LOCATION = {
   id: 5,
   type: "gallery",
+  path: "gallery",
   name: "Gallery",
   icon: "/icons/gicon1.svg",
   kind: "folder",
   children: [
     {
       id: 1,
-      name: "gal1.png",
+      name: "1.jpeg",
       icon: "/images/image.png",
       kind: "file",
       fileType: "img",
-      position: "top-10 left-5",
-      imageUrl: "/images/gal1.png",
+      position: "top-8 left-8",
+      imageUrl: "/images/1.jpeg",
     },
     {
       id: 2,
-      name: "gal2.png",
+      name: "2.jpeg",
       icon: "/images/image.png",
       kind: "file",
       fileType: "img",
-      position: "top-28 right-72",
-      imageUrl: "/images/gal2.png",
+      position: "top-8 left-40", // closer
+      imageUrl: "/images/2.jpeg",
     },
     {
       id: 3,
-      name: "gal3.png",
+      name: "3.jpeg",
       icon: "/images/image.png",
       kind: "file",
       fileType: "img",
-      position: "top-52 left-80",
-      imageUrl: "/images/gal3.png",
+      position: "top-8 left-72", // closer
+      imageUrl: "/images/3.jpeg",
     },
     {
       id: 4,
-      name: "gal4.png",
+      name: "4.jpeg",
       icon: "/images/image.png",
       kind: "file",
       fileType: "img",
-      position: "top-60 left-5",
-      imageUrl: "/images/gal4.png",
+      position: "top-8 left-[26rem]", // closer than 30rem
+      imageUrl: "/images/4.jpeg",
+    },
+    {
+      id: 5,
+      name: "5.jpeg",
+      icon: "/images/image.png",
+      kind: "file",
+      fileType: "img",
+      position: "top-36 left-8", // row closer (from top-40)
+      imageUrl: "/images/5.jpeg",
+    },
+    {
+      id: 6,
+      name: "6.jpeg",
+      icon: "/images/image.png",
+      kind: "file",
+      fileType: "img",
+      position: "top-36 left-40", // closer
+      imageUrl: "/images/6.jpeg",
+    },
+    {
+      id: 7,
+      name: "7.jpg",
+      icon: "/images/image.png",
+      kind: "file",
+      fileType: "img",
+      position: "top-36 left-72", // closer
+      imageUrl: "/images/7.jpg",
+    },
+    {
+      id: 8,
+      name: "8.jpg",
+      icon: "/images/image.png",
+      kind: "file",
+      fileType: "img",
+      position: "top-36 left-[26rem]", // closer
+      imageUrl: "/images/8.jpg",
+    },
+    {
+      id: 9,
+      name: "9.jpeg",
+      icon: "/images/image.png",
+      kind: "file",
+      fileType: "img",
+      position: "top-64 left-8", // closer (from top-72)
+      imageUrl: "/images/9.jpeg",
+    },
+    {
+      id: 10,
+      name: "10.jpeg",
+      icon: "/images/image.png",
+      kind: "file",
+      fileType: "img",
+      position: "top-64 left-40", // closer
+      imageUrl: "/images/10.jpeg",
     },
   ],
 };
+
+// Optional: increase spacing inside project folders too
+WORK_LOCATION.children[0].children[1].position = "top-8 left-48";
+WORK_LOCATION.children[0].children[3].position = "top-32 left-48";
+WORK_LOCATION.children[1].children[1].position = "top-8 left-48";
+WORK_LOCATION.children[1].children[3].position = "top-32 left-48";
+WORK_LOCATION.children[2].children[1].position = "top-8 left-48";
+WORK_LOCATION.children[2].children[3].position = "top-32 left-48";
+
+ABOUT_LOCATION.children[1].position = "top-8 left-48";
+ABOUT_LOCATION.children[3].position = "top-32 left-48";
+
+TRASH_LOCATION.children[1].position = "top-8 left-48";
 
 // Update locations export:
 export const locations = {
