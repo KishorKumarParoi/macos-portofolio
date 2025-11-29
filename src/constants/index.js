@@ -153,7 +153,7 @@ const techStack = [
   },
   {
     category: "Dev Tools",
-    items: ["Git", "GitHub", "Docker", "Jenkins", "bun", "pnpm"],
+    items: ["Git", "GitHub", "Docker", "Jenkins", "bun", "Figma"],
   },
   {
     category: "Log/Monitor",
