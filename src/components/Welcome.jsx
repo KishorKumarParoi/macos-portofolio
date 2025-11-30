@@ -3,8 +3,8 @@ import gsap from 'gsap'
 import React, { useRef } from 'react'
 
 const FONT_WEIGHTS = {
-    subtitle: {min: 100, max:400, default: 100},
-    title: {min: 400, max:900, default: 400},
+    subtitle: { min: 100, max: 400, default: 100 },
+    title: { min: 400, max: 900, default: 400 },
 }
 
 const renderText = (text, className, basWeight = 400) => {
@@ -20,7 +20,7 @@ const renderText = (text, className, basWeight = 400) => {
 }
 
 const setupTextHover = (container, type) => {
-    if(!container) return;
+    if (!container) return;
 
     const letters = container.querySelectorAll('span');
     const { min, max, default: base } = FONT_WEIGHTS[type];
@@ -31,23 +31,23 @@ const setupTextHover = (container, type) => {
             ease: 'power2.out',
             fontVariationSettings: `'wght' ${weight}`,
         });
-    } 
+    }
 
     const handleMouseMove = (e) => {
-        const {left} = container.getBoundingClientRect();
+        const { left } = container.getBoundingClientRect();
         const mouseX = e.clientX - left;
 
-        letters.forEach((letter)=> {
-            const {left: l, width: w} = letter.getBoundingClientRect();
+        letters.forEach((letter) => {
+            const { left: l, width: w } = letter.getBoundingClientRect();
             const distance = Math.abs(mouseX - (l - left + w / 2));
-            const intensity = Math.exp(-(distance ** 2)/20000); 
+            const intensity = Math.exp(-(distance ** 2) / 20000);
 
             animateLetter(letter, min + (max - min) * intensity);
         })
     }
 
     const handleMouseLeave = () => {
-        letters.forEach((letter)=> {
+        letters.forEach((letter) => {
             animateLetter(letter, base);
         })
     }
@@ -66,14 +66,14 @@ const Welcome = () => {
     const titleRef = useRef(null)
     const subtitleRef = useRef(null)
 
-    useGSAP(()=> {
-       const subTitleCleanUp =  setupTextHover(subtitleRef.current, 'subtitle');
-       const titleCleanUp =  setupTextHover(titleRef.current, 'title');
+    useGSAP(() => {
+        const subTitleCleanUp = setupTextHover(subtitleRef.current, 'subtitle');
+        const titleCleanUp = setupTextHover(titleRef.current, 'title');
 
-         return () => {
+        return () => {
             subTitleCleanUp && subTitleCleanUp();
             titleCleanUp && titleCleanUp();
-         }
+        }
     })
 
     return (
@@ -86,7 +86,7 @@ const Welcome = () => {
             </h1>
 
             <div className='small-screen'>
-                <p>This portfolio is designed for desktop/tablet screens only.</p>
+                <p>This portfolio is designed for desktop/tablet screens only. Though You can see by selecting Chorome Browser Desktop Version </p>
             </div>
         </section>
     )
