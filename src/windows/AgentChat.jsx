@@ -219,6 +219,75 @@ const KNOWLEDGE_BASE = [
 • **AI Security Hackathon:** **7th Place Nationally** (<30ms prompt firewall).`,
     },
     {
+        id: 'user_survival',
+        keywords: ['survival', 'titanic', 'user survival', 'astro', 'airflow', 'feast', 'alibi', 'drift', 'ks', 'retraining'],
+        title: '13. User Survival Prediction MLOps Platform',
+        image: {
+            url: '/images/projects/survival/01_architecture_flow.svg',
+            caption: 'User Survival Prediction MLOps Architecture Flow',
+            repoUrl: 'https://github.com/KishorKumarParoi/user_suvival_prediction',
+        },
+        answer: `**13. End-to-End User Survival Prediction MLOps Platform:**
+• **Astro CLI & Apache Airflow:** Continuous data orchestration with Great Expectations automated schema validation.
+• **Redis Feature Store via Feast:** Sub-2ms low-latency feature serving across training and real-time inference sets.
+• **FastAPI ONNX Runtime Serving:** Containerized in lightweight Docker microservice with **88.9% accuracy** and **4.2ms p99 latency**.
+• **Alibi Detect & Drift Alerts:** Kolmogorov-Smirnov statistical hypothesis testing automatically flagging feature & concept drift to trigger retraining pipelines.
+• **Deploy Command:** \`curl -fsSL https://raw.githubusercontent.com/KishorKumarParoi/user_suvival_prediction/main/bootstrap.sh | bash\``,
+    },
+    {
+        id: 'reinvent',
+        keywords: ['reinvent', '3d', 'threejs', 'three.js', 'r3f', 'aws reinvent', 'glsl', 'shader', 'edm', 'beatbox'],
+        title: '14. re:invent: AWS re:Invent-Grade 3D Immersive Architectural Experience',
+        image: {
+            url: '/images/projects/reinvent/01_3d_architecture.png',
+            caption: 're:invent 3D WebGL Shader & Spatial Experience',
+            repoUrl: 'https://github.com/KishorKumarParoi/reinvent',
+        },
+        answer: `**14. re:invent 3D Immersive Architectural Experience:**
+• **Three.js & React Three Fiber (R3F):** Custom GLSL vertex and fragment shaders rendering interactive architectural cloud topologies.
+• **GSAP 3.12 Camera Choreography:** Fluid 3D camera transitions synchronized with user scroll and navigation.
+• **30-Track Beatbox & EDM Audio Engine:** High-octane procedural audio with Web Audio API synthetic fallback and global keyboard shortcuts.
+• **Draco Geometry Compression:** Compressed 3D GLB assets by 74%, sustaining **60 FPS** performance on mobile and desktop browsers.
+• **Live Experience:** [re-invent-rust.vercel.app](https://re-invent-rust.vercel.app/)`,
+    },
+    {
+        id: 'macos_portfolio',
+        keywords: ['macos', 'portfolio', 'os', 'apple', 'desktop', 'macbook', 'sequoia', 'tahoe'],
+        title: '15. macOS Tahoe Portfolio: Native Operating System Web Environment',
+        image: {
+            url: '/images/projects/macos/01_desktop_os.jpg',
+            caption: 'macOS Native Operating System Web Environment',
+            repoUrl: 'https://github.com/KishorKumarParoi/macos-portofolio',
+        },
+        answer: `**15. macOS Tahoe Portfolio: Native Operating System Web Environment:**
+• **React 19 & Tailwind CSS v4:** Enterprise OS desktop environment with GSAP Draggable windowing and multi-tier z-index management.
+• **Live Games Suite:** Minimax Blitz Chess AI (5-minute clock) and Clash of Villages RTS defense simulation.
+• **Nexus AI Agent:** Autonomous LangGraph chat interface with BotShield WAF, semantic caching, and FastMCP sandboxing.
+• **Apple Official 4K Wallpaper:** Locked Sequoia 4K wallpaper with dynamic Dark/Light mode theme switching.
+• **Live Platform:** [macos-portofolio.vercel.app](https://macos-portofolio.vercel.app/)`,
+    },
+    {
+        id: 'contact',
+        keywords: ['contact', 'email', 'phone', 'call', 'talk', 'connect', 'location', 'tea', 'coffee', 'whatsapp', 'linkedin', 'twitter', 'hire', 'reach'],
+        title: 'Contact Credentials & Availability',
+        answer: `**Let's Connect Over a Cup of Tea & Coffee ☕**
+• **Primary Email:** [Kishor.ruet.cse@gmail.com](mailto:Kishor.ruet.cse@gmail.com)
+• **Phone / WhatsApp:** [+880 1724-714-156](https://wa.me/8801724714156)
+• **LinkedIn:** [linkedin.com/in/kishor-kumar-paroi-b06344166](https://linkedin.com/in/kishor-kumar-paroi-b06344166)
+• **Twitter (X):** [@Mr__paroi](https://x.com/Mr__paroi)
+• **Location:** Dhaka, Bangladesh (Available for Worldwide Remote & Relocation)
+• **Target Roles:** Principal AI Systems Architect • Enterprise Platform Leader • Staff Distributed Systems Engineer`,
+    },
+    {
+        id: 'education',
+        keywords: ['education', 'degree', 'ruet', 'university', 'college', 'cgpa', 'school', 'academic', 'merit'],
+        title: 'Academic Credentials & Merit',
+        answer: `**Academic Foundations & National Merit:**
+• **B.Sc. in Computer Science & Engineering (2018–2023):** Rajshahi University of Engineering & Technology (RUET) — **Rank 483rd in Bangladesh** in National Admission Merit (CGPA: 3.25 / 4.00 D.O).
+• **Higher Secondary Certificate (HSC, 2015–2017):** Saint Joseph Higher Secondary School (Dhaka Board) — **GPA 5.00 / 5.00** (**Rank 85th** in Dhaka Board Merit List).
+• **Secondary School Certificate (SSC, 2013–2015):** S.J Govt Model High School — **GPA 5.00 / 5.00** (**Rank 90th** in Dhaka Board, 1st in Gopalganj District).`,
+    },
+    {
         id: 'skills',
         keywords: ['skills', 'stack', 'languages', 'tech', 'tools', 'frameworks'],
         title: 'Full Technical Arsenal & Systems Expertise',
@@ -237,12 +306,12 @@ const AgentChat = ({ isMaximized }) => {
         {
             id: 1,
             sender: 'bot',
-            text: "Hello! I am **Nexus AI Agent**, an autonomous enterprise assistant protected by **BotShield WAF** and **NVIDIA NeMo Guardrails**.\n\nAsk me anything about Kishor's **12 flagship architectures**, **work experience** (phi0.ai, Samsung, KoomAI), **resume metrics**, **GitHub repositories**, or ask to **inspect any architecture diagram**!",
+            text: "Hello! I am **Nexus AI Agent**, an autonomous enterprise assistant protected by **BotShield WAF** and **NVIDIA NeMo Guardrails**.\n\nAsk me anything about Kishor's **15 flagship architectures**, **work experience** (phi0.ai, Samsung AI Core, KoomAI), **resume metrics**, **technical stack**, or ask to **inspect any architecture diagram**!",
             trace: [
                 '🛡️ BotShield WAF: Ingress Inspection 0 probes',
                 '⚡ Semantic Cache: Redis Warm in 8ms',
                 '🔄 LangGraph: Cyclic Supervisor Router initialized',
-                '🧩 FastMCP: 12 Project tools & GitHub RAG endpoints ready',
+                '🧩 FastMCP: 15 Project tools & GitHub RAG endpoints ready',
                 '✅ NeMo Guardrails: Verification active'
             ],
             timestamp: 'Just now',
@@ -279,7 +348,7 @@ const AgentChat = ({ isMaximized }) => {
         setInput('')
         setIsTyping(true)
 
-        // Multi-stage RAG agent matching: Guardrail -> Intent Route -> Vector Rank -> Multimodal Extraction
+        // Multi-stage RAG agent matching: Guardrail -> Intent Route -> Vector Rank -> Synthesis
         setTimeout(() => {
             const lower = query.toLowerCase()
             
@@ -309,18 +378,51 @@ const AgentChat = ({ isMaximized }) => {
                     attachedImage = bestMatch.image
                 }
             } else {
-                answerText = `**Nexus Agentic Synthesis:**
-I processed your query: *"${query}"* through the LangGraph supervisor router.
+                // Dynamic contextual synthesis based on query intent
+                if (lower.includes('hi') || lower.includes('hello') || lower.includes('hey')) {
+                    answerText = `**Hello! Welcome to Kishor Kumar Paroi's Portfolio Operating System!** 👋
 
-Kishor specializes in **High-Throughput Distributed AI Systems**, **Medallion Lakehouses**, and **Production Agentic AI (LangGraph/FastMCP)** with 12 flagship projects.
+I am **Nexus AI**, an autonomous architectural assistant. I can guide you through:
+• **Kishor's 15 Flagship Production Projects** (Zomato Lakehouse, Hybrid Anime, AI Security, Smart Manufacturing, etc.)
+• **Work Experience:** phi0.ai (Forward Deployed AI Engineer), Samsung AI Core (Data Engineering & AI Systems Intern), Koom-AI (Founder)
+• **High-Throughput Benchmarks:** Rust SIMD vector scoring (<0.5ms, 50x speedup), 35M+ Delta Lakehouse, and vLLM Multi-LoRA
+• **Live Architecture Diagrams & Source Code Repositories**
 
-Here are suggested topics to ask me about:
-• *"Show me the Zomato Lakehouse architecture diagram"*
-• *"Explain the Hybrid Anime vLLM Multi-LoRA and Rust SIMD pipeline"*
-• *"What was Kishor's impact at phi0.ai and Samsung AI Core?"*
-• *"Show me the Smart Manufacturing edge IIoT architecture"*
-• *"Tell me about KoomAI's WebRTC & Electron platform"*
-• *"What are Kishor's competitive programming ratings and awards?"*`
+What would you like to investigate today?`
+                } else if (lower.includes('hire') || lower.includes('why') || lower.includes('lead') || lower.includes('principal')) {
+                    answerText = `**Why Hire Kishor Kumar Paroi as Principal AI Systems Architect:**
+1. **Proven Performance & Cost Reductions:**
+   • Compressed vector scoring latency from 25ms to **<0.5ms (50x speedup)** in Rust 1.85 SIMD, reducing server compute costs by **64%**.
+   • Architected Snowflake & PySpark Delta Lake handling **35M+ orders**, cutting warehouse compute by **$18K/month (42% savings)**.
+   • Slashed GPU spend by **68%** with **3.4x token throughput** via dynamic vLLM Multi-LoRA multiplexing.
+2. **Zero-Trust Enterprise Rigor:**
+   • Standardized isolated tool sandbox with **Model Context Protocol (FastMCP)** and Human-in-the-Loop financial approval gates.
+   • Blocked **95%+ prompt injections and jailbreaks** (benchmarked against Microsoft PyRIT).
+   • 100% single-command automated deployment (\`deploy.sh\`) paired with deterministic **$0.00 automated teardown (\`clear.sh\`)**.
+3. **Elite Algorithmic Foundations:**
+   • B.Sc. in CSE from RUET (Admission Merit Rank 483rd in Bangladesh).
+   • Codeforces **Rank 232nd Div-2 (Blue Coder)**, 5★ CodeChef, Meta Hacker Cup Round 3, 2000+ DSA problems solved.`
+                } else if (lower.includes('kubernetes') || lower.includes('docker') || lower.includes('k8s') || lower.includes('devops')) {
+                    answerText = `**Cloud-Native Kubernetes & DevOps Architecture:**
+• **Multi-Cloud Deployments:** Automated declarative IaC provisioning via Terraform across AWS EKS, GCP GKE, and Azure AKS.
+• **Edge-Native Resilience:** Lightweight host-native CNCF K3s clusters with local SQLite write-ahead caching for offline resilience.
+• **GitOps Continuous Delivery:** 12-stage declarative CI/CD via Jenkins, SonarQube quality gates, Nexus 3 artifact registry, and ArgoCD GitOps (cutting release cycles from 4 hours to 8 minutes).
+• **KEDA Event-Driven Autoscaling:** Scales pods from 1 to 24 in under 45 seconds under 15,000 req/s loads.
+• **Zero-Waste Cloud Teardown:** Deterministic \`clear.sh\` scripts enforcing guaranteed $0.00 idle spend.`
+                } else {
+                    answerText = `**Nexus Intelligent Synthesis on: "${query}"**
+
+Kishor approaches this challenge through the lens of **Enterprise AI Systems Architecture**:
+• **Distributed Polyglot Microservices:** Rust 1.85 SIMD for compute-intensive sub-millisecond execution (<0.5ms), Go 1.24 for high-concurrency API gateways (12K req/s), and Python FastAPI for AI orchestrations.
+• **Medallion Lakehouse Topologies:** Bronze raw landing → Silver 32-point DQ verification → Gold star schema analytical marts across Snowflake, Delta Lake, and DuckDB.
+• **Autonomous Agent Mesh:** Cyclic state machines over LangGraph, Model Context Protocol (FastMCP) with Human-in-the-Loop (HITL) gates, and Portkey semantic caching (<50ms).
+
+💡 **Recommended Explorations:**
+• Ask for architecture diagrams: *"Show me the Zomato Lakehouse diagram"* or *"Show me AI Security Gateway"*
+• Explore experience: *"Tell me about phi0.ai and Samsung AI Core"*
+• Inspect technical stack: *"What databases and cloud platforms does Kishor use?"*
+• Connect: *"How can I contact Kishor for a Principal role?"*`
+                }
             }
 
             const botMsg = {
@@ -330,7 +432,7 @@ Here are suggested topics to ask me about:
                 image: attachedImage,
                 trace: [
                     '🛡️ BotShield WAF: Sanitized (0 injection, 0 PII leak)',
-                    `⚡ Semantic Cache: Redis Hit in ${Math.floor(8 + Math.random() * 8)}ms`,
+                    `⚡ Semantic Cache: Redis Hit in ${Math.floor(6 + Math.random() * 8)}ms`,
                     '🔄 LangGraph: Cyclic Supervisor -> Domain Synthesis Subgraph',
                     `🧩 FastMCP Tool: query_portfolio_knowledge_base(score=${highestScore})`,
                     '✅ NeMo Guardrail: Output Verification 100% Passed',
@@ -340,7 +442,7 @@ Here are suggested topics to ask me about:
 
             setMessages((prev) => [...prev, botMsg])
             setIsTyping(false)
-        }, 550)
+        }, 500)
     }
 
     const starterQueries = [
