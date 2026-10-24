@@ -15,7 +15,7 @@ const DesktopFooter = () => {
             {/* Center / Right: Cross-Portfolio Links & macOS Status */}
             <div className="pointer-events-auto flex items-center gap-2 flex-wrap">
                 <a
-                    href="https://reinvent-rho.vercel.app/"
+                    href="https://re-invent-rust.vercel.app/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-md border border-cyan-500/30 hover:border-cyan-400 text-[11px] text-cyan-300 hover:text-cyan-200 transition-all shadow-sm"
