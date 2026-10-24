@@ -325,6 +325,11 @@ const gallery = [
   { id: 21, img: "/images/21.jpg" },
   { id: 22, img: "/images/22.jpg" },
   { id: 23, img: "/images/23.jpg" },
+  { id: 24, img: "/images/24.jpg", title: "Durga Puja Family Celebration" },
+  { id: 25, img: "/images/25.jpg", title: "Lord Ganesha Darshan" },
+  { id: 26, img: "/images/26.jpg", title: "Puja Blessings with Ma" },
+  { id: 27, img: "/images/27.jpg", title: "Festive Celebrations" },
+  { id: 28, img: "/images/28.jpg", title: "Traditional Puja Attire" },
 ];
 
 export {
@@ -353,7 +358,7 @@ const WORK_LOCATION = {
       icon: "/images/folder.png",
       kind: "folder",
       position: "top-8 left-8",
-      windowPosition: "top-[10vh] left-[3vw]",
+      windowPosition: "top-[20vh] left-[8vw]",
       children: [
         {
           id: 1,
@@ -409,7 +414,7 @@ const WORK_LOCATION = {
       icon: "/images/folder.png",
       kind: "folder",
       position: "top-8 left-48",
-      windowPosition: "top-[22vh] left-[3vw]",
+      windowPosition: "top-[7vh] left-[21vw]",
       children: [
         {
           id: 1,
@@ -464,7 +469,7 @@ const WORK_LOCATION = {
       icon: "/images/folder.png",
       kind: "folder",
       position: "top-8 left-[22rem]",
-      windowPosition: "top-[34vh] left-[3vw]",
+      windowPosition: "top-[19vh] left-[36vw]",
       children: [
         {
           id: 1,
@@ -519,7 +524,7 @@ const WORK_LOCATION = {
       icon: "/images/folder.png",
       kind: "folder",
       position: "top-32 left-8",
-      windowPosition: "top-[46vh] left-[3vw]",
+      windowPosition: "top-[33vh] left-[23vw]",
       children: [
         {
           id: 1,
@@ -573,7 +578,7 @@ const WORK_LOCATION = {
       icon: "/images/folder.png",
       kind: "folder",
       position: "top-32 left-48",
-      windowPosition: "top-[58vh] left-[3vw]",
+      windowPosition: "top-[45vh] left-[8vw]",
       children: [
         {
           id: 1,
@@ -619,7 +624,7 @@ const WORK_LOCATION = {
       icon: "/images/folder.png",
       kind: "folder",
       position: "top-32 left-[22rem]",
-      windowPosition: "top-[70vh] left-[3vw]",
+      windowPosition: "top-[61vh] left-[13vw]",
       children: [
         {
           id: 1,
@@ -665,7 +670,7 @@ const WORK_LOCATION = {
       icon: "/images/folder.png",
       kind: "folder",
       position: "top-56 left-8",
-      windowPosition: "top-[10vh] left-[14vw]",
+      windowPosition: "top-[75vh] left-[26vw]",
       children: [
         {
           id: 1,
@@ -711,7 +716,7 @@ const WORK_LOCATION = {
       icon: "/images/folder.png",
       kind: "folder",
       position: "top-56 left-48",
-      windowPosition: "top-[22vh] left-[14vw]",
+      windowPosition: "top-[65vh] left-[41vw]",
       children: [
         {
           id: 1,
@@ -757,7 +762,7 @@ const WORK_LOCATION = {
       icon: "/images/folder.png",
       kind: "folder",
       position: "top-56 left-[22rem]",
-      windowPosition: "top-[34vh] left-[14vw]",
+      windowPosition: "top-[35vh] left-[43vw]",
       children: [
         {
           id: 1,
@@ -803,7 +808,7 @@ const WORK_LOCATION = {
       icon: "/images/folder.png",
       kind: "folder",
       position: "top-80 left-8",
-      windowPosition: "top-[46vh] left-[14vw]",
+      windowPosition: "top-[48vh] left-[56vw]",
       children: [
         {
           id: 1,
@@ -848,7 +853,7 @@ const WORK_LOCATION = {
       icon: "/images/folder.png",
       kind: "folder",
       position: "top-80 left-48",
-      windowPosition: "top-[58vh] left-[14vw]",
+      windowPosition: "top-[20vh] left-[60vw]",
       children: [
         {
           id: 1,
@@ -882,7 +887,7 @@ const WORK_LOCATION = {
       icon: "/images/folder.png",
       kind: "folder",
       position: "top-80 left-[22rem]",
-      windowPosition: "top-[70vh] left-[14vw]",
+      windowPosition: "top-[7vh] left-[64vw]",
       children: [
         {
           id: 1,
@@ -1092,6 +1097,11 @@ const GALLERY_LOCATION = {
     { id: 8, name: "8.jpg", icon: "/images/image.png", kind: "file", fileType: "img", position: "top-36 left-[26rem]", imageUrl: "/images/8.jpg" },
     { id: 9, name: "9.jpeg", icon: "/images/image.png", kind: "file", fileType: "img", position: "top-64 left-8", imageUrl: "/images/9.jpeg" },
     { id: 10, name: "10.jpeg", icon: "/images/image.png", kind: "file", fileType: "img", position: "top-64 left-40", imageUrl: "/images/10.jpeg" },
+    { id: 11, name: "durga-puja-family.jpg", icon: "/images/image.png", kind: "file", fileType: "img", position: "top-64 left-72", imageUrl: "/images/24.jpg" },
+    { id: 12, name: "ganesh-darshan.jpg", icon: "/images/image.png", kind: "file", fileType: "img", position: "top-64 left-[26rem]", imageUrl: "/images/25.jpg" },
+    { id: 13, name: "mother-puja-blessing.jpg", icon: "/images/image.png", kind: "file", fileType: "img", position: "top-[23rem] left-8", imageUrl: "/images/26.jpg" },
+    { id: 14, name: "puja-celebration.jpg", icon: "/images/image.png", kind: "file", fileType: "img", position: "top-[23rem] left-40", imageUrl: "/images/27.jpg" },
+    { id: 15, name: "traditional-puja-attire.jpg", icon: "/images/image.png", kind: "file", fileType: "img", position: "top-[23rem] left-72", imageUrl: "/images/28.jpg" },
   ],
 };
 
