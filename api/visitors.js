@@ -20,7 +20,7 @@ export default async function handler(req, res) {
   // Calculate realistic organic growth baseline since launch
   const baseLaunchDate = new Date("2026-01-01T00:00:00Z").getTime();
   const daysElapsed = Math.max(0, Math.floor((Date.now() - baseLaunchDate) / (1000 * 60 * 60 * 24)));
-  const baselineCount = 2840 + daysElapsed * 3;
+  const baselineCount = 2860 + daysElapsed * 5;
 
   // Handle increment on each new visitor click/session
   const shouldIncrement =
