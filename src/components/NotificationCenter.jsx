@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import useWindowStore from '#store/window'
 import { audioEngine } from '../utils/audioEngine'
 import { Sparkles, Trophy, Headphones, Volume2, X, Clock, Play } from 'lucide-react'
@@ -28,27 +28,37 @@ const NotificationCenter = () => {
         setNotifications((prev) => prev.filter((n) => n.id !== id))
     }
 
+    const surpriseTriggeredRef = useRef(false)
+    const intervalRef = useRef(null)
+
     // Apply wallpaper changes
-    const applyWallpaper = (dark) => {
-        setIsDarkWallpaper(dark)
+    const applyWallpaper = (wallpaperUrl) => {
         const mainEl = document.querySelector('main')
         if (mainEl) {
-            mainEl.style.backgroundImage = dark
-                ? "url('/images/wallpaper-dark.jpg')"
-                : "url('/images/wallpaper.png')"
+            mainEl.style.backgroundImage = `url('${wallpaperUrl}')`
             mainEl.style.backgroundSize = 'cover'
             mainEl.style.backgroundPosition = 'center'
             mainEl.style.transition = 'background-image 0.8s ease-in-out'
         }
     }
 
-    // Trigger 2-Minute Surprise
+    // Trigger 2-Minute Surprise — STRICTLY ONCE EVER
     const triggerSurprise = () => {
-        if (surpriseTriggered) return
+        if (surpriseTriggeredRef.current) return
+        if (sessionStorage.getItem('macos_chess_surprise_shown')) return
+
+        surpriseTriggeredRef.current = true
+        sessionStorage.setItem('macos_chess_surprise_shown', 'true')
         setSurpriseTriggered(true)
 
-        // 1. Change wallpaper to stunning dark twilight
-        applyWallpaper(true)
+        // Clear interval so it never checks or triggers again
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current)
+            intervalRef.current = null
+        }
+
+        // 1. Change wallpaper to twilight / dark
+        applyWallpaper('/images/wallpaper-sequoia.jpg')
 
         // 2. Open Chess window
         openWindow('chess')
@@ -63,44 +73,53 @@ const NotificationCenter = () => {
         })
     }
 
-    // Mount: Initial notification & timers
+    // Mount: Initial notification & one-time timers
     useEffect(() => {
-        // Initial opening notification
-        const welcomeTimer = setTimeout(() => {
-            pushNotification({
-                icon: '🎁',
-                title: 'Surprise in 2 Minutes!',
-                subtitle: 'Wait for 2 minutes to get a surprise! In the meantime, feel free to explore the portfolio, projects & terminal.',
-                type: 'info',
-                actionLabel: 'Preview Surprise ⚡',
-                onAction: () => triggerSurprise(),
-            })
-        }, 1200)
+        const alreadyShown = sessionStorage.getItem('macos_chess_surprise_shown') === 'true'
+        if (alreadyShown) {
+            surpriseTriggeredRef.current = true
+            setSurpriseTriggered(true)
+        }
 
-        // Global interval for 2-minute surprise and 1-minute audio switch
-        const interval = setInterval(() => {
-            setSecondsElapsed((prev) => {
-                const next = prev + 1
+        // Initial opening notification if never shown
+        let welcomeTimer = null
+        if (!alreadyShown) {
+            welcomeTimer = setTimeout(() => {
+                pushNotification({
+                    icon: '🎁',
+                    title: 'Surprise in 2 Minutes!',
+                    subtitle: 'Wait for 2 minutes to get a surprise! In the meantime, feel free to explore the portfolio, projects & terminal.',
+                    type: 'info',
+                    actionLabel: 'Preview Surprise ⚡',
+                    onAction: () => triggerSurprise(),
+                })
+            }, 1200)
 
-                // At 60 seconds (1 minute): Shift audio soundscape to Bamboo Flute & Water
-                if (next === 60) {
-                    audioEngine.switchTrack(2)
-                    pushNotification({
-                        icon: '🎵',
-                        title: 'Soundscape Shifted',
-                        subtitle: 'Transitioned to Zen Bamboo Flute & Flowing Water Rainscape.',
-                        type: 'audio',
-                    })
-                }
+            // Global interval for 2-minute surprise and 1-minute audio switch
+            intervalRef.current = setInterval(() => {
+                setSecondsElapsed((prev) => {
+                    const next = prev + 1
 
-                // At 120 seconds (2 minutes): Trigger the surprise!
-                if (next === 120) {
-                    triggerSurprise()
-                }
+                    // At 60 seconds (1 minute): Shift audio soundscape
+                    if (next === 60) {
+                        audioEngine.switchTrack(2)
+                        pushNotification({
+                            icon: '🎵',
+                            title: 'Soundscape Shifted',
+                            subtitle: 'Transitioned to Lo-Fi Chillwave for deep focus.',
+                            type: 'audio',
+                        })
+                    }
 
-                return next
-            })
-        }, 1000)
+                    // At 120 seconds (2 minutes): Trigger the surprise ONCE!
+                    if (next >= 120) {
+                        triggerSurprise()
+                    }
+
+                    return next
+                })
+            }, 1000)
+        }
 
         // Listen for chess game outcome events
         const handleChessWin = () => {
@@ -123,20 +142,26 @@ const NotificationCenter = () => {
             })
         }
 
+        const handleSetWallpaper = (e) => {
+            if (e.detail?.url) {
+                applyWallpaper(e.detail.url)
+            }
+        }
+
         window.addEventListener('chess-game-win', handleChessWin)
         window.addEventListener('chess-game-loss', handleChessLoss)
-        window.addEventListener('toggle-wallpaper', () => applyWallpaper(!isDarkWallpaper))
-        window.addEventListener('trigger-surprise', () => triggerSurprise())
+        window.addEventListener('set-wallpaper', handleSetWallpaper)
+        window.addEventListener('trigger-surprise', triggerSurprise)
 
         return () => {
-            clearTimeout(welcomeTimer)
-            clearInterval(interval)
+            if (welcomeTimer) clearTimeout(welcomeTimer)
+            if (intervalRef.current) clearInterval(intervalRef.current)
             window.removeEventListener('chess-game-win', handleChessWin)
             window.removeEventListener('chess-game-loss', handleChessLoss)
-            window.removeEventListener('toggle-wallpaper', () => {})
-            window.removeEventListener('trigger-surprise', () => {})
+            window.removeEventListener('set-wallpaper', handleSetWallpaper)
+            window.removeEventListener('trigger-surprise', triggerSurprise)
         }
-    }, [surpriseTriggered, isDarkWallpaper])
+    }, [])
 
     return (
         <aside aria-label="macOS System Notifications" className='fixed top-9 right-4 z-[9999] flex flex-col gap-2.5 max-w-sm pointer-events-none select-none'>

@@ -177,7 +177,7 @@ const Finder = () => {
                 <span>{Array.isArray(activeLocation?.children) ? activeLocation.children.length : 0} items, 412.8 GB available</span>
                 <span className='flex items-center gap-1.5 font-medium'>
                     <span className='w-1.5 h-1.5 rounded-full bg-emerald-500'></span>
-                    <span>Updated: October 2026 (v2.5)</span>
+                    <span>Synchronized</span>
                 </span>
             </div>
         </>

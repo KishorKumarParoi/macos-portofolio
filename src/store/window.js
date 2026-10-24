@@ -35,6 +35,24 @@ const useWindowStore = create(
           state.nextZIndex += 1;
         }
       }),
+
+    toggleMaximize: (windowKey) =>
+      set((state) => {
+        const win = state.windows[windowKey];
+        if (win) {
+          win.isMaximized = !win.isMaximized;
+          win.zIndex = state.nextZIndex;
+          state.nextZIndex += 1;
+        }
+      }),
+
+    minimizeWindow: (windowKey) =>
+      set((state) => {
+        const win = state.windows[windowKey];
+        if (win) {
+          win.isOpen = false;
+        }
+      }),
   }))
 );
 

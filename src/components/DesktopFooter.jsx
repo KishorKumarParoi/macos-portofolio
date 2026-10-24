@@ -12,12 +12,10 @@ const DesktopFooter = () => {
                 <VisitorCounter />
             </div>
 
-            {/* Right: System & Page Update Info */}
-            <div className="pointer-events-auto hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-black/25 backdrop-blur-md border border-white/15 text-[11px] text-white/90 shadow-sm font-medium">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                <span>macOS Sequoia v15.4</span>
-                <span className="text-white/40">•</span>
-                <span>Portfolio Build updated: <strong className="text-white font-semibold">October 2026</strong></span>
+            {/* Right: Clean macOS Status */}
+            <div className="pointer-events-auto hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-black/35 backdrop-blur-md border border-white/15 text-[11px] text-white/90 shadow-sm font-medium">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>macOS Sequoia</span>
                 <span className="text-white/40">•</span>
                 <span className="text-emerald-300">99.9% Uptime</span>
             </div>
