@@ -86,7 +86,7 @@ const Contact = () => {
     const currentQuote = LEGENDARY_QUOTES[quoteIndex]
 
     return (
-        <div className='flex flex-col w-[760px] max-w-[96vw] max-h-[85vh] bg-[#0c0d16] text-white rounded-xl shadow-2xl border border-white/20 select-none overflow-hidden'>
+        <div className='flex flex-col w-full max-h-[82vh] bg-[#0c0d16] text-white rounded-xl shadow-2xl border border-white/20 select-none overflow-hidden'>
             {/* Window Header */}
             <div id='window-header' className='bg-[#161726] px-4 py-2.5 border-b border-white/10 flex items-center justify-between'>
                 <div className='flex items-center gap-2'>

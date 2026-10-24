@@ -214,7 +214,7 @@ body {
   }
 
   #contact {
-    @apply max-w-lg absolute top-40 left-5/12 shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-[680px] max-w-[95vw] absolute top-12 left-1/2 -translate-x-1/2 shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
     h2 {
       @apply font-bold text-sm text-center w-full;

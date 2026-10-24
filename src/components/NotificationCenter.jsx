@@ -61,24 +61,19 @@ const NotificationCenter = () => {
 
         // Fire Surprise notification without force-opening windows
         pushNotification({
-            icon: '🎁',
-            title: '2-Minute Surprise: Games Arena Unlocked!',
-            subtitle: 'You unlocked Minimax Blitz Chess AI & Clash Village Defense RTS! Click Play Now, or Dismiss to play anytime from the Dock or Top Menu.',
+            icon: '♟️',
+            title: '2-Minute Surprise: 5-Min Blitz Chess Challenge!',
+            subtitle: 'You unlocked the 5-Minute Blitz Chess AI! Win against the Minimax AI to claim a virtual MacBook! Click Accept to play now, or Ignore to keep it closed.',
             type: 'challenge',
             persistent: true,
             actions: [
                 {
-                    label: 'Play Chess ♟️',
+                    label: 'Accept & Play Chess (5 Min) ♟️',
                     primary: true,
                     onClick: () => openWindow('chess'),
                 },
                 {
-                    label: 'Play Clash RTS ⚔️',
-                    primary: true,
-                    onClick: () => openWindow('clash'),
-                },
-                {
-                    label: 'Dismiss / Play Later',
+                    label: 'Ignore / Keep Closed',
                     primary: false,
                     onClick: () => {},
                 },

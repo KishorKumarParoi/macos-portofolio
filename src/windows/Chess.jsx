@@ -19,8 +19,8 @@ const PIECE_SYMBOLS = {
 const PREDEFINED_SETS = [
     {
         id: 'standard',
-        name: 'Standard 2-Min Blitz',
-        desc: 'Classical 8x8 opening against Computer AI (2-minute clock)',
+        name: 'Standard 5-Min Blitz',
+        desc: 'Classical 8x8 opening against Computer AI (5-minute clock)',
         board: [
             ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
             ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
@@ -95,9 +95,9 @@ const Chess = () => {
     const [gameStatus, setGameStatus] = useState('playing') // 'playing', 'win', 'loss', 'draw'
     const [statusMessage, setStatusMessage] = useState('Your turn (White)')
 
-    // 2-Minute (120 seconds) Blitz Clocks
-    const [whiteTime, setWhiteTime] = useState(120)
-    const [blackTime, setBlackTime] = useState(120)
+    // 5-Minute (300 seconds) Blitz Clocks
+    const [whiteTime, setWhiteTime] = useState(300)
+    const [blackTime, setBlackTime] = useState(300)
     const timerRef = useRef(null)
 
     // Dispatch global notification events on Win / Loss
@@ -155,8 +155,8 @@ const Chess = () => {
         setMoveHistory([])
         setGameStatus('playing')
         setStatusMessage('Your turn (White)')
-        setWhiteTime(120)
-        setBlackTime(120)
+        setWhiteTime(300)
+        setBlackTime(300)
     }
 
     // Helper: Is white piece
@@ -401,7 +401,7 @@ const Chess = () => {
                 <WindowControls target='chess' />
                 <div className='flex items-center gap-2'>
                     <Swords className='size-4 text-amber-400' />
-                    <span className='window-title font-semibold'>Chess Live: 2-Min Blitz AI</span>
+                    <span className='window-title font-semibold'>Chess Live: 5-Min Blitz AI</span>
                 </div>
                 <div className='w-16' />
             </div>
@@ -579,7 +579,7 @@ const Chess = () => {
                             className='flex-1 flex items-center justify-center gap-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold py-2 px-3 rounded-lg shadow transition hover:scale-[1.02]'
                         >
                             <RotateCcw className='size-3.5' />
-                            Restart (2m)
+                            Restart (5m)
                         </button>
                         <button
                             onClick={() => {

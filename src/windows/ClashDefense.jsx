@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { WindowControls } from '#components'
 import WindowWrapper from '#hoc/WindowWrapper'
+import useWindowStore from '#store/window'
 import { Shield, Swords, Zap, Crosshair, Award, RotateCcw, Volume2, VolumeX, Sparkles } from 'lucide-react'
 
 // Synthesizer SFX
@@ -65,14 +66,15 @@ const playSound = (type) => {
 
 const ClashDefense = () => {
     const canvasRef = useRef(null)
-    const [gameState, setGameState] = useState('playing') // playing | won | lost
+    const { closeWindow } = useWindowStore()
+    const [gameState, setGameState] = useState('permission') // permission | playing | won | lost
     const [score, setScore] = useState(0)
     const [gold, setGold] = useState(350)
     const [elixir, setElixir] = useState(250)
     const [timeLeft, setTimeLeft] = useState(60)
     const [wave, setWave] = useState(1)
     const [selectedDefense, setSelectedDefense] = useState('cannon')
-    const [soundEnabled, setSoundEnabled] = useState(true)
+    const [soundEnabled, setSoundEnabled] = useState(false)
 
     const gameRef = useRef({
         townHall: { x: 375, y: 250, hp: 1200, maxHp: 1200, radius: 36 },
@@ -148,6 +150,10 @@ const ClashDefense = () => {
 
     // Main Game Loop
     useEffect(() => {
+        if (gameState !== 'playing') {
+            gameRef.current.running = false
+            return
+        }
         gameRef.current.running = true
         let animationFrameId
         let lastTime = performance.now()
@@ -483,6 +489,36 @@ const ClashDefense = () => {
                     onClick={handleCanvasClick}
                     className='w-full h-full'
                 />
+
+                {/* Permission Required Modal */}
+                {gameState === 'permission' && (
+                    <div className='absolute inset-0 bg-black/90 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center animate-in fade-in duration-300 z-20'>
+                        <Shield className='size-14 text-amber-400 mb-2 animate-pulse' />
+                        <h2 className='text-2xl font-black text-amber-300'>CLASH OF VILLAGES: RTS DEFENSE</h2>
+                        <p className='text-xs text-gray-300 mt-2 max-w-md leading-relaxed'>
+                            Incoming hordes of Goblins, Barbarians, and Giants are marching toward Town Hall 12!
+                            Place Cannons, Archer Towers, and Wizard Spires on the map to defend your village.
+                        </p>
+                        <div className='mt-3 flex items-center gap-2 text-[11px] text-amber-200/90 font-mono bg-amber-950/60 border border-amber-500/30 px-3 py-1 rounded-lg'>
+                            <span>⚠️ Permission Required: Start Village Battle Simulation?</span>
+                        </div>
+                        <div className='mt-5 flex items-center gap-3'>
+                            <button
+                                onClick={resetGame}
+                                className='px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold text-xs rounded-xl shadow-xl transition transform hover:scale-105 cursor-pointer flex items-center gap-2'
+                            >
+                                <Swords className='size-4' />
+                                <span>Grant Permission &amp; Start Battle ⚔️</span>
+                            </button>
+                            <button
+                                onClick={() => closeWindow('clash')}
+                                className='px-4 py-2.5 bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white font-medium text-xs rounded-xl border border-white/10 transition cursor-pointer'
+                            >
+                                Keep Village Safe / Dismiss
+                            </button>
+                        </div>
+                    </div>
+                )}
 
                 {/* Victory Modal */}
                 {gameState === 'won' && (
