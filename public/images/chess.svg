@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1e24"/>
+      <stop offset="50%" stop-color="#2b2b36"/>
+      <stop offset="100%" stop-color="#111116"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe259"/>
+      <stop offset="100%" stop-color="#ffa751"/>
+    </linearGradient>
+    <linearGradient id="silverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#cfd9df"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- macOS App Squircle Background -->
+  <rect x="8" y="8" width="112" height="112" rx="26" fill="url(#bgGrad)" stroke="#444455" stroke-width="1.5" />
+  
+  <!-- Subtle board pattern behind -->
+  <rect x="22" y="22" width="21" height="21" fill="#3a3a48" opacity="0.35" rx="3"/>
+  <rect x="64" y="22" width="21" height="21" fill="#3a3a48" opacity="0.35" rx="3"/>
+  <rect x="43" y="43" width="21" height="21" fill="#3a3a48" opacity="0.35" rx="3"/>
+  <rect x="85" y="43" width="21" height="21" fill="#3a3a48" opacity="0.35" rx="3"/>
+  <rect x="22" y="64" width="21" height="21" fill="#3a3a48" opacity="0.35" rx="3"/>
+  <rect x="64" y="64" width="21" height="21" fill="#3a3a48" opacity="0.35" rx="3"/>
+  <rect x="43" y="85" width="21" height="21" fill="#3a3a48" opacity="0.35" rx="3"/>
+  <rect x="85" y="85" width="21" height="21" fill="#3a3a48" opacity="0.35" rx="3"/>
+
+  <!-- Knight Chess Piece (Golden Silhouette) -->
+  <g transform="translate(6, 4)" filter="url(#glow)">
+    <path d="M52 28 C52 24, 60 22, 66 26 C72 30, 78 35, 78 44 C78 47, 75 51, 72 53 C76 53, 82 56, 80 64 C78 72, 70 78, 68 88 L46 88 C46 82, 44 74, 40 68 C36 62, 38 52, 42 46 C45 42, 48 34, 52 28 Z" fill="url(#goldGrad)" />
+    <!-- Mane & detail -->
+    <path d="M64 36 C68 39, 70 44, 68 49 C64 47, 62 43, 64 36 Z" fill="#2b2b36" opacity="0.6"/>
+    <!-- Eye -->
+    <circle cx="58" cy="40" r="2.5" fill="#1e1e24" />
+    <!-- Base pedestal -->
+    <rect x="40" y="88" width="36" height="7" rx="3.5" fill="url(#goldGrad)" />
+    <rect x="36" y="96" width="44" height="6" rx="3" fill="url(#silverGrad)" />
+  </g>
+
+  <!-- 2-Min Timer Pill Overlay -->
+  <g transform="translate(70, 78)">
+    <rect x="0" y="0" width="46" height="20" rx="10" fill="#ff3b30" stroke="#ffffff" stroke-width="1.2" />
+    <text x="23" y="14" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">2:00</text>
+  </g>
+</svg>

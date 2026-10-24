@@ -4,7 +4,7 @@ import WindowWrapper from '#hoc/WindowWrapper'
 import useLocationStore from '#store/location'
 import useWindowStore from '#store/window'
 import clsx from 'clsx'
-import { SearchIcon } from 'lucide-react'
+import { ArrowLeft, SearchIcon } from 'lucide-react'
 
 const Finder = () => {
     const { openWindow } = useWindowStore();
@@ -12,10 +12,17 @@ const Finder = () => {
 
     const openItem = (item) => {
         if (item.fileType === 'pdf') return openWindow("resume");
-        if (item.kind === 'folder') return setActiveLocation(item);
+        if (item.kind === 'folder') {
+            // Keep reference to parent for seamless back navigation
+            const folderWithParent = { ...item, _parent: activeLocation };
+            return setActiveLocation(folderWithParent);
+        }
 
         if (["fig", "url"].includes(item.fileType) && item.href)
             return window.open(item.href, '_blank');
+
+        if (["txt", "md"].includes(item.fileType))
+            return openWindow('txtfile', item);
 
         openWindow(`${item.fileType}${item.kind}`, item);
     }
@@ -46,7 +53,20 @@ const Finder = () => {
         <>
             <div id='window-header'>
                 <WindowControls target="finder" />
-                <span className='window-title'>Finder</span>
+                <div className='flex items-center gap-2'>
+                    {activeLocation?._parent && (
+                        <button
+                            onClick={() => setActiveLocation(activeLocation._parent)}
+                            className='p-1 rounded hover:bg-gray-200/40 text-gray-700 transition flex items-center'
+                            title='Back'
+                        >
+                            <ArrowLeft className='size-3.5' />
+                        </button>
+                    )}
+                    <span className='window-title font-medium truncate max-w-[280px]'>
+                        {activeLocation?.name ? `Finder — ${activeLocation.name}` : "Finder"}
+                    </span>
+                </div>
                 <SearchIcon className='icon' />
             </div>
 
@@ -59,17 +79,26 @@ const Finder = () => {
                         renderList("Work", locations.work.children)
                     }
                 </div>
-                <ul className='content'>
+                <ul className='content relative overflow-auto'>
                     {
-                        activeLocation?.children.map((item) => (
+                        Array.isArray(activeLocation?.children) && activeLocation.children.map((item) => (
                             <li key={item.id} className={item.position}
                                 onClick={() => openItem(item)}>
                                 <img src={item.icon} alt={item.name} />
-                                <p>{item.name}</p>
+                                <p className='text-xs font-medium text-gray-800 text-center max-w-[110px] break-words'>{item.name}</p>
                             </li>
                         ))
                     }
                 </ul>
+            </div>
+
+            {/* Finder Footer Status Bar */}
+            <div className='flex items-center justify-between px-3 py-1 bg-gray-100/90 border-t border-gray-200 text-[11px] text-gray-500 select-none'>
+                <span>{Array.isArray(activeLocation?.children) ? activeLocation.children.length : 0} items, 412.8 GB available</span>
+                <span className='flex items-center gap-1.5 font-medium'>
+                    <span className='w-1.5 h-1.5 rounded-full bg-emerald-500'></span>
+                    <span>Updated: October 2026 (v2.5)</span>
+                </span>
             </div>
         </>
     )

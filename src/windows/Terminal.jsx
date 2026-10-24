@@ -11,6 +11,9 @@ const BANNER = [
     "Type 'help' or click quick actions below to explore.",
 ]
 
+// Fire spark colors
+const SPARK_COLORS = ['#ff6b35', '#ff3d00', '#ff9100', '#ffd600', '#ff4081', '#ff1744', '#ffab00']
+
 const Terminal = () => {
     const { openWindow } = useWindowStore()
     const [history, setHistory] = useState([
@@ -20,10 +23,67 @@ const Terminal = () => {
     const [inputVal, setInputVal] = useState('')
     const inputRef = useRef(null)
     const bottomRef = useRef(null)
+    const sparkContainerRef = useRef(null)
 
     useEffect(() => {
         bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
     }, [history])
+
+    // Fire spark particle spawner on keypress
+    const spawnSparks = () => {
+        const container = sparkContainerRef.current
+        const input = inputRef.current
+        if (!container || !input) return
+
+        const inputRect = input.getBoundingClientRect()
+        const containerRect = container.getBoundingClientRect()
+
+        // Spawn 3-6 spark particles per keystroke
+        const count = 3 + Math.floor(Math.random() * 4)
+        for (let i = 0; i < count; i++) {
+            const spark = document.createElement('div')
+            const color = SPARK_COLORS[Math.floor(Math.random() * SPARK_COLORS.length)]
+            const size = 2 + Math.random() * 4
+            // Position near the end of the input text (caret area)
+            const caretX = inputRect.left - containerRect.left + Math.min(inputVal.length * 6.5, inputRect.width - 10) + (Math.random() - 0.5) * 16
+            const caretY = inputRect.top - containerRect.top + inputRect.height / 2
+
+            Object.assign(spark.style, {
+                position: 'absolute',
+                left: `${caretX}px`,
+                top: `${caretY}px`,
+                width: `${size}px`,
+                height: `${size}px`,
+                borderRadius: '50%',
+                backgroundColor: color,
+                boxShadow: `0 0 ${size * 2}px ${color}, 0 0 ${size * 4}px ${color}80`,
+                pointerEvents: 'none',
+                zIndex: 50,
+                opacity: 1,
+            })
+            container.appendChild(spark)
+
+            // Animate: float upward with random drift
+            const dx = (Math.random() - 0.5) * 40
+            const dy = -(20 + Math.random() * 50)
+            const duration = 400 + Math.random() * 400
+            const start = performance.now()
+
+            const animate = (now) => {
+                const elapsed = now - start
+                const progress = Math.min(elapsed / duration, 1)
+                const eased = 1 - (1 - progress) * (1 - progress) // ease-out-quad
+                spark.style.transform = `translate(${dx * eased}px, ${dy * eased}px) scale(${1 - progress * 0.7})`
+                spark.style.opacity = String(1 - progress)
+                if (progress < 1) {
+                    requestAnimationFrame(animate)
+                } else {
+                    spark.remove()
+                }
+            }
+            requestAnimationFrame(animate)
+        }
+    }
 
     const handleRunCommand = (cmd) => {
         const trimmed = cmd.trim().toLowerCase()
@@ -218,7 +278,8 @@ const Terminal = () => {
             </div>
 
             <div
-                className='bg-[#18181b] text-gray-100 font-mono text-xs p-4 overflow-y-auto max-h-[70vh] min-h-[420px] select-text'
+                ref={sparkContainerRef}
+                className='relative bg-[#18181b] text-gray-100 font-mono text-xs p-4 overflow-y-auto max-h-[70vh] min-h-[420px] select-text'
                 onClick={() => inputRef.current?.focus()}
             >
                 {history.map((item, idx) => {
@@ -272,7 +333,7 @@ const Terminal = () => {
                     return null
                 })}
 
-                {/* Live Prompt Line */}
+                {/* Live Prompt Line with Fire Sparks */}
                 <form onSubmit={handleSubmit} className='flex items-center gap-1.5 text-emerald-400 mt-2'>
                     <span className='text-pink-400 font-bold'>@kishor</span>
                     <span className='text-gray-400'>in</span>
@@ -282,7 +343,7 @@ const Terminal = () => {
                         ref={inputRef}
                         type='text'
                         value={inputVal}
-                        onChange={(e) => setInputVal(e.target.value)}
+                        onChange={(e) => { setInputVal(e.target.value); spawnSparks(); }}
                         placeholder="type 'help' or command..."
                         className='flex-1 bg-transparent border-none outline-hidden text-gray-100 font-mono text-xs focus:ring-0 p-0'
                         autoFocus
