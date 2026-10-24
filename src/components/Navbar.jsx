@@ -15,6 +15,21 @@ const OFFICIAL_WALLPAPERS = [
     { id: 'dark', name: 'macOS Midnight Nebula', url: '/images/wallpaper-dark.jpg', type: 'dark' },
 ]
 
+// Helper to apply wallpaper globally to both body and main element
+const applyWallpaperGlobal = (url) => {
+    if (typeof document === 'undefined') return
+    document.body.style.backgroundImage = `url('${url}')`
+    document.body.style.backgroundSize = 'cover'
+    document.body.style.backgroundPosition = 'center'
+    const mainEl = document.querySelector('main')
+    if (mainEl) {
+        mainEl.style.backgroundImage = `url('${url}')`
+        mainEl.style.backgroundSize = 'cover'
+        mainEl.style.backgroundPosition = 'center'
+        mainEl.style.transition = 'background-image 0.5s ease-in-out'
+    }
+}
+
 const Navbar = () => {
     const { openWindow } = useWindowStore()
     const [audioState, setAudioState] = useState(audioEngine.getState())
@@ -30,41 +45,65 @@ const Navbar = () => {
         return unsubscribe
     }, [])
 
-    // Initialize theme from localStorage or system preference
+    // Initialize theme & wallpaper from localStorage or system preference
     useEffect(() => {
         const savedTheme = localStorage.getItem('macos_theme')
-        if (savedTheme === 'dark') {
-            setIsDarkMode(true)
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        const isDark = savedTheme ? savedTheme === 'dark' : prefersDark
+
+        setIsDarkMode(isDark)
+        if (isDark) {
             document.documentElement.classList.add('dark')
-            setActiveWallpaper('/images/wallpaper-monterey.jpg')
-            window.dispatchEvent(new CustomEvent('set-wallpaper', { detail: { url: '/images/wallpaper-monterey.jpg' } }))
         } else {
-            setIsDarkMode(false)
             document.documentElement.classList.remove('dark')
-            setActiveWallpaper('/images/wallpaper-sequoia.jpg')
         }
+
+        const savedWallpaper = localStorage.getItem('macos_wallpaper')
+        const defaultWallpaper = isDark ? '/images/wallpaper-monterey.jpg' : '/images/wallpaper-sequoia.jpg'
+        const initialWallpaper = savedWallpaper || defaultWallpaper
+
+        setActiveWallpaper(initialWallpaper)
+        applyWallpaperGlobal(initialWallpaper)
+        localStorage.setItem('macos_wallpaper', initialWallpaper)
+        localStorage.setItem('macos_theme', isDark ? 'dark' : 'light')
+        window.dispatchEvent(new CustomEvent('set-wallpaper', { detail: { url: initialWallpaper } }))
     }, [])
 
     const toggleDarkMode = () => {
         const nextMode = !isDarkMode
         setIsDarkMode(nextMode)
+        const currentWp = localStorage.getItem('macos_wallpaper') || activeWallpaper
         if (nextMode) {
             document.documentElement.classList.add('dark')
             localStorage.setItem('macos_theme', 'dark')
-            const darkWp = '/images/wallpaper-monterey.jpg'
-            setActiveWallpaper(darkWp)
-            window.dispatchEvent(new CustomEvent('set-wallpaper', { detail: { url: darkWp } }))
+            // Switch to a dark wallpaper if current wallpaper is one of the light wallpapers
+            const isLightWp = !currentWp || currentWp.includes('sequoia') || currentWp.includes('sonoma') || currentWp.includes('ventura')
+            if (isLightWp) {
+                const darkWp = '/images/wallpaper-monterey.jpg'
+                setActiveWallpaper(darkWp)
+                localStorage.setItem('macos_wallpaper', darkWp)
+                applyWallpaperGlobal(darkWp)
+                window.dispatchEvent(new CustomEvent('set-wallpaper', { detail: { url: darkWp } }))
+            }
         } else {
             document.documentElement.classList.remove('dark')
             localStorage.setItem('macos_theme', 'light')
-            const lightWp = '/images/wallpaper-sequoia.jpg'
-            setActiveWallpaper(lightWp)
-            window.dispatchEvent(new CustomEvent('set-wallpaper', { detail: { url: lightWp } }))
+            // Switch to a light wallpaper if current wallpaper is one of the dark wallpapers
+            const isDarkWp = currentWp && (currentWp.includes('monterey') || currentWp.includes('twilight') || currentWp.includes('dark'))
+            if (isDarkWp) {
+                const lightWp = '/images/wallpaper-sequoia.jpg'
+                setActiveWallpaper(lightWp)
+                localStorage.setItem('macos_wallpaper', lightWp)
+                applyWallpaperGlobal(lightWp)
+                window.dispatchEvent(new CustomEvent('set-wallpaper', { detail: { url: lightWp } }))
+            }
         }
     }
 
     const handleSelectWallpaper = (url) => {
         setActiveWallpaper(url)
+        localStorage.setItem('macos_wallpaper', url)
+        applyWallpaperGlobal(url)
         window.dispatchEvent(new CustomEvent('set-wallpaper', { detail: { url } }))
     }
 
@@ -153,6 +192,7 @@ const Navbar = () => {
 
                 {/* macOS Dark Mode / Light Mode Toggle */}
                 <button
+                    id='theme-toggle-btn'
                     onClick={toggleDarkMode}
                     className='p-1.5 rounded-lg hover:bg-white/20 transition text-white flex items-center justify-center cursor-pointer'
                     title={isDarkMode ? 'Switch to macOS Light Mode (Sequoia)' : 'Switch to macOS Dark Mode (Monterey)'}
@@ -167,6 +207,7 @@ const Navbar = () => {
                 {/* Wallpaper Gallery Dropdown Menu (Strictly macOS Official Wallpapers) */}
                 <div className='relative'>
                     <button
+                        id='wallpaper-menu-btn'
                         onClick={() => {
                             setShowWallpaperMenu(!showWallpaperMenu)
                             setShowSoundMenu(false)
@@ -193,7 +234,11 @@ const Navbar = () => {
                                 {OFFICIAL_WALLPAPERS.map((wp) => (
                                     <button
                                         key={wp.id}
-                                        onClick={() => handleSelectWallpaper(wp.url)}
+                                        data-wallpaper-id={wp.id}
+                                        onClick={() => {
+                                            handleSelectWallpaper(wp.url)
+                                            setShowWallpaperMenu(false)
+                                        }}
                                         className={`flex items-center justify-between p-1.5 rounded-lg text-left transition cursor-pointer ${
                                             activeWallpaper === wp.url ? 'bg-cyan-500/20 text-cyan-200 border border-cyan-400/40' : 'hover:bg-white/10 text-gray-300 hover:text-white'
                                         }`}

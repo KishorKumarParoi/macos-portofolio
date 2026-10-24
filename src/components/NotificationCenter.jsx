@@ -32,12 +32,16 @@ const NotificationCenter = () => {
 
     // Apply wallpaper changes
     const applyWallpaper = (wallpaperUrl) => {
+        if (typeof document === 'undefined') return
+        document.body.style.backgroundImage = `url('${wallpaperUrl}')`
+        document.body.style.backgroundSize = 'cover'
+        document.body.style.backgroundPosition = 'center'
         const mainEl = document.querySelector('main')
         if (mainEl) {
             mainEl.style.backgroundImage = `url('${wallpaperUrl}')`
             mainEl.style.backgroundSize = 'cover'
             mainEl.style.backgroundPosition = 'center'
-            mainEl.style.transition = 'background-image 0.8s ease-in-out'
+            mainEl.style.transition = 'background-image 0.5s ease-in-out'
         }
     }
 
