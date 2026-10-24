@@ -62,7 +62,7 @@ const Resume = () => {
                     </button>
                 </div>
 
-                <div className='flex items-center gap-2'>
+                <div className='flex items-center gap-1.5'>
                     <button
                         onClick={() => setScale((s) => Math.max(0.7, s - 0.1))}
                         className='p-1 text-gray-600 hover:text-gray-900 hover:bg-gray-200 rounded'
@@ -77,15 +77,35 @@ const Resume = () => {
                     >
                         <ZoomIn size={15} />
                     </button>
-                    <a
-                        href={resumeFile}
-                        download
-                        className='flex items-center gap-1 text-xs font-medium px-2.5 py-1 bg-[#641C26] text-white rounded-md hover:bg-[#7b2734] transition shadow-xs'
-                        title='Download Resume PDF'
-                    >
-                        <Download size={13} />
-                        Download
-                    </a>
+
+                    <div className='flex items-center gap-1 bg-gray-200/80 p-0.5 rounded-md ml-1'>
+                        <span className='text-[10px] font-bold text-gray-500 uppercase px-1'>Get:</span>
+                        <a
+                            href={resumeFile}
+                            download
+                            className='flex items-center gap-0.5 text-[11px] font-semibold px-2 py-0.5 bg-[#641C26] text-white rounded hover:bg-[#7b2734] transition shadow-xs'
+                            title={`Download ${selectedResume === 'academic' ? '1-Page Academic' : '2-Page Single-Column'} PDF`}
+                        >
+                            <Download size={11} />
+                            PDF
+                        </a>
+                        <a
+                            href={selectedResume === 'academic' ? '/files/resume.docx' : '/files/resume_single_column.docx'}
+                            download
+                            className='text-[11px] font-semibold px-2 py-0.5 bg-blue-600 text-white rounded hover:bg-blue-700 transition shadow-xs'
+                            title={`Download ${selectedResume === 'academic' ? '1-Page Academic' : '2-Page Single-Column'} Word DOCX`}
+                        >
+                            DOCX
+                        </a>
+                        <a
+                            href={selectedResume === 'academic' ? '/files/resume.tex' : '/files/resume_single_column.tex'}
+                            download
+                            className='text-[11px] font-semibold px-2 py-0.5 bg-emerald-700 text-white rounded hover:bg-emerald-800 transition shadow-xs'
+                            title={`Download ${selectedResume === 'academic' ? '1-Page Academic' : '2-Page Single-Column'} LaTeX .tex Source`}
+                        >
+                            LaTeX
+                        </a>
+                    </div>
                 </div>
             </div>
 

@@ -100,6 +100,17 @@ const Chess = () => {
     const [blackTime, setBlackTime] = useState(120)
     const timerRef = useRef(null)
 
+    // Dispatch global notification events on Win / Loss
+    useEffect(() => {
+        if (gameStatus === 'win') {
+            setStatusMessage('🎉 You have won a MACBOOK virtually! Claim your victory!')
+            window.dispatchEvent(new CustomEvent('chess-game-win'))
+        } else if (gameStatus === 'loss') {
+            setStatusMessage('🎧 You have to give AirPods as a gift to the computer, as computer is tired playing CHESS!')
+            window.dispatchEvent(new CustomEvent('chess-game-loss'))
+        }
+    }, [gameStatus])
+
     // Clock Interval
     useEffect(() => {
         if (gameStatus !== 'playing') {
@@ -113,7 +124,6 @@ const Chess = () => {
                     if (prev <= 1) {
                         clearInterval(timerRef.current)
                         setGameStatus('loss')
-                        setStatusMessage('Time Expired! You lost on time.')
                         return 0
                     }
                     return prev - 1
@@ -123,7 +133,6 @@ const Chess = () => {
                     if (prev <= 1) {
                         clearInterval(timerRef.current)
                         setGameStatus('win')
-                        setStatusMessage('Computer Flagged! You win on time!')
                         return 0
                     }
                     return prev - 1
