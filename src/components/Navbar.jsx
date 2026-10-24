@@ -3,35 +3,65 @@ import useWindowStore from '#store/window'
 import dayjs from 'dayjs'
 import React, { useState, useEffect } from 'react'
 import { audioEngine } from '../utils/audioEngine'
-import { Volume2, VolumeX, Music, Moon, Sun, Gift, Play, Pause, SkipForward, SkipBack, Image, Palette, Check } from 'lucide-react'
+import { Volume2, VolumeX, Music, Moon, Sun, Gift, Play, Pause, SkipForward, SkipBack, Shuffle, Palette, Check, Swords, Gamepad2 } from 'lucide-react'
 
-const WALLPAPERS = [
-    { id: 'sonoma-light', name: 'macOS Sonoma Day', url: '/images/wallpaper.png', preview: '/images/wallpaper.png' },
-    { id: 'sequoia', name: 'macOS Sequoia Sunset', url: '/images/wallpaper-sequoia.jpg', preview: '/images/wallpaper-sequoia.jpg' },
-    { id: 'sonoma-dark', name: 'Sonoma Golden Hills', url: '/images/wallpaper-sonoma.jpg', preview: '/images/wallpaper-sonoma.jpg' },
-    { id: 'monterey', name: 'Monterey Abstract Dark', url: '/images/wallpaper-monterey.jpg', preview: '/images/wallpaper-monterey.jpg' },
-    { id: 'ventura', name: 'Ventura Sunburst Amber', url: '/images/wallpaper-ventura.jpg', preview: '/images/wallpaper-ventura.jpg' },
-    { id: 'twilight', name: 'Cyber Twilight Aurora', url: '/images/wallpaper-twilight.jpg', preview: '/images/wallpaper-twilight.jpg' },
-    { id: 'dark', name: 'Midnight Nebula Dark', url: '/images/wallpaper-dark.jpg', preview: '/images/wallpaper-dark.jpg' },
+// Official macOS 4K Wallpapers (Strictly Apple Official, No user's photo)
+const OFFICIAL_WALLPAPERS = [
+    { id: 'sequoia', name: 'macOS Sequoia Official', url: '/images/wallpaper-sequoia.jpg', type: 'light' },
+    { id: 'sonoma', name: 'macOS Sonoma Official', url: '/images/wallpaper-sonoma.jpg', type: 'light' },
+    { id: 'monterey', name: 'macOS Monterey Dark', url: '/images/wallpaper-monterey.jpg', type: 'dark' },
+    { id: 'ventura', name: 'macOS Ventura Sunburst', url: '/images/wallpaper-ventura.jpg', type: 'light' },
+    { id: 'twilight', name: 'macOS Cyber Twilight', url: '/images/wallpaper-twilight.jpg', type: 'dark' },
+    { id: 'dark', name: 'macOS Midnight Nebula', url: '/images/wallpaper-dark.jpg', type: 'dark' },
 ]
 
 const Navbar = () => {
     const { openWindow } = useWindowStore()
-    const [audioState, setAudioState] = useState({
-        isPlaying: false,
-        currentTrack: 1,
-        trackName: 'Focus Zen & Ambient Piano',
-        volume: 0.35,
-        tracks: []
-    })
+    const [audioState, setAudioState] = useState(audioEngine.getState())
     const [showSoundMenu, setShowSoundMenu] = useState(false)
     const [showWallpaperMenu, setShowWallpaperMenu] = useState(false)
-    const [activeWallpaper, setActiveWallpaper] = useState('/images/wallpaper.png')
+    const [showGamesMenu, setShowGamesMenu] = useState(false)
+    const [activeWallpaper, setActiveWallpaper] = useState('/images/wallpaper-sequoia.jpg')
+    const [isDarkMode, setIsDarkMode] = useState(false)
 
+    // Sync audio engine state
     useEffect(() => {
         const unsubscribe = audioEngine.subscribe(setAudioState)
         return unsubscribe
     }, [])
+
+    // Initialize theme from localStorage or system preference
+    useEffect(() => {
+        const savedTheme = localStorage.getItem('macos_theme')
+        if (savedTheme === 'dark') {
+            setIsDarkMode(true)
+            document.documentElement.classList.add('dark')
+            setActiveWallpaper('/images/wallpaper-monterey.jpg')
+            window.dispatchEvent(new CustomEvent('set-wallpaper', { detail: { url: '/images/wallpaper-monterey.jpg' } }))
+        } else {
+            setIsDarkMode(false)
+            document.documentElement.classList.remove('dark')
+            setActiveWallpaper('/images/wallpaper-sequoia.jpg')
+        }
+    }, [])
+
+    const toggleDarkMode = () => {
+        const nextMode = !isDarkMode
+        setIsDarkMode(nextMode)
+        if (nextMode) {
+            document.documentElement.classList.add('dark')
+            localStorage.setItem('macos_theme', 'dark')
+            const darkWp = '/images/wallpaper-monterey.jpg'
+            setActiveWallpaper(darkWp)
+            window.dispatchEvent(new CustomEvent('set-wallpaper', { detail: { url: darkWp } }))
+        } else {
+            document.documentElement.classList.remove('dark')
+            localStorage.setItem('macos_theme', 'light')
+            const lightWp = '/images/wallpaper-sequoia.jpg'
+            setActiveWallpaper(lightWp)
+            window.dispatchEvent(new CustomEvent('set-wallpaper', { detail: { url: lightWp } }))
+        }
+    }
 
     const handleSelectWallpaper = (url) => {
         setActiveWallpaper(url)
@@ -56,6 +86,57 @@ const Navbar = () => {
                             </li>
                         ))
                     }
+                    {/* Games dropdown launcher */}
+                    <li className='relative'>
+                        <p 
+                            onClick={() => {
+                                setShowGamesMenu(!showGamesMenu)
+                                setShowSoundMenu(false)
+                                setShowWallpaperMenu(false)
+                            }}
+                            className='flex items-center gap-1 text-amber-300 hover:text-amber-200'
+                        >
+                            <Gamepad2 className='size-3.5' />
+                            <span>Games</span>
+                        </p>
+
+                        {showGamesMenu && (
+                            <div 
+                                className='absolute left-0 top-7 w-56 bg-gray-900/95 backdrop-blur-2xl border border-white/20 rounded-xl p-2 shadow-2xl z-50 text-white text-xs select-none'
+                                onMouseLeave={() => setShowGamesMenu(false)}
+                            >
+                                <div className='px-2 py-1 text-[10px] uppercase font-bold text-amber-300 tracking-wider border-b border-white/10 mb-1'>
+                                    Play Games Anytime
+                                </div>
+                                <button
+                                    onClick={() => {
+                                        openWindow('chess')
+                                        setShowGamesMenu(false)
+                                    }}
+                                    className='w-full flex items-center gap-2.5 p-2 rounded-lg hover:bg-white/10 text-left transition cursor-pointer'
+                                >
+                                    <span className='text-base'>♟️</span>
+                                    <div>
+                                        <p className='font-semibold text-xs text-white'>2-Min Blitz Chess AI</p>
+                                        <p className='text-[10px] text-gray-400'>Minimax AI • Win MacBook</p>
+                                    </div>
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        openWindow('clash')
+                                        setShowGamesMenu(false)
+                                    }}
+                                    className='w-full flex items-center gap-2.5 p-2 rounded-lg hover:bg-white/10 text-left transition cursor-pointer'
+                                >
+                                    <Swords className='size-4 text-red-400' />
+                                    <div>
+                                        <p className='font-semibold text-xs text-white'>Clash Village Defense</p>
+                                        <p className='text-[10px] text-gray-400'>RTS War • Cannons &amp; Wizards</p>
+                                    </div>
+                                </button>
+                            </div>
+                        )}
+                    </li>
                 </ul>
             </div>
 
@@ -64,38 +145,52 @@ const Navbar = () => {
                 <button
                     onClick={triggerSurpriseNow}
                     className='hidden sm:flex items-center gap-1 text-[11px] font-semibold bg-amber-400/20 hover:bg-amber-400/30 text-amber-200 border border-amber-400/40 px-2 py-0.5 rounded-full transition shadow-xs cursor-pointer'
-                    title='Click to reveal 2-Minute Surprise (Chess Blitz & Dark Theme)'
+                    title='Click to reveal 2-Minute Surprise Notification'
                 >
                     <Gift className='size-3 text-amber-300 animate-pulse' />
                     <span>2m Surprise</span>
                 </button>
 
-                {/* Wallpaper Gallery Dropdown Menu */}
+                {/* macOS Dark Mode / Light Mode Toggle */}
+                <button
+                    onClick={toggleDarkMode}
+                    className='p-1.5 rounded-lg hover:bg-white/20 transition text-white flex items-center justify-center cursor-pointer'
+                    title={isDarkMode ? 'Switch to macOS Light Mode (Sequoia)' : 'Switch to macOS Dark Mode (Monterey)'}
+                >
+                    {isDarkMode ? (
+                        <Moon className='size-3.5 text-cyan-300 fill-cyan-400/30' />
+                    ) : (
+                        <Sun className='size-3.5 text-amber-300 fill-amber-300/30' />
+                    )}
+                </button>
+
+                {/* Wallpaper Gallery Dropdown Menu (Strictly macOS Official Wallpapers) */}
                 <div className='relative'>
                     <button
                         onClick={() => {
                             setShowWallpaperMenu(!showWallpaperMenu)
                             setShowSoundMenu(false)
+                            setShowGamesMenu(false)
                         }}
                         className={`p-1.5 rounded hover:bg-white/20 transition flex items-center gap-1 cursor-pointer ${
                             showWallpaperMenu ? 'bg-white/20 text-cyan-300' : 'text-white'
                         }`}
-                        title='Choose Desktop 4K Wallpaper'
+                        title='Choose Official macOS 4K Wallpaper'
                     >
                         <Palette className='size-3.5' />
                     </button>
 
                     {showWallpaperMenu && (
                         <div 
-                            className='absolute right-0 top-8 w-64 bg-gray-900/95 backdrop-blur-2xl border border-white/20 rounded-2xl p-3 shadow-2xl z-50 text-white text-xs select-none'
+                            className='absolute right-0 top-8 w-68 bg-gray-900/95 backdrop-blur-2xl border border-white/20 rounded-2xl p-3 shadow-2xl z-50 text-white text-xs select-none'
                             onMouseLeave={() => setShowWallpaperMenu(false)}
                         >
                             <div className='flex items-center justify-between mb-2 pb-1.5 border-b border-white/10'>
-                                <span className='font-bold text-[11px] uppercase tracking-wider text-cyan-300'>Desktop Wallpapers</span>
-                                <span className='text-[10px] text-gray-400 font-mono'>{WALLPAPERS.length} Styles</span>
+                                <span className='font-bold text-[11px] uppercase tracking-wider text-cyan-300'>Official macOS Wallpapers</span>
+                                <span className='text-[10px] text-gray-400 font-mono'>{OFFICIAL_WALLPAPERS.length} Styles</span>
                             </div>
                             <div className='grid grid-cols-1 gap-1.5 max-h-60 overflow-y-auto pr-1'>
-                                {WALLPAPERS.map((wp) => (
+                                {OFFICIAL_WALLPAPERS.map((wp) => (
                                     <button
                                         key={wp.id}
                                         onClick={() => handleSelectWallpaper(wp.url)}
@@ -105,10 +200,13 @@ const Navbar = () => {
                                     >
                                         <div className='flex items-center gap-2'>
                                             <div 
-                                                className='w-7 h-5 rounded border border-white/30 bg-cover bg-center shrink-0'
+                                                className='w-8 h-5 rounded border border-white/30 bg-cover bg-center shrink-0'
                                                 style={{ backgroundImage: `url('${wp.url}')` }}
                                             />
-                                            <span className='font-medium text-[11px] truncate'>{wp.name}</span>
+                                            <div>
+                                                <span className='font-medium text-[11px] block truncate'>{wp.name}</span>
+                                                <span className='text-[9px] text-gray-400 uppercase'>{wp.type}</span>
+                                            </div>
                                         </div>
                                         {activeWallpaper === wp.url && <Check className='size-3 text-cyan-400' />}
                                     </button>
@@ -118,25 +216,29 @@ const Navbar = () => {
                     )}
                 </div>
 
-                {/* Ambient Sound Controller */}
+                {/* Reinvent-Style 30-Track Beatbox/EDM Audio Player Controller */}
                 <div className='relative'>
                     <button
                         onClick={() => {
                             setShowSoundMenu(!showSoundMenu)
                             setShowWallpaperMenu(false)
+                            setShowGamesMenu(false)
                         }}
-                        className={`flex items-center gap-1.5 px-2 py-0.5 rounded transition text-xs cursor-pointer ${
-                            audioState.isPlaying ? 'bg-cyan-500/20 text-cyan-200 border border-cyan-400/40' : 'text-white/80 hover:bg-white/10'
+                        className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg transition text-xs cursor-pointer ${
+                            audioState.isPlaying ? 'bg-cyan-500/25 text-cyan-200 border border-cyan-400/50 shadow-xs' : 'text-white/80 hover:bg-white/10'
                         }`}
-                        title='Calm Ambient Sound Player'
+                        title='Reinvent EDM & Beatbox Music Player (Press [M] to toggle, [N] next, [R] shuffle)'
                     >
                         {audioState.isPlaying ? (
                             <>
-                                <Volume2 className='size-3.5 text-cyan-300' />
+                                <Volume2 className='size-3.5 text-cyan-300 animate-pulse' />
                                 <span className='flex gap-0.5 items-end h-3'>
-                                    <span className='w-0.5 bg-cyan-300 h-2 animate-pulse'></span>
-                                    <span className='w-0.5 bg-cyan-300 h-3 animate-pulse delay-75'></span>
-                                    <span className='w-0.5 bg-cyan-300 h-1.5 animate-pulse delay-150'></span>
+                                    <span className='w-0.5 bg-cyan-300 h-2 animate-bounce'></span>
+                                    <span className='w-0.5 bg-cyan-300 h-3 animate-bounce delay-100'></span>
+                                    <span className='w-0.5 bg-cyan-300 h-1.5 animate-bounce delay-200'></span>
+                                </span>
+                                <span className='hidden md:inline font-mono text-[10px] text-cyan-200 truncate max-w-[110px]'>
+                                    {audioState.title?.split('(')[0] || 'EDM Beat'}
                                 </span>
                             </>
                         ) : (
@@ -147,26 +249,33 @@ const Navbar = () => {
                     {/* Sound Control Dropdown Card */}
                     {showSoundMenu && (
                         <div 
-                            className='absolute right-0 top-8 w-68 bg-gray-900/95 backdrop-blur-2xl border border-white/20 rounded-2xl p-3.5 shadow-2xl z-50 text-white text-xs select-none'
+                            className='absolute right-0 top-8 w-74 bg-gray-900/95 backdrop-blur-2xl border border-white/20 rounded-2xl p-3.5 shadow-2xl z-50 text-white text-xs select-none'
                             onMouseLeave={() => setShowSoundMenu(false)}
                         >
                             <div className='flex items-center justify-between mb-2 pb-1.5 border-b border-white/10'>
                                 <div className='flex items-center gap-1.5 font-semibold text-cyan-300 text-[11px]'>
-                                    <Music className='size-3.5' />
-                                    <span>Focus Audio Player</span>
+                                    <Music className='size-3.5 text-cyan-400' />
+                                    <span>Reinvent 30-Track Beatbox &amp; EDM</span>
                                 </div>
                                 <span className='text-[10px] text-gray-400 font-mono'>
-                                    Track {audioState.currentTrack}/5
+                                    #{audioState.currentTrack}/{audioState.totalTracks || 30}
                                 </span>
                             </div>
 
-                            <p className='font-bold text-xs truncate mb-2.5 text-white'>{audioState.trackName}</p>
+                            <p className='font-bold text-xs truncate text-white'>{audioState.title}</p>
+                            <p className='text-[10px] text-cyan-300 truncate mb-1'>{audioState.artist}</p>
+                            
+                            <div className='flex items-center justify-between text-[10px] text-gray-400 mb-2 font-mono'>
+                                <span>{audioState.genre} • {audioState.mood}</span>
+                                <span>{120 - (audioState.secondsPlayed || 0)}s auto</span>
+                            </div>
 
+                            {/* Control Buttons */}
                             <div className='flex items-center gap-1.5 mb-3'>
                                 <button
                                     onClick={() => audioEngine.prevTrack()}
                                     className='p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white transition cursor-pointer'
-                                    title='Previous Track'
+                                    title='Previous Track [P]'
                                 >
                                     <SkipBack className='size-3.5' />
                                 </button>
@@ -175,14 +284,21 @@ const Navbar = () => {
                                     className='flex-1 flex items-center justify-center gap-1.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white py-1.5 px-3 rounded-lg font-semibold text-xs shadow-md transition cursor-pointer'
                                 >
                                     {audioState.isPlaying ? <Pause className='size-3.5' /> : <Play className='size-3.5' />}
-                                    <span>{audioState.isPlaying ? 'Pause' : 'Play Music'}</span>
+                                    <span>{audioState.isPlaying ? 'Pause' : 'Play Beatbox/EDM'}</span>
                                 </button>
                                 <button
                                     onClick={() => audioEngine.nextTrack()}
                                     className='p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white transition cursor-pointer'
-                                    title='Next Track'
+                                    title='Next Track [N]'
                                 >
                                     <SkipForward className='size-3.5' />
+                                </button>
+                                <button
+                                    onClick={() => audioEngine.shuffle()}
+                                    className='p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white transition cursor-pointer'
+                                    title='Shuffle Track [R]'
+                                >
+                                    <Shuffle className='size-3.5 text-cyan-300' />
                                 </button>
                             </div>
 
@@ -198,6 +314,11 @@ const Navbar = () => {
                                     onChange={(e) => audioEngine.setVolume(parseFloat(e.target.value))}
                                     className='w-full accent-cyan-400 cursor-pointer h-1.5 bg-gray-700 rounded-lg'
                                 />
+                            </div>
+
+                            {/* Hotkey hint */}
+                            <div className='mt-2 pt-1.5 border-t border-white/5 text-[9px] text-gray-400 text-center font-mono'>
+                                Hotkeys: [M] Play/Pause • [N] Next • [P] Prev • [R] Shuffle
                             </div>
                         </div>
                     )}

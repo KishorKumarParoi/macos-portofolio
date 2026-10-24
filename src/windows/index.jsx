@@ -7,6 +7,7 @@ import Image from './Image.jsx';
 import Contact from './Contact.jsx';
 import Home from './Home.jsx';
 import Chess from './Chess.jsx';
+import ClashDefense from './ClashDefense.jsx';
 import AgentChat from './AgentChat.jsx';
 
-export { Terminal, Safari, Resume, Finder, Text, Image, Contact, Home, Chess, AgentChat };
+export { Terminal, Safari, Resume, Finder, Text, Image, Contact, Home, Chess, ClashDefense, AgentChat };

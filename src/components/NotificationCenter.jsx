@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'
 import useWindowStore from '#store/window'
 import { audioEngine } from '../utils/audioEngine'
-import { Sparkles, Trophy, Headphones, Volume2, X, Clock, Play } from 'lucide-react'
+import { Sparkles, Trophy, Headphones, Volume2, X, Clock, Play, Swords } from 'lucide-react'
 
 const NotificationCenter = () => {
     const { openWindow } = useWindowStore()
     const [notifications, setNotifications] = useState([])
     const [secondsElapsed, setSecondsElapsed] = useState(0)
     const [surpriseTriggered, setSurpriseTriggered] = useState(false)
-    const [isDarkWallpaper, setIsDarkWallpaper] = useState(false)
 
     // Helper to push a notification
     const pushNotification = (notif) => {
@@ -16,11 +15,11 @@ const NotificationCenter = () => {
         const newNotif = { id, ...notif }
         setNotifications((prev) => [newNotif, ...prev.slice(0, 4)])
 
-        // Auto dismiss after 10s if not persistent
+        // Auto dismiss after 12s if not persistent
         if (!notif.persistent) {
             setTimeout(() => {
                 dismissNotification(id)
-            }, 9000)
+            }, 12000)
         }
     }
 
@@ -42,7 +41,7 @@ const NotificationCenter = () => {
         }
     }
 
-    // Trigger 2-Minute Surprise — STRICTLY ONCE EVER
+    // Trigger 2-Minute Surprise — User can choose to play now or dismiss & play later
     const triggerSurprise = () => {
         if (surpriseTriggeredRef.current) return
         if (sessionStorage.getItem('macos_chess_surprise_shown')) return
@@ -51,25 +50,36 @@ const NotificationCenter = () => {
         sessionStorage.setItem('macos_chess_surprise_shown', 'true')
         setSurpriseTriggered(true)
 
-        // Clear interval so it never checks or triggers again
+        // Clear interval so it never triggers again
         if (intervalRef.current) {
             clearInterval(intervalRef.current)
             intervalRef.current = null
         }
 
-        // 1. Change wallpaper to twilight / dark
-        applyWallpaper('/images/wallpaper-sequoia.jpg')
-
-        // 2. Open Chess window
-        openWindow('chess')
-
-        // 3. Fire Blitz Challenge notification
+        // Fire Surprise notification without force-opening windows
         pushNotification({
-            icon: '⚔️',
-            title: '2-Minute Blitz Chess Challenge Begun!',
-            subtitle: 'Beat the Minimax AI in 2 minutes to win a virtual MacBook! If you lose, gift AirPods to the computer!',
+            icon: '🎁',
+            title: '2-Minute Surprise: Games Arena Unlocked!',
+            subtitle: 'You unlocked Minimax Blitz Chess AI & Clash Village Defense RTS! Click Play Now, or Dismiss to play anytime from the Dock or Top Menu.',
             type: 'challenge',
             persistent: true,
+            actions: [
+                {
+                    label: 'Play Chess ♟️',
+                    primary: true,
+                    onClick: () => openWindow('chess'),
+                },
+                {
+                    label: 'Play Clash RTS ⚔️',
+                    primary: true,
+                    onClick: () => openWindow('clash'),
+                },
+                {
+                    label: 'Dismiss / Play Later',
+                    primary: false,
+                    onClick: () => {},
+                },
+            ],
         })
     }
 
@@ -81,37 +91,45 @@ const NotificationCenter = () => {
             setSurpriseTriggered(true)
         }
 
-        // Initial opening notification if never shown
         let welcomeTimer = null
         if (!alreadyShown) {
             welcomeTimer = setTimeout(() => {
                 pushNotification({
                     icon: '🎁',
                     title: 'Surprise in 2 Minutes!',
-                    subtitle: 'Wait for 2 minutes to get a surprise! In the meantime, feel free to explore the portfolio, projects & terminal.',
+                    subtitle: 'A special surprise unlocks in 2 minutes! In the meantime, explore the portfolio, projects, and terminal.',
                     type: 'info',
-                    actionLabel: 'Preview Surprise ⚡',
-                    onAction: () => triggerSurprise(),
+                    actions: [
+                        {
+                            label: 'Preview Surprise ⚡',
+                            primary: true,
+                            onClick: () => triggerSurprise(),
+                        },
+                        {
+                            label: 'Got it',
+                            primary: false,
+                            onClick: () => {},
+                        },
+                    ],
                 })
             }, 1200)
 
-            // Global interval for 2-minute surprise and 1-minute audio switch
+            // Global interval for 2-minute surprise
             intervalRef.current = setInterval(() => {
                 setSecondsElapsed((prev) => {
                     const next = prev + 1
 
-                    // At 60 seconds (1 minute): Shift audio soundscape
+                    // At 60 seconds (1 minute): Suggest motivational music
                     if (next === 60) {
-                        audioEngine.switchTrack(2)
                         pushNotification({
                             icon: '🎵',
-                            title: 'Soundscape Shifted',
-                            subtitle: 'Transitioned to Lo-Fi Chillwave for deep focus.',
+                            title: 'Reinvent 30-Track Beatbox & EDM',
+                            subtitle: 'Press [M] to toggle motivational EDM & Beatbox music, or [N] for next track.',
                             type: 'audio',
                         })
                     }
 
-                    // At 120 seconds (2 minutes): Trigger the surprise ONCE!
+                    // At 120 seconds (2 minutes): Trigger the surprise
                     if (next >= 120) {
                         triggerSurprise()
                     }
@@ -168,7 +186,7 @@ const NotificationCenter = () => {
             {notifications.map((n) => (
                 <div
                     key={n.id}
-                    className='pointer-events-auto bg-gray-900/85 backdrop-blur-xl border border-white/20 text-white rounded-2xl p-3.5 shadow-2xl drop-shadow-2xl animate-in fade-in slide-in-from-right duration-300 w-84 text-xs'
+                    className='pointer-events-auto bg-gray-900/90 backdrop-blur-xl border border-white/20 text-white rounded-2xl p-3.5 shadow-2xl drop-shadow-2xl animate-in fade-in slide-in-from-right duration-300 w-84 text-xs'
                 >
                     <div className='flex items-start justify-between gap-2'>
                         <div className='flex items-center gap-2'>
@@ -187,8 +205,8 @@ const NotificationCenter = () => {
                         </div>
                         <button
                             onClick={() => dismissNotification(n.id)}
-                            className='text-gray-400 hover:text-white p-1 rounded-full transition'
-                            title='Close'
+                            className='text-gray-400 hover:text-white p-1 rounded-full transition cursor-pointer'
+                            title='Close / Dismiss'
                         >
                             <X className='size-3.5' />
                         </button>
@@ -196,18 +214,26 @@ const NotificationCenter = () => {
 
                     <p className='mt-2 text-gray-300 text-[11px] leading-relaxed'>{n.subtitle}</p>
 
-                    {n.actionLabel && (
-                        <div className='mt-3 flex justify-end gap-2'>
-                            <button
-                                onClick={() => {
-                                    if (n.onAction) n.onAction()
-                                    dismissNotification(n.id)
-                                }}
-                                className='px-3 py-1 bg-amber-500 hover:bg-amber-400 text-black font-semibold rounded-lg text-[11px] transition shadow-xs flex items-center gap-1'
-                            >
-                                <Sparkles className='size-3' />
-                                {n.actionLabel}
-                            </button>
+                    {/* Action Buttons */}
+                    {n.actions && n.actions.length > 0 && (
+                        <div className='mt-3 flex flex-wrap justify-end gap-1.5'>
+                            {n.actions.map((act, i) => (
+                                <button
+                                    key={i}
+                                    onClick={() => {
+                                        if (act.onClick) act.onClick()
+                                        dismissNotification(n.id)
+                                    }}
+                                    className={`px-2.5 py-1 rounded-lg text-[10px] font-semibold transition shadow-xs flex items-center gap-1 cursor-pointer ${
+                                        act.primary
+                                            ? 'bg-amber-400 hover:bg-amber-300 text-black'
+                                            : 'bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white border border-white/10'
+                                    }`}
+                                >
+                                    {act.primary && <Sparkles className='size-2.5' />}
+                                    {act.label}
+                                </button>
+                            ))}
                         </div>
                     )}
                 </div>

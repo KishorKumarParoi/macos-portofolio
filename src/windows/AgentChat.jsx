@@ -1,7 +1,8 @@
 import { WindowControls } from '#components'
 import WindowWrapper from '#hoc/WindowWrapper'
+import useWindowStore from '#store/window'
 import React, { useState, useRef, useEffect } from 'react'
-import { Send, Bot, ShieldCheck, Zap, Terminal, Sparkles, RefreshCw, Cpu, Layers, Image as ImageIcon, ExternalLink, Check, Copy, Maximize2, X } from 'lucide-react'
+import { Send, Bot, ShieldCheck, Zap, Terminal, Sparkles, RefreshCw, Cpu, Layers, Image as ImageIcon, ExternalLink, Check, Copy, Maximize2, Minimize2, X } from 'lucide-react'
 
 // Comprehensive Enterprise Knowledge Base spanning Portfolio, Resume, GitHub Projects, Experience & CP
 const KNOWLEDGE_BASE = [
@@ -230,7 +231,8 @@ const KNOWLEDGE_BASE = [
     },
 ]
 
-const AgentChat = () => {
+const AgentChat = ({ isMaximized }) => {
+    const { toggleMaximize } = useWindowStore()
     const [messages, setMessages] = useState([
         {
             id: 1,
@@ -351,7 +353,13 @@ Here are suggested topics to ask me about:
     ]
 
     return (
-        <div className='flex flex-col h-[560px] max-h-[82vh] bg-[#14141b] text-gray-200 select-none font-sans rounded-b-xl overflow-hidden'>
+        <div 
+            className={`flex flex-col bg-[#14141b] text-gray-200 select-none font-sans transition-all duration-200 relative ${
+                isMaximized 
+                    ? 'w-full h-[calc(100vh-80px)] rounded-none' 
+                    : 'w-[780px] max-w-[96vw] h-[580px] max-h-[84vh] min-w-[380px] min-h-[420px] resize overflow-hidden rounded-xl border border-white/10 shadow-2xl'
+            }`}
+        >
             {/* Modal for full-screen image preview */}
             {modalImage && (
                 <div 
@@ -403,13 +411,21 @@ Here are suggested topics to ask me about:
                     </div>
                 </div>
 
-                {/* Status Badges */}
-                <div className='flex items-center gap-1.5 text-[10px]'>
-                    <span className='flex items-center gap-1 bg-emerald-950/70 border border-emerald-500/40 text-emerald-300 px-2.5 py-0.5 rounded-full font-mono'>
+                {/* Status Badges & Fullscreen Toggle */}
+                <div className='flex items-center gap-2 text-[10px]'>
+                    <button
+                        onClick={() => toggleMaximize('aichat')}
+                        className='flex items-center gap-1 bg-white/10 hover:bg-cyan-500/20 text-gray-300 hover:text-cyan-300 border border-white/15 px-2 py-1 rounded-lg font-mono transition cursor-pointer'
+                        title={isMaximized ? 'Restore Window Size' : 'Maximize to Fullscreen'}
+                    >
+                        {isMaximized ? <Minimize2 className='size-3 text-cyan-400' /> : <Maximize2 className='size-3 text-cyan-400' />}
+                        <span>{isMaximized ? 'Restore' : 'Fullscreen'}</span>
+                    </button>
+                    <span className='hidden sm:flex items-center gap-1 bg-emerald-950/70 border border-emerald-500/40 text-emerald-300 px-2.5 py-0.5 rounded-full font-mono'>
                         <ShieldCheck className='size-3 text-emerald-400' />
                         BotShield WAF
                     </span>
-                    <span className='flex items-center gap-1 bg-cyan-950/70 border border-cyan-500/40 text-cyan-300 px-2.5 py-0.5 rounded-full font-mono'>
+                    <span className='hidden sm:flex items-center gap-1 bg-cyan-950/70 border border-cyan-500/40 text-cyan-300 px-2.5 py-0.5 rounded-full font-mono'>
                         <Zap className='size-3 text-cyan-400' />
                         &lt;15ms Cache
                     </span>

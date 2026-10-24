@@ -1,0 +1,36 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="clashBg" x1="0" y1="0" x2="128" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7C2D12"/>
+      <stop offset="45%" stop-color="#B45309"/>
+      <stop offset="100%" stop-color="#451A03"/>
+    </linearGradient>
+    <linearGradient id="goldRim" x1="0" y1="0" x2="128" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FCD34D"/>
+      <stop offset="50%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+  </defs>
+
+  <!-- macOS Dock Squircle Base -->
+  <rect x="6" y="6" width="116" height="116" rx="28" fill="url(#clashBg)"/>
+  <rect x="6" y="6" width="116" height="116" rx="28" stroke="url(#goldRim)" stroke-width="3"/>
+
+  <!-- Crossed Swords and Shield -->
+  <!-- Sword 1 -->
+  <path d="M36 92L92 36M92 36L96 40M92 36L88 32M36 92L32 96M42 80L48 86" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round"/>
+  <!-- Sword 2 -->
+  <path d="M92 92L36 36M36 36L32 40M36 36L40 32M92 92L96 96M86 80L80 86" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round"/>
+
+  <!-- Shield Core -->
+  <path d="M64 42L82 50V72C82 85 74 95 64 100C54 95 46 85 46 72V50L64 42Z" fill="#DC2626" stroke="#FDE047" stroke-width="2.5"/>
+
+  <!-- Shield Emblem (Crown/Star) -->
+  <path d="M64 54L67 62H75L68 67L71 75L64 70L57 75L60 67L53 62H61L64 54Z" fill="#FDE047"/>
+
+  <!-- RTS Badge Inset Top Right -->
+  <g transform="translate(82, 12)">
+    <rect width="32" height="16" rx="8" fill="#EF4444"/>
+    <text x="16" y="11.5" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" font-weight="900" text-anchor="middle">WAR</text>
+  </g>
+</svg>

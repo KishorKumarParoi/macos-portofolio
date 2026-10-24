@@ -13,6 +13,7 @@ const Finder = () => {
     const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'list'
 
     const openItem = (item) => {
+        if (item.windowKey) return openWindow(item.windowKey);
         if (item.fileType === 'pdf') return openWindow("resume");
         if (item.kind === 'folder') {
             // Keep reference to parent for seamless back navigation

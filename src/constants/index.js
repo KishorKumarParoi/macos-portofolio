@@ -84,9 +84,15 @@ const dockApps = [
     canOpen: true,
   },
   {
+    id: "clash",
+    name: "Clash Village Defense (RTS Game)",
+    icon: "clash.svg",
+    canOpen: true,
+  },
+  {
     id: "aichat",
     name: "Nexus AI Agent (Q&A)",
-    icon: "logo.svg",
+    icon: "ai-agent.svg",
     canOpen: true,
   },
   {
@@ -2135,10 +2141,42 @@ const GALLERY_LOCATION = {
   ],
 };
 
+const GAMES_LOCATION = {
+  id: 6,
+  type: "games",
+  path: "games",
+  name: "Games",
+  icon: "/images/clash.svg",
+  kind: "folder",
+  children: [
+    {
+      id: 1,
+      name: "2-Minute Blitz Chess AI",
+      icon: "/images/chess.svg",
+      kind: "file",
+      fileType: "game",
+      windowKey: "chess",
+      position: "top-8 left-8",
+      subtitle: "Minimax AI • Win virtual MacBook",
+    },
+    {
+      id: 2,
+      name: "Clash Village Defense RTS",
+      icon: "/images/clash.svg",
+      kind: "file",
+      fileType: "game",
+      windowKey: "clash",
+      position: "top-8 left-48",
+      subtitle: "Town Hall 12 Defense • Cannons & Wizards",
+    },
+  ],
+};
+
 export const locations = {
   work: WORK_LOCATION,
   about: ABOUT_LOCATION,
   resume: RESUME_LOCATION,
+  games: GAMES_LOCATION,
   trash: TRASH_LOCATION,
   gallery: GALLERY_LOCATION,
 };
@@ -2155,6 +2193,7 @@ const WINDOW_CONFIG = {
   txtfile: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   imgfile: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   chess: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
+  clash: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   aichat: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   trash: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
 };
