@@ -1,55 +1,295 @@
 import { WindowControls } from '#components'
 import { techStack } from '#constants'
 import WindowWrapper from '#hoc/WindowWrapper'
-import { Check, Flag } from 'lucide-react'
-import React from 'react'
+import useWindowStore from '#store/window'
+import { Check, Terminal as TerminalIcon } from 'lucide-react'
+import React, { useState, useRef, useEffect } from 'react'
+
+const BANNER = [
+    "Last login: " + new Date().toLocaleString() + " on ttys001",
+    "Welcome to Paroi-macOS Darwin 24.1.0 (Apple Silicon arm64)",
+    "Type 'help' or click quick actions below to explore.",
+]
 
 const Terminal = () => {
+    const { openWindow } = useWindowStore()
+    const [history, setHistory] = useState([
+        { type: 'output', text: BANNER.join("\n") },
+        { type: 'cmd', text: 'show tech stack' },
+    ])
+    const [inputVal, setInputVal] = useState('')
+    const inputRef = useRef(null)
+    const bottomRef = useRef(null)
+
+    useEffect(() => {
+        bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }, [history])
+
+    const handleRunCommand = (cmd) => {
+        const trimmed = cmd.trim().toLowerCase()
+        if (!trimmed) return
+
+        const newEntries = [{ type: 'cmd', text: cmd }]
+
+        switch (trimmed) {
+            case 'help':
+            case 'commands':
+                newEntries.push({
+                    type: 'output',
+                    text: [
+                        "Available commands:",
+                        "  skills          - Display all 7 verified technology stacks",
+                        "  whoami          - Principal Architect identity & background",
+                        "  projects        - List 12 production projects & one-click deploys",
+                        "  education       - RUET B.Sc. in CSE (Rank 483rd Bangladesh)",
+                        "  cp              - Competitive programming ratings & honors",
+                        "  resume          - Launch ATS Resume viewer window",
+                        "  contact         - Launch Contact & socials window",
+                        "  neofetch        - System architecture & polyglot kernel specs",
+                        "  clear           - Clear terminal window",
+                    ].join("\n"),
+                })
+                break
+
+            case 'skills':
+            case 'techstack':
+            case 'show tech stack':
+                newEntries.push({ type: 'skills' })
+                break
+
+            case 'whoami':
+                newEntries.push({
+                    type: 'output',
+                    text: [
+                        "Kishor Kumar Paroi (KKP)",
+                        "Role: Principal AI/ML Systems & Lakehouse Architect | Founder @ Koom-AI",
+                        "Location: Dhaka, Bangladesh",
+                        "Degrees: B.Sc. in CSE from RUET (Rank 483rd in Bangladesh, 3.25 / 4.00 D.O)",
+                        "Key Expertise: High-Throughput Polyglot Mesh (Rust/Go), Multi-Cloud Lakehouses (Snowflake/PySpark/dbt), Autonomous AI Agent Mesh (LangGraph, FastMCP, NeMo Guardrails)",
+                    ].join("\n"),
+                })
+                break
+
+            case 'education':
+                newEntries.push({
+                    type: 'output',
+                    text: [
+                        "🎓 Rajshahi University of Engineering & Technology (RUET) (2018 – 2023)",
+                        "   Degree: B.Sc. in Computer Science & Engineering",
+                        "   CPI: 3.25 / 4.00 (D.O) | Merit: Rank 483rd in Bangladesh in Admission",
+                        "",
+                        "🎓 Saint Joseph Higher Secondary School, Dhaka (2015 – 2017)",
+                        "   Degree: Higher Secondary Certificate (HSC) | GPA: 5.00 / 5.00",
+                        "   Merit: Rank 85th in Dhaka Board Merit List",
+                        "",
+                        "🎓 S.J Govt Model High School, Gopalganj (2013 – 2015)",
+                        "   Degree: Secondary School Certificate (SSC) | GPA: 5.00 / 5.00",
+                        "   Merit: Rank 90th in Dhaka Board",
+                    ].join("\n"),
+                })
+                break
+
+            case 'cp':
+            case 'competitive':
+                newEntries.push({
+                    type: 'output',
+                    text: [
+                        "🏆 Codeforces Div-2: Ranked 232nd (Blue Coder)",
+                        "⭐ CodeChef: 5★ Competitive Programmer (Rating 2000+)",
+                        "🎯 IUPC: 17th Rank in National Inter-University Programming Contest",
+                        "🏅 Meta Hacker Cup: Qualified for Round 3",
+                        "🧠 LeetCode: 1000+ Algorithmic & Dynamic Programming problems solved",
+                    ].join("\n"),
+                })
+                break
+
+            case 'projects':
+                newEntries.push({
+                    type: 'output',
+                    text: [
+                        "1. Zomato Enterprise AI Lakehouse & Multimodal Platform (Snowflake, PySpark, Feast)",
+                        "2. Hybrid Anime Intelligence & Continuous LLMOps (Go 1.24, Rust SIMD, vLLM Multi-LoRA)",
+                        "3. Enterprise AI Security & Production Agentic RAG (BotShield WAF, NVIDIA NeMo)",
+                        "4. Smart Manufacturing Industrial AI & MLOps (Rust SIMD, Go Gateway, GKE/K3s, ArgoCD)",
+                        "5. Nexus-AI Multi-Cloud Lakehouse & Autonomous Agent Mesh (LangGraph, DuckDB)",
+                        "6. Advanced AI Chatbot & HITL Financial Gating (FastMCP, Qdrant, PostgreSQL)",
+                        "7. Data Agent Multi-Agent BI & SQL Self-Healing System (LangGraph Supervisor)",
+                        "8. Advanced Network Security Medallion Lakehouse (Azure ADF, Databricks, CETAS)",
+                        "9. AWS SageMaker End-to-End MLOps Pipeline (SageMaker DAG, Spot Training)",
+                        "10. Cloud-Native Real-Time MLOps (KServe v1beta1, AWS ECS Fargate, Terraform)",
+                        "11. Core Systems: Rust Git Engine & POSIX Terminal Shell (Rust 1.85, SIMD zlib)",
+                        "12. Koom-AI: Enterprise Workspaces & Screen-Recording Cockpit (Next.js 16, WebRTC)",
+                        "",
+                        "💡 Tip: Run `curl -fsSL <repo-url>/bootstrap.sh | bash` in your local terminal for One-Click Deploy!",
+                    ].join("\n"),
+                })
+                break
+
+            case 'resume':
+                openWindow('resume')
+                newEntries.push({ type: 'output', text: "Opening Resume Window..." })
+                break
+
+            case 'contact':
+                openWindow('contact')
+                newEntries.push({ type: 'output', text: "Opening Contact Window..." })
+                break
+
+            case 'neofetch':
+            case 'mac':
+                newEntries.push({
+                    type: 'output',
+                    text: [
+                        "                    'c.           kishor@paroi-macbook-pro",
+                        "                 ,xNMM.          ------------------------",
+                        "               .OMMMMo           OS: macOS Sequoia 15.3 (arm64)",
+                        "               OMMM0,            Host: MacBook Pro (Apple Silicon)",
+                        "     .;loddo:.  .olloddol;.      Kernel: 24.1.0 Darwin",
+                        "   cKMMMMMMMMMMNWMMMMMMMMMM0:    Uptime: 42 days, 7 hours, 28 mins",
+                        " .KMMMMMMMMMMMMMMMMMMMMMMMWd.    Shell: zsh 5.9 (arm64-apple-darwin24.0)",
+                        " XMMMMMMMMMMMMMMMMMMMMMMMX.      Terminal: Apple Terminal / Macfolio",
+                        ";MMMMMMMMMMMMMMMMMMMMMMMM:       CPU: Apple M-Series Ultra / Max (16 cores)",
+                        ":MMMMMMMMMMMMMMMMMMMMMMMM:       Memory: 64 GB Unified LPDDR5",
+                        ".MMMMMMMMMMMMMMMMMMMMMMMMX.      Architecture: Polyglot (Rust, Go, Python, Next.js)",
+                        " kMMMMMMMMMMMMMMMMMMMMMMMMWd.    Specialization: GenAI, Lakehouses & Distributed MLOps",
+                        "  .XMMMMMMMMMMMMMMMMMMMMMMMMk    Status: Open for Principal AI/ML & Lakehouse Roles",
+                    ].join("\n"),
+                })
+                break
+
+            case 'clear':
+                setHistory([])
+                setInputVal('')
+                return
+
+            default:
+                newEntries.push({
+                    type: 'output',
+                    text: `zsh: command not found: ${cmd}. Type 'help' for available commands.`,
+                })
+                break
+        }
+
+        setHistory((prev) => [...prev, ...newEntries])
+        setInputVal('')
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        handleRunCommand(inputVal)
+    }
+
     return (
         <>
-            <div id='window-header'>
-                <WindowControls target="terminal" />
-                <h2>Tech Stack</h2>
+            <div id='window-header' className='flex items-center justify-between px-3 py-1.5 border-b border-gray-800 bg-[#1e1e1e] text-gray-300 select-none'>
+                <div className='flex items-center gap-2'>
+                    <WindowControls target="terminal" />
+                    <span className='text-xs font-mono font-medium flex items-center gap-1.5 ml-2 text-gray-300'>
+                        <TerminalIcon size={13} className='text-emerald-400' />
+                        kishor — zsh — 80x24
+                    </span>
+                </div>
+                <div className='flex items-center gap-1.5 text-[11px] font-mono'>
+                    <button
+                        onClick={() => handleRunCommand('skills')}
+                        className='px-2 py-0.5 rounded bg-gray-800 hover:bg-gray-700 text-gray-300 transition'
+                    >
+                        skills
+                    </button>
+                    <button
+                        onClick={() => handleRunCommand('whoami')}
+                        className='px-2 py-0.5 rounded bg-gray-800 hover:bg-gray-700 text-gray-300 transition'
+                    >
+                        whoami
+                    </button>
+                    <button
+                        onClick={() => handleRunCommand('projects')}
+                        className='px-2 py-0.5 rounded bg-gray-800 hover:bg-gray-700 text-gray-300 transition'
+                    >
+                        projects
+                    </button>
+                    <button
+                        onClick={() => handleRunCommand('neofetch')}
+                        className='px-2 py-0.5 rounded bg-gray-800 hover:bg-gray-700 text-gray-300 transition'
+                    >
+                        neofetch
+                    </button>
+                </div>
             </div>
 
-            <div className='techstack'>
-                <p>
-                    <span className='font-bold'>@Kishor % </span>
-                    show tech stack
-                </p>
-                <div className='label'>
-                    <p className='w-32'>Category</p>
-                    <p>Technologies</p>
-                </div>
+            <div
+                className='bg-[#18181b] text-gray-100 font-mono text-xs p-4 overflow-y-auto max-h-[70vh] min-h-[420px] select-text'
+                onClick={() => inputRef.current?.focus()}
+            >
+                {history.map((item, idx) => {
+                    if (item.type === 'cmd') {
+                        return (
+                            <div key={idx} className='flex items-center gap-1.5 text-emerald-400 mt-2 mb-1'>
+                                <span className='text-pink-400 font-bold'>@kishor</span>
+                                <span className='text-gray-400'>in</span>
+                                <span className='text-blue-400 font-semibold'>~</span>
+                                <span className='text-yellow-400'>%</span>
+                                <span className='text-gray-100 font-medium'>{item.text}</span>
+                            </div>
+                        )
+                    }
 
-                <ul className='content'>
-                    {techStack.map(({ category, items }) => (
-                        <li key={category} className='flex items-center'>
-                            <Check className='check' size={20} />
-                            <h3>{category}</h3>
-                            <ul>
-                                {
-                                    items.map((item, i) => (
-                                        <li key={i}>
-                                            {item}
-                                            {i < items.length - 1 ? "," : ""}
-                                        </li>
-                                    ))
-                                }
-                            </ul>
-                        </li>
-                    ))}
-                </ul>
+                    if (item.type === 'output') {
+                        return (
+                            <pre key={idx} className='whitespace-pre-wrap text-gray-300 leading-relaxed font-mono text-[11px] mb-2'>
+                                {item.text}
+                            </pre>
+                        )
+                    }
 
-                <div className='footnote'>
-                    <p>
-                        <Check size={20} /> 5 of 5 stacks loaded successfully (100%)
-                    </p>
-                    <p className='text-black'>
-                        <Flag size={15} />
-                        Render time: 4ms
-                    </p>
-                </div>
+                    if (item.type === 'skills') {
+                        return (
+                            <div key={idx} className='my-3 bg-black/40 border border-gray-800/80 rounded-lg p-3'>
+                                <div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
+                                    {techStack.map(({ category, items }) => (
+                                        <div key={category} className='p-2 rounded bg-gray-900/60 border border-gray-800'>
+                                            <div className='flex items-center gap-1.5 text-cyan-300 font-semibold mb-1 text-xs'>
+                                                <Check size={14} className='text-emerald-400' />
+                                                {category}
+                                            </div>
+                                            <div className='flex flex-wrap gap-1'>
+                                                {items.map((it, i) => (
+                                                    <span key={i} className='bg-gray-800 text-gray-300 text-[10px] px-1.5 py-0.5 rounded'>
+                                                        {it}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                                <p className='mt-3 text-[11px] text-emerald-400 flex items-center gap-1'>
+                                    <Check size={14} /> {techStack.length} verified production technology domains compiled (100% test coverage)
+                                </p>
+                            </div>
+                        )
+                    }
+
+                    return null
+                })}
+
+                {/* Live Prompt Line */}
+                <form onSubmit={handleSubmit} className='flex items-center gap-1.5 text-emerald-400 mt-2'>
+                    <span className='text-pink-400 font-bold'>@kishor</span>
+                    <span className='text-gray-400'>in</span>
+                    <span className='text-blue-400 font-semibold'>~</span>
+                    <span className='text-yellow-400'>%</span>
+                    <input
+                        ref={inputRef}
+                        type='text'
+                        value={inputVal}
+                        onChange={(e) => setInputVal(e.target.value)}
+                        placeholder="type 'help' or command..."
+                        className='flex-1 bg-transparent border-none outline-hidden text-gray-100 font-mono text-xs focus:ring-0 p-0'
+                        autoFocus
+                    />
+                </form>
+
+                <div ref={bottomRef} />
             </div>
         </>
     )

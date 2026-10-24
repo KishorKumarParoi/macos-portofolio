@@ -25,4 +25,22 @@ export default defineConfig({
       "#windows": resolve(__dirname, "src/windows"),
     },
   },
+  build: {
+    chunkSizeWarningLimit: 1200,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("pdfjs-dist") || id.includes("react-pdf")) {
+            return "pdfjs";
+          }
+          if (id.includes("gsap")) {
+            return "gsap";
+          }
+          if (id.includes("node_modules/react") || id.includes("node_modules/zustand")) {
+            return "vendor";
+          }
+        },
+      },
+    },
+  },
 });

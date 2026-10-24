@@ -338,7 +338,7 @@ body {
     }
 
     .content {
-      @apply flex-1 p-8 bg-white max-w-2xl relative;
+      @apply flex-1 p-8 bg-white max-w-2xl relative min-h-[480px] max-h-[70vh] overflow-y-auto;
 
       li {
         @apply absolute flex items-center flex-col gap-3;
