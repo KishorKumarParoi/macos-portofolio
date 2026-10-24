@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
 import useWindowStore from '#store/window'
-import { audioEngine } from '../utils/audioEngine'
 import { Sparkles, Trophy, Headphones, Volume2, X, Clock, Play, Swords } from 'lucide-react'
 
 const NotificationCenter = () => {
@@ -30,18 +29,18 @@ const NotificationCenter = () => {
     const surpriseTriggeredRef = useRef(false)
     const intervalRef = useRef(null)
 
-    // Apply wallpaper changes
-    const applyWallpaper = (wallpaperUrl) => {
+    // Strictly lock official MacBook wallpaper
+    const applyWallpaper = () => {
         if (typeof document === 'undefined') return
-        document.body.style.backgroundImage = `url('${wallpaperUrl}')`
+        const macbookWp = '/images/wallpaper-sequoia.jpg'
+        document.body.style.backgroundImage = `url('${macbookWp}')`
         document.body.style.backgroundSize = 'cover'
         document.body.style.backgroundPosition = 'center'
         const mainEl = document.querySelector('main')
         if (mainEl) {
-            mainEl.style.backgroundImage = `url('${wallpaperUrl}')`
+            mainEl.style.backgroundImage = `url('${macbookWp}')`
             mainEl.style.backgroundSize = 'cover'
             mainEl.style.backgroundPosition = 'center'
-            mainEl.style.transition = 'background-image 0.5s ease-in-out'
         }
     }
 
@@ -123,16 +122,6 @@ const NotificationCenter = () => {
                 setSecondsElapsed((prev) => {
                     const next = prev + 1
 
-                    // At 60 seconds (1 minute): Suggest motivational music
-                    if (next === 60) {
-                        pushNotification({
-                            icon: '🎵',
-                            title: 'Reinvent 30-Track Beatbox & EDM',
-                            subtitle: 'Press [M] to toggle motivational EDM & Beatbox music, or [N] for next track.',
-                            type: 'audio',
-                        })
-                    }
-
                     // At 120 seconds (2 minutes): Trigger the surprise
                     if (next >= 120) {
                         triggerSurprise()
@@ -164,10 +153,8 @@ const NotificationCenter = () => {
             })
         }
 
-        const handleSetWallpaper = (e) => {
-            if (e.detail?.url) {
-                applyWallpaper(e.detail.url)
-            }
+        const handleSetWallpaper = () => {
+            applyWallpaper()
         }
 
         window.addEventListener('chess-game-win', handleChessWin)

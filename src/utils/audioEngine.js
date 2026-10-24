@@ -132,6 +132,7 @@ class ReinventMacAudioEngine {
 
     // Procedural Synth Beatbox Fallback (Offline / Failover)
     playSyntheticBeat() {
+        if (!this.isPlaying) return;
         try {
             const AudioCtx = window.AudioContext || window.webkitAudioContext;
             if (!AudioCtx) return;
@@ -172,10 +173,12 @@ class ReinventMacAudioEngine {
     }
 
     startSyntheticBeatbox() {
+        if (!this.isPlaying) return;
         if (this.synthInterval) return;
         this.playSyntheticBeat();
         this.synthInterval = setInterval(() => {
             if (this.isPlaying) this.playSyntheticBeat();
+            else this.stopSyntheticBeatbox();
         }, 500);
     }
 

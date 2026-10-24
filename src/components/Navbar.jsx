@@ -3,30 +3,22 @@ import useWindowStore from '#store/window'
 import dayjs from 'dayjs'
 import React, { useState, useEffect } from 'react'
 import { audioEngine } from '../utils/audioEngine'
-import { Volume2, VolumeX, Music, Moon, Sun, Gift, Play, Pause, SkipForward, SkipBack, Shuffle, Palette, Check, Swords, Gamepad2 } from 'lucide-react'
+import { Volume2, VolumeX, Music, Moon, Sun, Gift, Play, Pause, SkipForward, SkipBack, Shuffle, Swords, Gamepad2 } from 'lucide-react'
 
-// Official macOS 4K Wallpapers (Strictly Apple Official, No user's photo)
-const OFFICIAL_WALLPAPERS = [
-    { id: 'sequoia', name: 'macOS Sequoia Official', url: '/images/wallpaper-sequoia.jpg', type: 'light' },
-    { id: 'sonoma', name: 'macOS Sonoma Official', url: '/images/wallpaper-sonoma.jpg', type: 'light' },
-    { id: 'monterey', name: 'macOS Monterey Dark', url: '/images/wallpaper-monterey.jpg', type: 'dark' },
-    { id: 'ventura', name: 'macOS Ventura Sunburst', url: '/images/wallpaper-ventura.jpg', type: 'light' },
-    { id: 'twilight', name: 'macOS Cyber Twilight', url: '/images/wallpaper-twilight.jpg', type: 'dark' },
-    { id: 'dark', name: 'macOS Midnight Nebula', url: '/images/wallpaper-dark.jpg', type: 'dark' },
-]
+// Official MacBook Sequoia Wallpaper (Locked as the sole macOS wallpaper)
+const MACBOOK_WALLPAPER = '/images/wallpaper-sequoia.jpg'
 
 // Helper to apply wallpaper globally to both body and main element
-const applyWallpaperGlobal = (url) => {
+const applyWallpaperGlobal = () => {
     if (typeof document === 'undefined') return
-    document.body.style.backgroundImage = `url('${url}')`
+    document.body.style.backgroundImage = `url('${MACBOOK_WALLPAPER}')`
     document.body.style.backgroundSize = 'cover'
     document.body.style.backgroundPosition = 'center'
     const mainEl = document.querySelector('main')
     if (mainEl) {
-        mainEl.style.backgroundImage = `url('${url}')`
+        mainEl.style.backgroundImage = `url('${MACBOOK_WALLPAPER}')`
         mainEl.style.backgroundSize = 'cover'
         mainEl.style.backgroundPosition = 'center'
-        mainEl.style.transition = 'background-image 0.5s ease-in-out'
     }
 }
 
@@ -34,9 +26,7 @@ const Navbar = () => {
     const { openWindow } = useWindowStore()
     const [audioState, setAudioState] = useState(audioEngine.getState())
     const [showSoundMenu, setShowSoundMenu] = useState(false)
-    const [showWallpaperMenu, setShowWallpaperMenu] = useState(false)
     const [showGamesMenu, setShowGamesMenu] = useState(false)
-    const [activeWallpaper, setActiveWallpaper] = useState('/images/wallpaper-sequoia.jpg')
     const [isDarkMode, setIsDarkMode] = useState(false)
 
     // Sync audio engine state
@@ -45,7 +35,7 @@ const Navbar = () => {
         return unsubscribe
     }, [])
 
-    // Initialize theme & wallpaper from localStorage or system preference
+    // Initialize theme & lock official MacBook wallpaper
     useEffect(() => {
         const savedTheme = localStorage.getItem('macos_theme')
         const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -58,53 +48,22 @@ const Navbar = () => {
             document.documentElement.classList.remove('dark')
         }
 
-        const savedWallpaper = localStorage.getItem('macos_wallpaper')
-        const defaultWallpaper = isDark ? '/images/wallpaper-monterey.jpg' : '/images/wallpaper-sequoia.jpg'
-        const initialWallpaper = savedWallpaper || defaultWallpaper
-
-        setActiveWallpaper(initialWallpaper)
-        applyWallpaperGlobal(initialWallpaper)
-        localStorage.setItem('macos_wallpaper', initialWallpaper)
+        applyWallpaperGlobal()
+        localStorage.setItem('macos_wallpaper', MACBOOK_WALLPAPER)
         localStorage.setItem('macos_theme', isDark ? 'dark' : 'light')
-        window.dispatchEvent(new CustomEvent('set-wallpaper', { detail: { url: initialWallpaper } }))
+        window.dispatchEvent(new CustomEvent('set-wallpaper', { detail: { url: MACBOOK_WALLPAPER } }))
     }, [])
 
     const toggleDarkMode = () => {
         const nextMode = !isDarkMode
         setIsDarkMode(nextMode)
-        const currentWp = localStorage.getItem('macos_wallpaper') || activeWallpaper
         if (nextMode) {
             document.documentElement.classList.add('dark')
             localStorage.setItem('macos_theme', 'dark')
-            // Switch to a dark wallpaper if current wallpaper is one of the light wallpapers
-            const isLightWp = !currentWp || currentWp.includes('sequoia') || currentWp.includes('sonoma') || currentWp.includes('ventura')
-            if (isLightWp) {
-                const darkWp = '/images/wallpaper-monterey.jpg'
-                setActiveWallpaper(darkWp)
-                localStorage.setItem('macos_wallpaper', darkWp)
-                applyWallpaperGlobal(darkWp)
-                window.dispatchEvent(new CustomEvent('set-wallpaper', { detail: { url: darkWp } }))
-            }
         } else {
             document.documentElement.classList.remove('dark')
             localStorage.setItem('macos_theme', 'light')
-            // Switch to a light wallpaper if current wallpaper is one of the dark wallpapers
-            const isDarkWp = currentWp && (currentWp.includes('monterey') || currentWp.includes('twilight') || currentWp.includes('dark'))
-            if (isDarkWp) {
-                const lightWp = '/images/wallpaper-sequoia.jpg'
-                setActiveWallpaper(lightWp)
-                localStorage.setItem('macos_wallpaper', lightWp)
-                applyWallpaperGlobal(lightWp)
-                window.dispatchEvent(new CustomEvent('set-wallpaper', { detail: { url: lightWp } }))
-            }
         }
-    }
-
-    const handleSelectWallpaper = (url) => {
-        setActiveWallpaper(url)
-        localStorage.setItem('macos_wallpaper', url)
-        applyWallpaperGlobal(url)
-        window.dispatchEvent(new CustomEvent('set-wallpaper', { detail: { url } }))
     }
 
     const triggerSurpriseNow = () => {
@@ -131,7 +90,6 @@ const Navbar = () => {
                             onClick={() => {
                                 setShowGamesMenu(!showGamesMenu)
                                 setShowSoundMenu(false)
-                                setShowWallpaperMenu(false)
                             }}
                             className='flex items-center gap-1 text-amber-300 hover:text-amber-200'
                         >
@@ -204,69 +162,11 @@ const Navbar = () => {
                     )}
                 </button>
 
-                {/* Wallpaper Gallery Dropdown Menu (Strictly macOS Official Wallpapers) */}
-                <div className='relative'>
-                    <button
-                        id='wallpaper-menu-btn'
-                        onClick={() => {
-                            setShowWallpaperMenu(!showWallpaperMenu)
-                            setShowSoundMenu(false)
-                            setShowGamesMenu(false)
-                        }}
-                        className={`p-1.5 rounded hover:bg-white/20 transition flex items-center gap-1 cursor-pointer ${
-                            showWallpaperMenu ? 'bg-white/20 text-cyan-300' : 'text-white'
-                        }`}
-                        title='Choose Official macOS 4K Wallpaper'
-                    >
-                        <Palette className='size-3.5' />
-                    </button>
-
-                    {showWallpaperMenu && (
-                        <div 
-                            className='absolute right-0 top-8 w-68 bg-gray-900/95 backdrop-blur-2xl border border-white/20 rounded-2xl p-3 shadow-2xl z-50 text-white text-xs select-none'
-                            onMouseLeave={() => setShowWallpaperMenu(false)}
-                        >
-                            <div className='flex items-center justify-between mb-2 pb-1.5 border-b border-white/10'>
-                                <span className='font-bold text-[11px] uppercase tracking-wider text-cyan-300'>Official macOS Wallpapers</span>
-                                <span className='text-[10px] text-gray-400 font-mono'>{OFFICIAL_WALLPAPERS.length} Styles</span>
-                            </div>
-                            <div className='grid grid-cols-1 gap-1.5 max-h-60 overflow-y-auto pr-1'>
-                                {OFFICIAL_WALLPAPERS.map((wp) => (
-                                    <button
-                                        key={wp.id}
-                                        data-wallpaper-id={wp.id}
-                                        onClick={() => {
-                                            handleSelectWallpaper(wp.url)
-                                            setShowWallpaperMenu(false)
-                                        }}
-                                        className={`flex items-center justify-between p-1.5 rounded-lg text-left transition cursor-pointer ${
-                                            activeWallpaper === wp.url ? 'bg-cyan-500/20 text-cyan-200 border border-cyan-400/40' : 'hover:bg-white/10 text-gray-300 hover:text-white'
-                                        }`}
-                                    >
-                                        <div className='flex items-center gap-2'>
-                                            <div 
-                                                className='w-8 h-5 rounded border border-white/30 bg-cover bg-center shrink-0'
-                                                style={{ backgroundImage: `url('${wp.url}')` }}
-                                            />
-                                            <div>
-                                                <span className='font-medium text-[11px] block truncate'>{wp.name}</span>
-                                                <span className='text-[9px] text-gray-400 uppercase'>{wp.type}</span>
-                                            </div>
-                                        </div>
-                                        {activeWallpaper === wp.url && <Check className='size-3 text-cyan-400' />}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-                </div>
-
                 {/* Reinvent-Style 30-Track Beatbox/EDM Audio Player Controller */}
                 <div className='relative'>
                     <button
                         onClick={() => {
                             setShowSoundMenu(!showSoundMenu)
-                            setShowWallpaperMenu(false)
                             setShowGamesMenu(false)
                         }}
                         className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg transition text-xs cursor-pointer ${

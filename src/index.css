@@ -8,11 +8,10 @@ body {
   overflow: hidden;
   height: 100dvh;
   background-color: #0c0d14;
-  background-image: url("/images/wallpaper-sequoia.jpg");
+  background-image: url("/images/wallpaper-sequoia.jpg") !important;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  transition: background-image 0.5s ease-in-out;
 }
 
 @theme {
@@ -36,10 +35,10 @@ body {
 @layer base {
   main {
     @apply w-dvw h-dvh overflow-hidden;
+    background-image: url("/images/wallpaper-sequoia.jpg") !important;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    transition: background-image 0.5s ease-in-out;
   }
 
   nav {
