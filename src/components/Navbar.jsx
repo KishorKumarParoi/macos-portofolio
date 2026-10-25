@@ -3,20 +3,46 @@ import useWindowStore from '#store/window'
 import dayjs from 'dayjs'
 import React, { useState, useEffect } from 'react'
 import { audioEngine } from '../utils/audioEngine'
-import { Volume2, VolumeX, Music, Moon, Sun, Gift, Play, Pause, SkipForward, SkipBack, Shuffle, Swords, Gamepad2, Lock } from 'lucide-react'
+import { Volume2, VolumeX, Music, Moon, Sun, Gift, Play, Pause, SkipForward, SkipBack, Shuffle, Swords, Gamepad2, Lock, Image as ImageIcon, RotateCw, Check } from 'lucide-react'
 
-// Official MacBook Sequoia Wallpaper (Locked as the sole macOS wallpaper)
-const MACBOOK_WALLPAPER = '/images/wallpaper-sequoia.jpg'
+// Authentic Apple MacBook Wallpapers (Extracted directly from macOS /System/Library/Desktop Pictures: 4K & 6K)
+export const MACBOOK_WALLPAPERS = [
+    {
+        id: 'sonoma-horizon',
+        name: 'macOS Sonoma Horizon',
+        badge: 'Sonoma 4K',
+        url: '/images/macbook-wallpaper-1.jpg',
+        thumb: '/images/macbook-wallpaper-1.jpg',
+        desc: 'Warm sunlit hills & horizon',
+    },
+    {
+        id: 'oceanic-blue',
+        name: 'MacBook Pro Ocean Blue',
+        badge: 'Retina 6K',
+        url: '/images/macbook-wallpaper-2.jpg',
+        thumb: '/images/macbook-wallpaper-2.jpg',
+        desc: 'Deep oceanic fluid waves',
+    },
+    {
+        id: 'royal-purple',
+        name: 'MacBook Pro Royal Purple',
+        badge: 'Retina 6K',
+        url: '/images/macbook-wallpaper-3.jpg',
+        thumb: '/images/macbook-wallpaper-3.jpg',
+        desc: 'Vibrant royal purple ribbons',
+    },
+]
 
-// Helper to apply wallpaper globally to both body and main element
-const applyWallpaperGlobal = () => {
+// Helper to apply wallpaper globally to HTML root, body and main elements
+const applyWallpaperGlobal = (url) => {
     if (typeof document === 'undefined') return
-    document.body.style.backgroundImage = `url('${MACBOOK_WALLPAPER}')`
+    document.documentElement.style.setProperty('--macos-wallpaper', `url('${url}')`)
+    document.body.style.backgroundImage = `url('${url}')`
     document.body.style.backgroundSize = 'cover'
     document.body.style.backgroundPosition = 'center'
     const mainEl = document.querySelector('main')
     if (mainEl) {
-        mainEl.style.backgroundImage = `url('${MACBOOK_WALLPAPER}')`
+        mainEl.style.backgroundImage = `url('${url}')`
         mainEl.style.backgroundSize = 'cover'
         mainEl.style.backgroundPosition = 'center'
     }
@@ -27,7 +53,29 @@ const Navbar = () => {
     const [audioState, setAudioState] = useState(audioEngine.getState())
     const [showSoundMenu, setShowSoundMenu] = useState(false)
     const [showGamesMenu, setShowGamesMenu] = useState(false)
+    const [showWallpaperMenu, setShowWallpaperMenu] = useState(false)
     const [isDarkMode, setIsDarkMode] = useState(false)
+
+    const [wallpaperIndex, setWallpaperIndex] = useState(() => {
+        if (typeof window === 'undefined') return 0
+        const saved = localStorage.getItem('macos_wallpaper_idx')
+        const parsed = parseInt(saved, 10)
+        return !isNaN(parsed) && parsed >= 0 && parsed < MACBOOK_WALLPAPERS.length ? parsed : 0
+    })
+
+    const switchWallpaper = (newIdx) => {
+        const nextIdx = (newIdx + MACBOOK_WALLPAPERS.length) % MACBOOK_WALLPAPERS.length
+        setWallpaperIndex(nextIdx)
+        const nextWp = MACBOOK_WALLPAPERS[nextIdx]
+        applyWallpaperGlobal(nextWp.url)
+        localStorage.setItem('macos_wallpaper', nextWp.url)
+        localStorage.setItem('macos_wallpaper_idx', nextIdx.toString())
+        window.dispatchEvent(new CustomEvent('set-wallpaper', { detail: { url: nextWp.url, index: nextIdx, name: nextWp.name } }))
+    }
+
+    const nextWallpaper = () => {
+        switchWallpaper(wallpaperIndex + 1)
+    }
 
     // Sync audio engine state
     useEffect(() => {
@@ -35,7 +83,36 @@ const Navbar = () => {
         return unsubscribe
     }, [])
 
-    // Initialize theme & lock official MacBook wallpaper
+    // Auto-rotate wallpapers every 75 seconds + listen for 'W' hotkey
+    useEffect(() => {
+        const rotationInterval = setInterval(() => {
+            setWallpaperIndex((prev) => {
+                const nextIdx = (prev + 1) % MACBOOK_WALLPAPERS.length
+                const nextWp = MACBOOK_WALLPAPERS[nextIdx]
+                applyWallpaperGlobal(nextWp.url)
+                localStorage.setItem('macos_wallpaper', nextWp.url)
+                localStorage.setItem('macos_wallpaper_idx', nextIdx.toString())
+                window.dispatchEvent(new CustomEvent('set-wallpaper', { detail: { url: nextWp.url, index: nextIdx, name: nextWp.name } }))
+                return nextIdx
+            })
+        }, 75000)
+
+        const handleKeyDown = (e) => {
+            if (['input', 'textarea'].includes(e.target?.tagName?.toLowerCase())) return
+            if (e.key === 'w' || e.key === 'W') {
+                e.preventDefault()
+                nextWallpaper()
+            }
+        }
+        window.addEventListener('keydown', handleKeyDown)
+
+        return () => {
+            clearInterval(rotationInterval)
+            window.removeEventListener('keydown', handleKeyDown)
+        }
+    }, [wallpaperIndex])
+
+    // Initialize theme & apply current Apple MacBook wallpaper
     useEffect(() => {
         const savedTheme = localStorage.getItem('macos_theme')
         const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -48,10 +125,12 @@ const Navbar = () => {
             document.documentElement.classList.remove('dark')
         }
 
-        applyWallpaperGlobal()
-        localStorage.setItem('macos_wallpaper', MACBOOK_WALLPAPER)
+        const currentWp = MACBOOK_WALLPAPERS[wallpaperIndex] || MACBOOK_WALLPAPERS[0]
+        applyWallpaperGlobal(currentWp.url)
+        localStorage.setItem('macos_wallpaper', currentWp.url)
+        localStorage.setItem('macos_wallpaper_idx', wallpaperIndex.toString())
         localStorage.setItem('macos_theme', isDark ? 'dark' : 'light')
-        window.dispatchEvent(new CustomEvent('set-wallpaper', { detail: { url: MACBOOK_WALLPAPER } }))
+        window.dispatchEvent(new CustomEvent('set-wallpaper', { detail: { url: currentWp.url, index: wallpaperIndex, name: currentWp.name } }))
     }, [])
 
     const toggleDarkMode = () => {

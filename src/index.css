@@ -8,10 +8,11 @@ body {
   overflow: hidden;
   height: 100dvh;
   background-color: #0c0d14;
-  background-image: url("/images/wallpaper-sequoia.jpg") !important;
+  background-image: var(--macos-wallpaper, url("/images/macbook-wallpaper-1.jpg"));
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  transition: background-image 0.7s ease-in-out;
 }
 
 @theme {
@@ -35,10 +36,11 @@ body {
 @layer base {
   main {
     @apply w-dvw h-dvh overflow-hidden;
-    background-image: url("/images/wallpaper-sequoia.jpg") !important;
+    background-image: var(--macos-wallpaper, url("/images/macbook-wallpaper-1.jpg"));
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    transition: background-image 0.7s ease-in-out;
   }
 
   nav {

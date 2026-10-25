@@ -38,9 +38,25 @@ const LockScreen = () => {
         return sessionStorage.getItem('macos_visitor_name') || ''
     })
 
+    const [wallpaperUrl, setWallpaperUrl] = useState(() => {
+        if (typeof window === 'undefined') return '/images/macbook-wallpaper-1.jpg'
+        return localStorage.getItem('macos_wallpaper') || '/images/macbook-wallpaper-1.jpg'
+    })
+
     const [currentTime, setCurrentTime] = useState(new Date())
     const [isSubmitting, setIsSubmitting] = useState(false)
     const lockScreenRef = useRef(null)
+
+    // Sync wallpaper when rotated
+    useEffect(() => {
+        const handleSetWallpaper = (e) => {
+            if (e.detail?.url) {
+                setWallpaperUrl(e.detail.url)
+            }
+        }
+        window.addEventListener('set-wallpaper', handleSetWallpaper)
+        return () => window.removeEventListener('set-wallpaper', handleSetWallpaper)
+    }, [])
 
     // Update real-time clock
     useEffect(() => {
@@ -109,7 +125,8 @@ const LockScreen = () => {
             ref={lockScreenRef}
             className='fixed inset-0 z-[100000] select-none flex flex-col justify-between p-6 sm:p-10 text-white bg-cover bg-center overflow-hidden'
             style={{
-                backgroundImage: "url('/images/wallpaper-sequoia.jpg')",
+                backgroundImage: `url('${wallpaperUrl}')`,
+                transition: 'background-image 0.7s ease-in-out',
             }}
         >
             {/* Ambient Backdrop Blur Overlay */}
