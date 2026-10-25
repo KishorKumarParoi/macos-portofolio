@@ -1,7 +1,7 @@
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import React, { useRef, useState, useEffect } from 'react'
-import { Sparkles, Star, Terminal, Cpu, ShieldCheck, Activity, Zap, Play, Pause, RefreshCw, ChevronRight, Binary } from 'lucide-react'
+import { Sparkles, Star, Terminal, Cpu, ShieldCheck, Activity, Zap, Play, Pause, RefreshCw, ChevronRight, Binary, Volume2, VolumeX, Square, RotateCcw, FastForward, Music } from 'lucide-react'
 
 const FONT_WEIGHTS = {
     subtitle: { min: 100, max: 400, default: 100 },
@@ -154,6 +154,68 @@ const Welcome = () => {
     const [isVanishing, setIsVanishing] = useState(false)
     const [isPaused, setIsPaused] = useState(false)
     const [isMinimized, setIsMinimized] = useState(false)
+
+    // Arijit Singh "Asatoma Sadgamaya" Vedic Audio State
+    const slokaAudioRef = useRef(null)
+    const [slokaPlaying, setSlokaPlaying] = useState(false)
+    const [slokaMuted, setSlokaMuted] = useState(false)
+    const [slokaVanished, setSlokaVanished] = useState(false)
+
+    useEffect(() => {
+        const audio = new Audio('/audio/asato_ma_sadgamaya.mp3')
+        audio.preload = 'auto'
+        audio.volume = 0.5
+        slokaAudioRef.current = audio
+
+        const handleEnded = () => {
+            setSlokaPlaying(false)
+            setSlokaVanished(true)
+        }
+
+        audio.addEventListener('ended', handleEnded)
+
+        return () => {
+            audio.pause()
+            audio.removeEventListener('ended', handleEnded)
+            slokaAudioRef.current = null
+        }
+    }, [])
+
+    const handleSlokaHover = () => {
+        if (slokaVanished) return
+        if (slokaAudioRef.current && !slokaPlaying) {
+            slokaAudioRef.current.play()
+                .then(() => setSlokaPlaying(true))
+                .catch((e) => console.log('Autoplay caught:', e))
+        }
+    }
+
+    const toggleSlokaPlay = (e) => {
+        e?.stopPropagation()
+        if (!slokaAudioRef.current) return
+        if (slokaPlaying) {
+            slokaAudioRef.current.pause()
+            setSlokaPlaying(false)
+        } else {
+            slokaAudioRef.current.play().then(() => setSlokaPlaying(true)).catch(console.error)
+        }
+    }
+
+    const stopSlokaAudio = (e) => {
+        e?.stopPropagation()
+        if (!slokaAudioRef.current) return
+        slokaAudioRef.current.pause()
+        slokaAudioRef.current.currentTime = 0
+        setSlokaPlaying(false)
+    }
+
+    const toggleSlokaMute = (e) => {
+        e?.stopPropagation()
+        if (!slokaAudioRef.current) return
+        const nextMute = !slokaMuted
+        slokaAudioRef.current.muted = nextMute
+        setSlokaMuted(nextMute)
+    }
 
     useEffect(() => {
         const handleUnlock = (e) => {
@@ -349,14 +411,67 @@ const Welcome = () => {
             {/* Glowing Nebula Backdrop Behind Namaste */}
             <div className='absolute -top-16 left-1/2 -translate-x-1/2 w-[520px] h-48 bg-gradient-to-r from-amber-500/20 via-pink-500/15 to-cyan-500/20 blur-3xl rounded-full pointer-events-none animate-pulse' />
 
-            {/* Improvised Vedic Sanskrit Greeting Aura Pill */}
-            <div className='relative z-10 mb-3 inline-flex items-center gap-2 px-4 py-1 rounded-full bg-black/50 border border-amber-400/35 backdrop-blur-md shadow-lg pointer-events-auto hover:border-amber-400/70 transition cursor-default group'>
-                <span className='size-2 rounded-full bg-amber-400 animate-ping' />
-                <span className='text-[11px] font-mono font-bold tracking-widest uppercase bg-gradient-to-r from-amber-200 via-yellow-300 to-amber-100 bg-clip-text text-transparent flex items-center gap-1.5'>
-                    <span>🙏 ॐ Welcome to my Digital Universe</span>
-                </span>
-                <Sparkles className='size-3 text-amber-300 group-hover:rotate-45 transition-transform' />
-            </div>
+            {/* Vedic Sanskrit Sloka Pill with Arijit Singh "Asatoma Sadgamaya" Music & Vanish */}
+            {!slokaVanished ? (
+                <div 
+                    onMouseEnter={handleSlokaHover}
+                    className='relative z-10 mb-3 inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-black/60 border border-amber-400/40 backdrop-blur-md shadow-xl pointer-events-auto hover:border-amber-400/80 transition duration-300 cursor-pointer group'
+                    title='Hover to play Arijit Singh — "Osoto ma sadgamaya" • Sloka vanishes when song completes'
+                >
+                    <span className={`size-2 rounded-full ${slokaPlaying ? 'bg-emerald-400 animate-ping' : 'bg-amber-400'}`} />
+                    <span className='text-[11px] font-mono font-bold tracking-widest uppercase bg-gradient-to-r from-amber-200 via-yellow-300 to-amber-100 bg-clip-text text-transparent flex items-center gap-1.5'>
+                        <span>🙏 ॐ असतो मा सद्गमय (Arijit Singh)</span>
+                    </span>
+                    
+                    {/* Audio Controls: Play/Pause, Stop, Mute, Fast Forward */}
+                    <div className='flex items-center gap-1 ml-1 pl-1.5 border-l border-white/20' onClick={(e) => e.stopPropagation()}>
+                        <button
+                            onClick={toggleSlokaPlay}
+                            className='p-1 rounded hover:bg-white/20 text-amber-300 transition cursor-pointer'
+                            title={slokaPlaying ? 'Pause' : 'Play Song'}
+                        >
+                            {slokaPlaying ? <Pause className='size-3 text-emerald-400' /> : <Play className='size-3' />}
+                        </button>
+                        <button
+                            onClick={stopSlokaAudio}
+                            className='p-1 rounded hover:bg-white/20 text-red-400 transition cursor-pointer'
+                            title='Stop Song'
+                        >
+                            <Square className='size-2.5 fill-current' />
+                        </button>
+                        <button
+                            onClick={toggleSlokaMute}
+                            className='p-1 rounded hover:bg-white/20 text-gray-300 transition cursor-pointer'
+                            title={slokaMuted ? 'Unmute' : 'Mute'}
+                        >
+                            {slokaMuted ? <VolumeX className='size-3 text-red-400' /> : <Volume2 className='size-3 text-cyan-300' />}
+                        </button>
+                        <button
+                            onClick={() => {
+                                if (slokaAudioRef.current?.duration) {
+                                    slokaAudioRef.current.currentTime = Math.max(0, slokaAudioRef.current.duration - 2)
+                                    if (!slokaPlaying) slokaAudioRef.current.play().then(() => setSlokaPlaying(true))
+                                }
+                            }}
+                            className='p-1 rounded hover:bg-white/20 text-amber-300/80 transition cursor-pointer'
+                            title='Test Vanish (Fast Forward to End)'
+                        >
+                            <FastForward className='size-2.5' />
+                        </button>
+                    </div>
+                </div>
+            ) : (
+                <button
+                    onClick={() => {
+                        setSlokaVanished(false)
+                        if (slokaAudioRef.current) slokaAudioRef.current.currentTime = 0
+                    }}
+                    className='relative z-10 mb-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/50 border border-amber-400/30 text-amber-300 text-[10px] font-mono shadow-md hover:border-amber-400 transition cursor-pointer pointer-events-auto'
+                >
+                    <RotateCcw className='size-2.5' />
+                    <span>ॐ शान्तिः (Mantra Completed) • Click to Re-summon Sloka</span>
+                </button>
+            )}
 
             {/* Sparkling Shimmering Namaste Text with Character Hover */}
             <div className='relative z-10 flex items-center justify-center gap-2.5 pointer-events-auto'>
