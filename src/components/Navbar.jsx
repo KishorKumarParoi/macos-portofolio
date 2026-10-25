@@ -241,7 +241,7 @@ const Navbar = () => {
                     id='theme-toggle-btn'
                     onClick={toggleDarkMode}
                     className='p-1.5 rounded-lg hover:bg-white/20 transition text-white flex items-center justify-center cursor-pointer'
-                    title={isDarkMode ? 'Switch to macOS Light Mode (Sequoia)' : 'Switch to macOS Dark Mode (Monterey)'}
+                    title={isDarkMode ? 'Switch to macOS Light Mode' : 'Switch to macOS Dark Mode'}
                 >
                     {isDarkMode ? (
                         <Moon className='size-3.5 text-cyan-300 fill-cyan-400/30' />
@@ -249,6 +249,90 @@ const Navbar = () => {
                         <Sun className='size-3.5 text-amber-300 fill-amber-300/30' />
                     )}
                 </button>
+
+                {/* 3 Native Apple MacBook Wallpapers Rotator Button & Dropdown */}
+                <div className='relative'>
+                    <button
+                        onClick={() => {
+                            setShowWallpaperMenu(!showWallpaperMenu)
+                            setShowSoundMenu(false)
+                            setShowGamesMenu(false)
+                        }}
+                        className='flex items-center gap-1.5 px-2 py-1 rounded-lg hover:bg-white/20 transition text-white text-xs cursor-pointer'
+                        title={`Current Wallpaper: ${MACBOOK_WALLPAPERS[wallpaperIndex]?.name} — Click to choose or rotate [W]`}
+                    >
+                        <ImageIcon className='size-3.5 text-pink-300' />
+                        <span className='hidden sm:inline text-[11px] font-medium text-pink-200/90'>
+                            {wallpaperIndex + 1}/3
+                        </span>
+                    </button>
+
+                    {showWallpaperMenu && (
+                        <div
+                            className='absolute right-0 top-8 w-68 bg-gray-900/95 backdrop-blur-2xl border border-white/20 rounded-2xl p-3 shadow-2xl z-50 text-white text-xs select-none'
+                            onMouseLeave={() => setShowWallpaperMenu(false)}
+                        >
+                            <div className='flex items-center justify-between pb-2 mb-2 border-b border-white/10'>
+                                <div className='flex items-center gap-1.5 font-bold text-pink-300 text-[11px]'>
+                                    <ImageIcon className='size-3.5 text-pink-400' />
+                                    <span>Apple MacBook Wallpapers</span>
+                                </div>
+                                <button
+                                    onClick={nextWallpaper}
+                                    className='flex items-center gap-1 px-2 py-0.5 rounded bg-pink-500/20 hover:bg-pink-500/30 text-[10px] text-pink-200 border border-pink-400/40 transition cursor-pointer'
+                                    title='Rotate Next [W]'
+                                >
+                                    <RotateCw className='size-2.5 text-pink-300' />
+                                    <span>Rotate</span>
+                                </button>
+                            </div>
+
+                            <p className='text-[10px] text-gray-400 mb-2'>
+                                Auto-rotates every 75s • Select to switch:
+                            </p>
+
+                            <div className='space-y-1.5'>
+                                {MACBOOK_WALLPAPERS.map((wp, idx) => (
+                                    <button
+                                        key={wp.id}
+                                        onClick={() => {
+                                            switchWallpaper(idx)
+                                            setShowWallpaperMenu(false)
+                                        }}
+                                        className={`w-full flex items-center gap-2.5 p-1.5 rounded-xl border text-left transition cursor-pointer ${
+                                            wallpaperIndex === idx
+                                                ? 'bg-pink-500/20 border-pink-400/60 text-white shadow-xs'
+                                                : 'border-white/10 hover:bg-white/10 text-gray-300'
+                                        }`}
+                                    >
+                                        <img
+                                            src={wp.thumb}
+                                            alt={wp.name}
+                                            className='size-9 rounded-lg object-cover border border-white/20 shrink-0'
+                                        />
+                                        <div className='flex-1 min-w-0'>
+                                            <div className='flex items-center justify-between'>
+                                                <span className='font-semibold text-xs truncate'>{wp.name}</span>
+                                                <span className='text-[9px] font-mono px-1 py-0.5 rounded bg-white/10 text-gray-300 ml-1'>
+                                                    {wp.badge}
+                                                </span>
+                                            </div>
+                                            <p className='text-[10px] text-gray-400 truncate'>{wp.desc}</p>
+                                        </div>
+                                        {wallpaperIndex === idx && (
+                                            <Check className='size-3.5 text-pink-400 shrink-0' />
+                                        )}
+                                    </button>
+                                ))}
+                            </div>
+
+                            <div className='mt-2.5 pt-2 border-t border-white/10 flex items-center justify-between text-[9px] text-gray-400 font-mono'>
+                                <span>100% Genuine Apple macOS</span>
+                                <span className='text-pink-300 font-semibold'>Hotkey [W]</span>
+                            </div>
+                        </div>
+                    )}
+                </div>
 
                 {/* Reinvent-Style 30-Track Beatbox/EDM Audio Player Controller */}
                 <div className='relative'>
