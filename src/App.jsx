@@ -1,4 +1,4 @@
-import { DesktopFooter, Dock, Navbar, Welcome, NotificationCenter } from '#components'
+import { DesktopFooter, Dock, Navbar, Welcome, NotificationCenter, LockScreen } from '#components'
 import React from 'react'
 import gsap from 'gsap'
 import { Finder, Resume, Safari, Terminal, Text, Image, Contact, Home, Chess, ClashDefense, AgentChat } from '#windows'
@@ -9,6 +9,7 @@ gsap.registerPlugin(Draggable)
 const App = () => {
   return (
     <main>
+      <LockScreen />
       <Navbar />
       <NotificationCenter />
       <Welcome />

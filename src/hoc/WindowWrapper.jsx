@@ -93,7 +93,7 @@ const WindowWrapper = (Component, windowKey) => {
                 ref={ref}
                 style={{ zIndex }}
                 onMouseDown={() => focusWindow(windowKey)}
-                className={`absolute transition-shadow ${isMaximized ? 'shadow-none' : 'shadow-2xl'}`}
+                className={`absolute will-change-transform transition-shadow ${isMaximized ? 'shadow-none' : 'shadow-2xl'}`}
             >
                 <Component {...props} isMaximized={isMaximized} />
             </section>

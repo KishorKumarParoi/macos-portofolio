@@ -3,7 +3,7 @@ import useWindowStore from '#store/window'
 import dayjs from 'dayjs'
 import React, { useState, useEffect } from 'react'
 import { audioEngine } from '../utils/audioEngine'
-import { Volume2, VolumeX, Music, Moon, Sun, Gift, Play, Pause, SkipForward, SkipBack, Shuffle, Swords, Gamepad2 } from 'lucide-react'
+import { Volume2, VolumeX, Music, Moon, Sun, Gift, Play, Pause, SkipForward, SkipBack, Shuffle, Swords, Gamepad2, Lock } from 'lucide-react'
 
 // Official MacBook Sequoia Wallpaper (Locked as the sole macOS wallpaper)
 const MACBOOK_WALLPAPER = '/images/wallpaper-sequoia.jpg'
@@ -146,6 +146,15 @@ const Navbar = () => {
                 >
                     <Gift className='size-3 text-amber-300 animate-pulse' />
                     <span>2m Surprise</span>
+                </button>
+
+                {/* macOS Lock Screen Button */}
+                <button
+                    onClick={() => window.dispatchEvent(new CustomEvent('lock-macos'))}
+                    className='p-1.5 rounded-lg hover:bg-white/20 transition text-white flex items-center justify-center cursor-pointer'
+                    title='Lock Screen (Return to MacBook Login Screen)'
+                >
+                    <Lock className='size-3.5 text-white/80 hover:text-white' />
                 </button>
 
                 {/* macOS Dark Mode / Light Mode Toggle */}

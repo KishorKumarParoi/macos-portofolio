@@ -303,11 +303,16 @@ const KNOWLEDGE_BASE = [
 
 const AgentChat = ({ isMaximized }) => {
     const { toggleMaximize } = useWindowStore()
+    const visitorName = typeof window !== 'undefined' ? sessionStorage.getItem('macos_visitor_name') : ''
+    const greetingHeader = visitorName && visitorName !== 'Guest Explorer'
+        ? `Hello **${visitorName}**! Welcome to the system.`
+        : "Hello! Welcome to Kishor's Operating System."
+
     const [messages, setMessages] = useState([
         {
             id: 1,
             sender: 'bot',
-            text: "Hello! I am **Nexus AI Agent**, an autonomous enterprise assistant protected by **BotShield WAF** and **NVIDIA NeMo Guardrails**.\n\nAsk me anything about Kishor's **15 flagship architectures**, **work experience** (phi0.ai, Samsung AI Core, KoomAI), **resume metrics**, **technical stack**, or ask to **inspect any architecture diagram**!",
+            text: `${greetingHeader} I am **Nexus AI Agent**, an autonomous enterprise assistant protected by **BotShield WAF** and **NVIDIA NeMo Guardrails**.\n\nAsk me anything about Kishor's **15 flagship architectures**, **work experience** (phi0.ai, Samsung AI Core, KoomAI), **resume metrics**, **technical stack**, or ask to **inspect any architecture diagram**!`,
             trace: [
                 '🛡️ BotShield WAF: Ingress Inspection 0 probes',
                 '⚡ Semantic Cache: Redis Warm in 8ms',
@@ -461,7 +466,7 @@ Kishor approaches this challenge through the lens of **Enterprise AI Systems Arc
             className={`flex flex-col bg-[#14141b] text-gray-200 select-none font-sans transition-all duration-200 relative ${
                 isMaximized 
                     ? 'w-full h-[calc(100vh-80px)] rounded-none' 
-                    : 'w-[780px] max-w-[96vw] h-[580px] max-h-[84vh] min-w-[380px] min-h-[420px] resize overflow-hidden rounded-xl border border-white/10 shadow-2xl'
+                    : 'w-full h-[580px] max-h-[82vh] overflow-hidden rounded-2xl border border-white/10 shadow-2xl'
             }`}
         >
             {/* Modal for full-screen image preview */}
