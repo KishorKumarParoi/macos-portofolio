@@ -75,12 +75,33 @@ const Contact = () => {
         if (!formData.message.trim()) return
 
         setIsSending(true)
+
+        const senderName = formData.name.trim() || 'Portfolio Visitor'
+        const senderEmail = formData.email.trim() || 'Not specified'
+        const subject = encodeURIComponent(`Portfolio Inquiry from ${senderName}`)
+        const body = encodeURIComponent(
+            `Hi Kishor,\n\n${formData.message.trim()}\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nSender Name: ${senderName}\nSender Email: ${senderEmail}\nPlatform: macOS Web OS Portfolio (https://kishor.tech)\nSent At: ${new Date().toLocaleString()}`
+        )
+        const recipient = 'Kishor.ruet.cse@gmail.com'
+        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${recipient}&su=${subject}&body=${body}`
+        const mailtoUrl = `mailto:${recipient}?subject=${subject}&body=${body}`
+
+        // Trigger direct email popup window to Kishor's mail
+        try {
+            const popup = window.open(gmailUrl, '_blank', 'width=800,height=650,left=150,top=100,scrollbars=yes,resizable=yes')
+            if (!popup || popup.closed || typeof popup.closed === 'undefined') {
+                window.location.href = mailtoUrl
+            }
+        } catch {
+            window.location.href = mailtoUrl
+        }
+
         setTimeout(() => {
             setIsSending(false)
             setSendSuccess(true)
             setFormData({ name: '', email: '', message: '' })
-            setTimeout(() => setSendSuccess(false), 5000)
-        }, 900)
+            setTimeout(() => setSendSuccess(false), 6000)
+        }, 700)
     }
 
     const currentQuote = LEGENDARY_QUOTES[quoteIndex]
@@ -116,7 +137,7 @@ const Contact = () => {
                         <div className='relative group shrink-0'>
                             <div className='absolute -inset-1 bg-gradient-to-r from-amber-400 via-pink-500 to-cyan-400 rounded-full opacity-80 group-hover:opacity-100 blur-sm transition duration-500' />
                             <img
-                                src='/images/Kishor.jpeg'
+                                src='/images/profile-kishor.jpg'
                                 alt='Kishor Kumar Paroi'
                                 className='relative size-20 rounded-full object-cover border-2 border-white/40 shadow-xl'
                             />
@@ -322,11 +343,11 @@ const Contact = () => {
 
                     <div className='flex items-center justify-between pt-1'>
                         {sendSuccess ? (
-                            <span className='text-[11px] text-emerald-400 font-bold flex items-center gap-1'>
-                                <Check className='size-3.5' /> Message dispatched to Kishor's priority inbox!
+                            <span className='text-[11px] text-emerald-400 font-bold flex items-center gap-1 animate-pulse'>
+                                <Check className='size-3.5' /> Email composer popped up! Directly sending to Kishor.ruet.cse@gmail.com
                             </span>
                         ) : (
-                            <span className='text-[10px] text-gray-500'>Responses within 2-4 hours.</span>
+                            <span className='text-[10px] text-gray-500'>Directly opens email compose with pre-filled message.</span>
                         )}
                         <button
                             type='submit'
