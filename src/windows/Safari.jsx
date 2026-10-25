@@ -35,7 +35,7 @@ const Safari = () => {
             </div>
 
             <div className='blog'>
-                <h2>My Developer Blog</h2>
+                <h2>Flagship Production Architectures &amp; Engineering Articles (15 Flagship Systems)</h2>
 
                 <div className='space-y-8'>
                     {

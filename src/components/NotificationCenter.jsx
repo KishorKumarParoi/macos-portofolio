@@ -44,7 +44,7 @@ const NotificationCenter = () => {
         }
     }
 
-    // Trigger 2-Minute Surprise — User can choose to play now or dismiss & play later
+    // Trigger 2-Minute Surprise — User can choose to play now or dismiss & keep closed
     const triggerSurprise = () => {
         if (surpriseTriggeredRef.current) return
         if (sessionStorage.getItem('macos_chess_surprise_shown')) return
@@ -59,11 +59,11 @@ const NotificationCenter = () => {
             intervalRef.current = null
         }
 
-        // Fire Surprise notification without force-opening windows
+        // Fire Surprise notification with Accept / Ignore actions (chess NEVER opens if ignored)
         pushNotification({
             icon: '♟️',
-            title: '2-Minute Surprise: 5-Min Blitz Chess Challenge!',
-            subtitle: 'You unlocked the 5-Minute Blitz Chess AI! Win against the Minimax AI to claim a virtual MacBook! Click Accept to play now, or Ignore to keep it closed.',
+            title: '🎉 2-Minute Surprise: 5-Minute Blitz Chess!',
+            subtitle: 'Your 2 minutes are up! Would you like to start the 5-Minute Blitz Chess challenge against Minimax AI? Win to claim bragging rights and a virtual MacBook!',
             type: 'challenge',
             persistent: true,
             actions: [
@@ -73,9 +73,11 @@ const NotificationCenter = () => {
                     onClick: () => openWindow('chess'),
                 },
                 {
-                    label: 'Ignore / Keep Closed',
+                    label: 'Ignore / Keep Closed ✕',
                     primary: false,
-                    onClick: () => {},
+                    onClick: () => {
+                        sessionStorage.setItem('macos_chess_surprise_ignored', 'true')
+                    },
                 },
             ],
         })
@@ -94,17 +96,18 @@ const NotificationCenter = () => {
             welcomeTimer = setTimeout(() => {
                 pushNotification({
                     icon: '🎁',
-                    title: 'Surprise in 2 Minutes!',
-                    subtitle: 'A special surprise unlocks in 2 minutes! In the meantime, explore the portfolio, projects, and terminal.',
+                    title: 'Surprise in 2 Minutes! ⏳',
+                    subtitle: 'A special surprise unlocks in 2 minutes! If you accept, a 5-minute Blitz Chess challenge will begin. You can explore the portfolio, terminal, or launch games anytime from the Dock.',
                     type: 'info',
+                    persistent: false,
                     actions: [
                         {
-                            label: 'Preview Surprise ⚡',
+                            label: 'Got it, looking forward! 👍',
                             primary: true,
-                            onClick: () => triggerSurprise(),
+                            onClick: () => {},
                         },
                         {
-                            label: 'Got it',
+                            label: 'Dismiss',
                             primary: false,
                             onClick: () => {},
                         },

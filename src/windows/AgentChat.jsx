@@ -264,7 +264,8 @@ const KNOWLEDGE_BASE = [
 • **Live Games Suite:** Minimax Blitz Chess AI (5-minute clock) and Clash of Villages RTS defense simulation.
 • **Nexus AI Agent:** Autonomous LangGraph chat interface with BotShield WAF, semantic caching, and FastMCP sandboxing.
 • **Apple Official 4K Wallpaper:** Locked Sequoia 4K wallpaper with dynamic Dark/Light mode theme switching.
-• **Live Platform:** [macos-portofolio.vercel.app](https://macos-portofolio.vercel.app/)`,
+• **Live Platform:** [https://macos-portofolio-virid.vercel.app/](https://macos-portofolio-virid.vercel.app/)
+• **GitHub Repository:** [KishorKumarParoi/macos-portofolio](https://github.com/KishorKumarParoi/macos-portofolio)`,
     },
     {
         id: 'contact',
@@ -333,8 +334,9 @@ const AgentChat = ({ isMaximized }) => {
         setTimeout(() => setCopiedIndex(null), 2000)
     }
 
-    const handleSend = (queryText = input) => {
-        const query = (queryText || '').trim()
+    const handleSend = (queryText) => {
+        const rawText = typeof queryText === 'string' ? queryText : input
+        const query = (rawText || '').trim()
         if (!query) return
 
         const userMsg = {
@@ -650,24 +652,29 @@ Kishor approaches this challenge through the lens of **Enterprise AI Systems Arc
                 ))}
             </div>
 
-            {/* Input Box */}
-            <div className='p-3 bg-[#1e1e28] border-t border-gray-800 flex items-center gap-2'>
+            {/* Input Form */}
+            <form 
+                onSubmit={(e) => {
+                    e.preventDefault()
+                    handleSend(input)
+                }} 
+                className='p-3 bg-[#1e1e28] border-t border-gray-800 flex items-center gap-2'
+            >
                 <input
                     type='text'
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                     placeholder='Ask about Kishor&apos;s architectures, metrics, experience, or ask for diagrams...'
                     className='flex-1 bg-black/40 border border-gray-700/80 rounded-xl px-3.5 py-2 text-xs text-white placeholder-gray-500 focus:outline-hidden focus:border-cyan-400/70 transition'
                 />
                 <button
-                    onClick={() => handleSend()}
+                    type='submit'
                     disabled={!input.trim()}
                     className='p-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 disabled:opacity-40 text-black font-bold transition shadow-md cursor-pointer'
                 >
                     <Send className='size-4' />
                 </button>
-            </div>
+            </form>
         </div>
     )
 }
