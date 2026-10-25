@@ -13,6 +13,7 @@ const Finder = () => {
     const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'list'
 
     const openItem = (item) => {
+        if (!item) return;
         if (item.windowKey) return openWindow(item.windowKey);
         if (item.fileType === 'pdf') return openWindow("resume");
         if (item.kind === 'folder') {
@@ -26,6 +27,9 @@ const Finder = () => {
 
         if (["txt", "md"].includes(item.fileType))
             return openWindow('txtfile', item);
+
+        if (["png", "jpg", "jpeg", "webp", "gif"].includes(item.fileType) || item.fileType === 'img')
+            return openWindow('imgfile', item);
 
         openWindow(`${item.fileType}${item.kind}`, item);
     }
@@ -132,7 +136,8 @@ const Finder = () => {
                         {
                             Array.isArray(activeLocation?.children) && activeLocation.children.map((item) => (
                                 <li key={item.id} className={item.position}
-                                    onClick={() => openItem(item)}>
+                                    onClick={() => openItem(item)}
+                                    onDoubleClick={() => openItem(item)}>
                                     <img src={item.icon} alt={item.name} />
                                     <p className='text-xs font-medium text-gray-800 text-center max-w-[110px] break-words'>{item.name}</p>
                                 </li>

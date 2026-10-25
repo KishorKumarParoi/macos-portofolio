@@ -34,13 +34,15 @@ const EAGLE_WING_POSITIONS = [
 ]
 
 const Home = () => {
-    const { openWindow } = useWindowStore()
+    const { openWindow, focusWindow } = useWindowStore()
     const { setActiveLocation } = useLocationStore()
     const containerRef = useRef(null)
 
     const handleOpenProjectFinder = (project) => {
+        if (!project) return
         setActiveLocation(project)
         openWindow('finder')
+        focusWindow('finder')
     }
 
     useGSAP(() => {
@@ -51,6 +53,14 @@ const Home = () => {
             cursor: 'grab',
             activeCursor: 'grabbing',
             zIndexBoost: true,
+            dragClickables: false,
+            onClick: function () {
+                const id = this.target.getAttribute('data-project-id')
+                const proj = projects.find((p) => String(p.id) === String(id))
+                if (proj) {
+                    handleOpenProjectFinder(proj)
+                }
+            },
         })
     }, [])
 
@@ -96,7 +106,15 @@ const Home = () => {
                     return (
                         <li
                             key={project.id}
-                            onClick={() => handleOpenProjectFinder(project)}
+                            data-project-id={project.id}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                handleOpenProjectFinder(project)
+                            }}
+                            onDoubleClick={(e) => {
+                                e.stopPropagation()
+                                handleOpenProjectFinder(project)
+                            }}
                             className={clsx(
                                 'group folder absolute select-none flex items-center flex-col cursor-pointer transition-transform hover:scale-105 active:scale-95',
                                 pos.wing === 'left' ? 'items-start sm:items-center' : 'items-end sm:items-center'
@@ -105,9 +123,9 @@ const Home = () => {
                                 top: pos.top,
                                 left: pos.left,
                             }}
-                            title={`${project.name} (Click to open project in Finder)`}
+                            title={`${project.name} (Click or double-click to open in Finder)`}
                         >
-                            <div className='relative flex flex-col items-center'>
+                            <div className='relative flex flex-col items-center pointer-events-none'>
                                 <div className='relative'>
                                     <img
                                         src='/images/folder.png'
