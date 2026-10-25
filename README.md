@@ -129,7 +129,7 @@ This repository is optimized for zero-configuration continuous deployment on the
 
 **Kishor Kumar Paroi**  
 *Principal AI Systems Architect | Enterprise Platform & Distributed Systems Leader*  
-- 🌐 **macOS Portfolio:** [macos-portofolio.vercel.app](https://macos-portofolio.vercel.app/)  
+- 🌐 **macOS Portfolio:** [macos-portofolio.vercel.app](https://macos-portofolio-virid.vercel.app/)  
 - 🚀 **3D Interactive Portfolio:** [re-invent-rust.vercel.app](https://re-invent-rust.vercel.app/)  
 - 💼 **LinkedIn:** [linkedin.com/in/kishor-kumar-paroi-b06344166](https://www.linkedin.com/in/kishor-kumar-paroi-b06344166/)  
 - 🐙 **GitHub:** [github.com/KishorKumarParoi](https://github.com/KishorKumarParoi)  
