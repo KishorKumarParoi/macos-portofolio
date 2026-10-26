@@ -5,12 +5,89 @@ import useLocationStore from '#store/location'
 import useWindowStore from '#store/window'
 import clsx from 'clsx'
 import { ArrowLeft, SearchIcon, LayoutGrid, List } from 'lucide-react'
-import { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 
-const Finder = () => {
+const Finder = ({ isMaximized }) => {
     const { openWindow } = useWindowStore();
     const { activeLocation, setActiveLocation } = useLocationStore();
     const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'list'
+
+    // Resizable middle border line (sidebar width)
+    const [sidebarWidth, setSidebarWidth] = useState(() => {
+        if (typeof window === 'undefined') return 200;
+        const saved = localStorage.getItem('macos_finder_sidebar_w');
+        const parsed = parseInt(saved, 10);
+        return !isNaN(parsed) && parsed >= 130 && parsed <= 380 ? parsed : 200;
+    });
+
+    // Resizable Finder Window Dimensions (Screen Size)
+    const [finderSize, setFinderSize] = useState(() => {
+        if (typeof window === 'undefined') return { width: 820, height: 520 };
+        const savedW = parseInt(localStorage.getItem('macos_finder_w'), 10);
+        const savedH = parseInt(localStorage.getItem('macos_finder_h'), 10);
+        return {
+            width: !isNaN(savedW) && savedW >= 500 ? savedW : 820,
+            height: !isNaN(savedH) && savedH >= 340 ? savedH : 520,
+        };
+    });
+
+    const isResizingSidebar = useRef(false);
+    const isResizingWindow = useRef(false);
+
+    // Sidebar Middle Border Resizing Handler
+    const handleSidebarResizeStart = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        isResizingSidebar.current = true;
+        const startX = e.clientX;
+        const startW = sidebarWidth;
+
+        const onMouseMove = (moveEvent) => {
+            if (!isResizingSidebar.current) return;
+            const delta = moveEvent.clientX - startX;
+            const newW = Math.max(130, Math.min(startW + delta, 380));
+            setSidebarWidth(newW);
+            localStorage.setItem('macos_finder_sidebar_w', newW.toString());
+        };
+
+        const onMouseUp = () => {
+            isResizingSidebar.current = false;
+            window.removeEventListener('mousemove', onMouseMove);
+            window.removeEventListener('mouseup', onMouseUp);
+        };
+
+        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('mouseup', onMouseUp);
+    };
+
+    // Finder Window Bottom-Right Corner Resizing Handler
+    const handleWindowResizeStart = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        isResizingWindow.current = true;
+        const startX = e.clientX;
+        const startY = e.clientY;
+        const startW = finderSize.width;
+        const startH = finderSize.height;
+
+        const onMouseMove = (moveEvent) => {
+            if (!isResizingWindow.current) return;
+            const newW = Math.max(480, Math.min(startW + (moveEvent.clientX - startX), window.innerWidth - 30));
+            const newH = Math.max(340, Math.min(startH + (moveEvent.clientY - startY), window.innerHeight - 80));
+            setFinderSize({ width: newW, height: newH });
+            localStorage.setItem('macos_finder_w', newW.toString());
+            localStorage.setItem('macos_finder_h', newH.toString());
+        };
+
+        const onMouseUp = () => {
+            isResizingWindow.current = false;
+            window.removeEventListener('mousemove', onMouseMove);
+            window.removeEventListener('mouseup', onMouseUp);
+        };
+
+        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('mouseup', onMouseUp);
+    };
 
     const openItem = (item) => {
         if (!item) return;
@@ -56,7 +133,7 @@ const Finder = () => {
 
     const getItemDate = (item) => {
         if (item.date) return item.date;
-        return 'Oct 24, 2026';
+        return 'Oct 26, 2026';
     }
 
     const renderList = (name, items) => (
@@ -82,36 +159,43 @@ const Finder = () => {
     )
 
     return (
-        <>
-            <div id='window-header'>
+        <div 
+            className='relative flex flex-col overflow-hidden rounded-xl border border-gray-200 dark:border-white/10 shadow-2xl transition-all'
+            style={{
+                width: isMaximized ? '100%' : `${finderSize.width}px`,
+                height: isMaximized ? '100%' : `${finderSize.height}px`,
+            }}
+        >
+            {/* Finder Header Bar */}
+            <div id='window-header' className='shrink-0'>
                 <div className='flex items-center gap-2'>
                     <WindowControls target="finder" />
                     {activeLocation?._parent && (
                         <button
                             onClick={() => setActiveLocation(activeLocation._parent)}
-                            className='p-1 rounded hover:bg-gray-200/60 text-gray-700 transition flex items-center ml-2'
+                            className='p-1 rounded hover:bg-gray-200/60 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300 transition flex items-center ml-2 cursor-pointer'
                             title='Back'
                         >
                             <ArrowLeft className='size-3.5' />
                         </button>
                     )}
-                    <span className='window-title font-medium truncate max-w-[240px] text-gray-800 text-xs ml-1'>
+                    <span className='window-title font-medium truncate max-w-[240px] text-gray-800 dark:text-gray-200 text-xs ml-1'>
                         {activeLocation?.name ? `Finder — ${activeLocation.name}` : "Finder"}
                     </span>
                 </div>
 
                 {/* View Mode Toggle: Grid vs List */}
-                <div className='flex items-center gap-1 bg-gray-200/80 p-0.5 rounded-md'>
+                <div className='flex items-center gap-1 bg-gray-200/80 dark:bg-gray-800 p-0.5 rounded-md'>
                     <button
                         onClick={() => setViewMode('grid')}
-                        className={`p-1 rounded transition ${viewMode === 'grid' ? 'bg-white text-gray-900 shadow-xs' : 'text-gray-500 hover:text-gray-900'}`}
+                        className={`p-1 rounded transition cursor-pointer ${viewMode === 'grid' ? 'bg-white dark:bg-black text-gray-900 dark:text-white shadow-xs' : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'}`}
                         title="Grid View (Icons)"
                     >
                         <LayoutGrid className='size-3.5' />
                     </button>
                     <button
                         onClick={() => setViewMode('list')}
-                        className={`p-1 rounded transition ${viewMode === 'list' ? 'bg-white text-gray-900 shadow-xs' : 'text-gray-500 hover:text-gray-900'}`}
+                        className={`p-1 rounded transition cursor-pointer ${viewMode === 'list' ? 'bg-white dark:bg-black text-gray-900 dark:text-white shadow-xs' : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'}`}
                         title="List View (Details)"
                     >
                         <List className='size-3.5' />
@@ -122,7 +206,7 @@ const Finder = () => {
             </div>
 
             {/* Mobile Quick Location Chips */}
-            <div className='flex sm:hidden overflow-x-auto gap-1.5 px-3 py-1.5 bg-gray-100/90 dark:bg-black border-b border-gray-200 dark:border-white/10 text-xs'>
+            <div className='flex sm:hidden overflow-x-auto gap-1.5 px-3 py-1.5 bg-gray-100/90 dark:bg-black border-b border-gray-200 dark:border-white/10 text-xs shrink-0'>
                 {Object.values(locations).map((loc) => (
                     <button
                         key={loc.id}
@@ -137,28 +221,43 @@ const Finder = () => {
                 ))}
             </div>
 
-            <div className='bg-white dark:bg-black flex h-full'>
-                <div className='sidebar hidden sm:flex dark:bg-[#050508]'>
-                    {
-                        renderList("Favorites", Object.values(locations))
-                    }
-                    {
-                        renderList("Work", locations.work.children)
-                    }
+            {/* Finder Body with Resizable Middle Border Divider */}
+            <div className='bg-white dark:bg-black flex flex-1 min-h-0 overflow-hidden'>
+                {/* Sidebar with dynamically adjustable width */}
+                <div 
+                    className='sidebar hidden sm:flex dark:bg-[#050508] shrink-0 overflow-y-auto'
+                    style={{ width: `${sidebarWidth}px` }}
+                >
+                    {renderList("Favorites", Object.values(locations))}
+                    {renderList("Work", locations.work.children)}
                 </div>
 
+                {/* 🪟 Resizable Middle Border Separator Line */}
+                <div
+                    onMouseDown={handleSidebarResizeStart}
+                    onDoubleClick={() => setSidebarWidth(200)}
+                    className='hidden sm:flex items-center justify-center w-1 hover:w-1.5 bg-gray-200 dark:bg-white/10 hover:bg-blue-500 dark:hover:bg-blue-500 active:bg-blue-600 cursor-col-resize transition-all select-none shrink-0 group'
+                    title='Drag left/right to resize sidebar • Double-click to reset (200px)'
+                >
+                    <div className='w-0.5 h-8 bg-gray-400 dark:bg-white/40 rounded-full opacity-0 group-hover:opacity-100 transition' />
+                </div>
+
+                {/* Main Content Pane */}
                 {viewMode === 'grid' ? (
-                    <ul className='content relative overflow-auto dark:bg-black'>
-                        {
-                            Array.isArray(activeLocation?.children) && activeLocation.children.map((item) => (
-                                <li key={item.id} className={item.position}
-                                    onClick={() => openItem(item)}
-                                    onDoubleClick={() => openItem(item)}>
-                                    <img src={item.icon} alt={item.name} />
-                                    <p className='text-[10.5px] font-medium text-gray-800 dark:text-gray-200 text-center w-28 max-w-[130px] line-clamp-3 leading-snug break-words'>{item.name}</p>
-                                </li>
-                            ))
-                        }
+                    <ul className='content flex-1 p-4 sm:p-6 bg-white dark:bg-black relative overflow-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 auto-rows-max'>
+                        {Array.isArray(activeLocation?.children) && activeLocation.children.map((item) => (
+                            <li 
+                                key={item.id} 
+                                onClick={() => openItem(item)}
+                                onDoubleClick={() => openItem(item)}
+                                className='flex flex-col items-center justify-center p-2.5 rounded-xl cursor-pointer hover:bg-gray-100 dark:hover:bg-white/10 active:scale-95 transition text-center group'
+                            >
+                                <img src={item.icon} alt={item.name} className='size-12 object-contain group-hover:scale-105 transition drop-shadow-md' />
+                                <p className='text-[10.5px] font-medium text-gray-800 dark:text-gray-200 text-center w-28 max-w-[130px] line-clamp-3 leading-snug break-words mt-1'>
+                                    {item.name}
+                                </p>
+                            </li>
+                        ))}
                     </ul>
                 ) : (
                     /* macOS List View Table */
@@ -195,17 +294,30 @@ const Finder = () => {
             </div>
 
             {/* Finder Footer Status Bar */}
-            <div className='flex items-center justify-between px-3 py-1 bg-gray-100/90 dark:bg-[#08080c] border-t border-gray-200 dark:border-white/10 text-[11px] text-gray-500 dark:text-gray-400 select-none'>
+            <div className='flex items-center justify-between px-3 py-1 bg-gray-100/90 dark:bg-[#08080c] border-t border-gray-200 dark:border-white/10 text-[11px] text-gray-500 dark:text-gray-400 select-none shrink-0'>
                 <span>{Array.isArray(activeLocation?.children) ? activeLocation.children.length : 0} items, 412.8 GB available</span>
                 <span className='flex items-center gap-1.5 font-medium'>
                     <span className='w-1.5 h-1.5 rounded-full bg-emerald-500'></span>
-                    <span>Synchronized</span>
+                    <span>macOS Finder Resizable • Sidebar: {sidebarWidth}px</span>
                 </span>
             </div>
-        </>
+
+            {/* ↘️ Bottom-Right Corner Screen Size Resizer Handle */}
+            {!isMaximized && (
+                <div
+                    onMouseDown={handleWindowResizeStart}
+                    className='absolute bottom-0 right-0 size-4 cursor-nwse-resize z-50 flex items-end justify-end p-0.5 select-none opacity-40 hover:opacity-100 transition'
+                    title='Drag to resize Finder window'
+                >
+                    <svg className='size-2.5 text-gray-500 dark:text-gray-300' viewBox='0 0 10 10' fill='currentColor'>
+                        <path d='M9 1L1 9h8V1z' />
+                    </svg>
+                </div>
+            )}
+        </div>
     )
 }
 
 const FinderWindow = WindowWrapper(Finder, 'finder')
 
-export default FinderWindow;
+export default FinderWindow

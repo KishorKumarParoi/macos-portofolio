@@ -663,19 +663,19 @@ Kishor approaches this challenge through the lens of **Enterprise AI Systems Arc
                 ))}
             </div>
 
-            {/* Option to chat in Full Screen */}
+            {/* Option to chat in Full Screen (hidden on small mobile screens to maximize chat area) */}
             {!isMaximized && (
-                <div className='px-3.5 py-2 bg-gradient-to-r from-cyan-950/80 via-[#161622] to-blue-950/80 border-t border-cyan-500/30 flex items-center justify-between gap-2 text-[11px] select-none'>
+                <div className='hidden sm:flex px-3.5 py-1.5 bg-gradient-to-r from-cyan-950/80 via-[#161622] to-blue-950/80 border-t border-cyan-500/30 items-center justify-between gap-2 text-[11px] select-none'>
                     <div className='flex items-center gap-2 truncate'>
                         <Maximize2 className='size-3 text-cyan-400 shrink-0 animate-pulse' />
                         <span className='text-gray-300 truncate'>
-                            Want full diagrams & LangGraph telemetry?
+                            Want full diagrams &amp; LangGraph telemetry?
                         </span>
                     </div>
                     <button
                         type='button'
                         onClick={() => toggleMaximize('aichat')}
-                        className='px-3 py-1 rounded-lg bg-linear-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-black font-extrabold text-[10px] shrink-0 transition cursor-pointer shadow-sm shadow-cyan-400/40'
+                        className='px-2.5 py-0.5 rounded-lg bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-black font-extrabold text-[10px] shrink-0 transition cursor-pointer shadow-sm shadow-cyan-400/40'
                     >
                         Chat in Full Screen ⛶
                     </button>
