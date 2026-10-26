@@ -55,8 +55,9 @@ const Home = () => {
             zIndexBoost: true,
             dragClickables: true,
             minimumMovement: 6,
-            onClick: function () {
-                const id = this.target.getAttribute('data-project-id')
+            onClick: function (e) {
+                const el = this.target?.closest?.('[data-project-id]') || this.target
+                const id = el?.getAttribute?.('data-project-id')
                 const proj = projects.find((p) => String(p.id) === String(id))
                 if (proj) {
                     handleOpenProjectFinder(proj)

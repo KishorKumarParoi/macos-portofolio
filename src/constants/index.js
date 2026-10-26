@@ -143,7 +143,7 @@ const blogPosts = [
     id: 6,
     date: "Sept 2026",
     title: "6. Autonomous AI Chatbot Mesh: Cyclic Supervisor State Graph with MemorySaver Checkpointing",
-    image: "/images/projects/chatbot/01_architecture_overview.png",
+    image: "/images/projects/chatbot/01_architecture_flow.svg",
     link: "https://github.com/KishorKumarParoi/Advanced_AI_Chatbot_Project",
   },
   {
@@ -164,28 +164,28 @@ const blogPosts = [
     id: 9,
     date: "Aug 2026",
     title: "9. Enterprise AWS SageMaker MLOps: Automated Model Registry, Canary Deployments & Drift Alarms",
-    image: "/images/projects/sagemaker/01_architecture_pipeline.svg",
+    image: "/images/projects/sagemaker/01_architecture_flow.svg",
     link: "https://github.com/KishorKumarParoi/38-Aws-Sagemaker",
   },
   {
     id: 10,
     date: "Jul 2026",
     title: "10. Real-Time Distributed MLOps: High-Throughput Kubernetes KServe, Kafka Events & MLflow CI/CD",
-    image: "/images/projects/realtime_mlops/01_master_architecture.svg",
+    image: "/images/projects/realtime_mlops/01_architecture_flow.svg",
     link: "https://github.com/KishorKumarParoi/realtime-mlops",
   },
   {
     id: 11,
     date: "Jul 2026",
     title: "11. Bare-Metal Systems in Rust 1.85: Building Git Content-Addressable Storage & Async POSIX Shell",
-    image: "/images/blog1.png",
+    image: "/images/projects/rustgit/01_architecture_flow.jpg",
     link: "https://github.com/KishorKumarParoi/codecrafters-git-rust",
   },
   {
     id: 12,
     date: "Jun 2026",
     title: "12. Koom-AI: Building an Ultra-Low-Latency WebRTC (<120ms) Screen Recording Platform ($24K MRR)",
-    image: "/images/blog2.png",
+    image: "/images/projects/koom/01_architecture_flow.jpg",
     link: "https://koom-ai.vercel.app/",
   },
   {
@@ -207,7 +207,7 @@ const blogPosts = [
     date: "Mar 2026",
     title: "15. macOS Tahoe Portfolio: Engineering an OS-Grade Windowing Web Environment in React 19 & Tailwind",
     image: "/images/projects/macos/01_desktop_os.jpg",
-    link: "https://kishor.tech/",
+    link: "https://kishor.tech",
   },
 ];
 
