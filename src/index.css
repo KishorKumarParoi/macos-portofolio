@@ -126,7 +126,7 @@ body {
   }
 
   #safari {
-    @apply w-4xl absolute top-40 left-2/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-4xl max-w-[96vw] absolute top-12 sm:top-40 left-2 sm:left-2/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
     .search {
       @apply flex items-center gap-3 w-2/3 bg-white border border-gray-300 rounded-lg px-3 py-2;
@@ -170,7 +170,7 @@ body {
   }
 
   #terminal {
-    @apply w-xl absolute top-20 left-1/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-xl max-w-[96vw] absolute top-12 sm:top-20 left-2 sm:left-1/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
     h2 {
       @apply font-bold text-sm text-center w-full;
@@ -216,7 +216,7 @@ body {
   }
 
   #contact {
-    @apply w-[640px] max-w-[94vw] absolute top-14 left-[12vw] shadow-2xl drop-shadow-2xl rounded-2xl overflow-hidden;
+    @apply w-[640px] max-w-[95vw] absolute top-14 left-4 sm:left-[12vw] shadow-2xl drop-shadow-2xl rounded-2xl overflow-hidden;
 
     h2 {
       @apply font-bold text-sm text-center w-full;
@@ -224,7 +224,7 @@ body {
   }
 
   #chess {
-    @apply w-3xl absolute top-16 left-1/12 shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-[760px] max-w-[96vw] absolute top-12 left-2 sm:left-1/12 shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
     h2 {
       @apply font-bold text-sm text-center w-full;
@@ -232,7 +232,7 @@ body {
   }
 
   #aichat {
-    @apply w-[740px] max-w-[95vw] absolute top-12 left-[14vw] shadow-2xl drop-shadow-2xl rounded-2xl overflow-hidden;
+    @apply w-[740px] max-w-[95vw] absolute top-12 left-2 sm:left-[14vw] shadow-2xl drop-shadow-2xl rounded-2xl overflow-hidden;
 
     h2 {
       @apply font-bold text-sm text-center w-full;
@@ -240,7 +240,7 @@ body {
   }
 
   #clash {
-    @apply w-[780px] max-w-[96vw] absolute top-10 left-[10vw] shadow-2xl drop-shadow-2xl rounded-2xl overflow-hidden;
+    @apply w-[780px] max-w-[96vw] absolute top-10 left-2 sm:left-[10vw] shadow-2xl drop-shadow-2xl rounded-2xl overflow-hidden;
 
     h2 {
       @apply font-bold text-sm text-center w-full;
@@ -318,7 +318,7 @@ body {
   }
 
   #finder {
-    @apply absolute w-3xl left-40 top-20 shadow-2xl drop-shadow-2xl overflow-hidden rounded-xl;
+    @apply absolute w-3xl max-w-[96vw] left-2 sm:left-40 top-12 sm:top-20 shadow-2xl drop-shadow-2xl overflow-hidden rounded-xl;
 
     .sidebar {
       @apply w-48 bg-gray-50 border-r border-gray-200 flex flex-col p-5 space-y-3;

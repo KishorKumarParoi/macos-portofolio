@@ -77,9 +77,9 @@ const Home = () => {
     }
 
     return (
-        <section id='home' ref={containerRef} className='relative z-0 max-sm:hidden'>
-            {/* Quick Symmetrical Eagle Wings Formation Indicator */}
-            <div className='fixed bottom-2 left-3 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/40 border border-white/10 backdrop-blur-md text-[10px] font-mono text-gray-300 opacity-60 hover:opacity-100 transition duration-300'>
+        <section id='home' ref={containerRef} className='relative z-0'>
+            {/* Desktop Quick Symmetrical Eagle Wings Formation Indicator */}
+            <div className='hidden sm:flex fixed bottom-2 left-3 z-10 items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/40 border border-white/10 backdrop-blur-md text-[10px] font-mono text-gray-300 opacity-60 hover:opacity-100 transition duration-300'>
                 <span>🦅 Eagle Formation</span>
                 <span className='text-gray-500'>•</span>
                 <button
@@ -91,7 +91,8 @@ const Home = () => {
                 </button>
             </div>
 
-            <ul>
+            {/* Desktop Eagle Wing Formation (Screens >= 640px) */}
+            <ul className='hidden sm:block'>
                 {projects.map((project, index) => {
                     const pos = EAGLE_WING_POSITIONS[index] || {
                         top: `${10 + (index % 8) * 10}vh`,
@@ -116,7 +117,7 @@ const Home = () => {
                                 handleOpenProjectFinder(project)
                             }}
                             className={clsx(
-                                'group folder absolute select-none flex items-center flex-col cursor-pointer transition-transform hover:scale-105 active:scale-95',
+                                'group folder absolute select-none flex items-center flex-col cursor-pointer transition-transform hover:scale-105 active:scale-95 touch-manipulation',
                                 pos.wing === 'left' ? 'items-start sm:items-center' : 'items-end sm:items-center'
                             )}
                             style={{
@@ -144,6 +145,41 @@ const Home = () => {
                     )
                 })}
             </ul>
+
+            {/* Mobile Touch-Optimized Project Grid (Screens < 640px) */}
+            <div className='block sm:hidden fixed inset-x-0 top-12 bottom-20 px-3 overflow-y-auto z-10 pointer-events-auto'>
+                <div className='flex items-center justify-between mb-2 px-2 text-[11px] font-mono text-cyan-300 bg-black/60 backdrop-blur-md py-1 rounded-lg border border-white/10'>
+                    <span>📁 15 Featured Projects</span>
+                    <span className='text-[10px] text-gray-400'>Tap to open</span>
+                </div>
+                <div className='grid grid-cols-3 gap-2.5 pb-6'>
+                    {projects.map((project, index) => {
+                        const cleanName = project.name.replace(/^\d+\.\s*/, '')
+                        const projectNum = String(index + 1).padStart(2, '0')
+                        return (
+                            <div
+                                key={`mob-${project.id}`}
+                                onClick={() => handleOpenProjectFinder(project)}
+                                className='flex flex-col items-center justify-center p-2 rounded-xl bg-black/40 hover:bg-black/60 border border-white/10 active:scale-95 transition cursor-pointer text-center'
+                            >
+                                <div className='relative mb-1'>
+                                    <img
+                                        src='/images/folder.png'
+                                        alt={project.name}
+                                        className='size-10 drop-shadow-md'
+                                    />
+                                    <span className='absolute -top-1 -right-1 text-[8px] font-mono font-bold px-1 rounded-full bg-black/80 border border-cyan-400/50 text-cyan-300'>
+                                        {projectNum}
+                                    </span>
+                                </div>
+                                <p className='text-[10px] font-medium text-white line-clamp-2 leading-tight'>
+                                    {cleanName}
+                                </p>
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
         </section>
     )
 }

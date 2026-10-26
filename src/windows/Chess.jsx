@@ -406,9 +406,9 @@ const Chess = () => {
                 <div className='w-16' />
             </div>
 
-            <div className='bg-[#18181f] text-gray-200 p-4 flex flex-col md:flex-row gap-5 h-full overflow-y-auto select-none'>
+            <div className='bg-[#18181f] text-gray-200 p-2.5 sm:p-4 flex flex-col md:flex-row gap-3 sm:gap-5 h-full overflow-y-auto select-none'>
                 {/* Left: Chessboard & Clocks */}
-                <div className='flex flex-col items-center flex-1 max-w-[460px] mx-auto'>
+                <div className='flex flex-col items-center flex-1 max-w-[460px] mx-auto w-full'>
                     {/* Computer Header & Clock */}
                     <div className='w-full flex items-center justify-between px-3 py-1.5 mb-2 bg-[#23232c] rounded-lg border border-gray-800 shadow'>
                         <div className='flex items-center gap-2'>
@@ -431,8 +431,8 @@ const Chess = () => {
                     </div>
 
                     {/* The 8x8 Board */}
-                    <div className='relative border-4 border-[#2b2b38] rounded-lg overflow-hidden shadow-2xl'>
-                        <div className='grid grid-cols-8 w-[340px] h-[340px] sm:w-[400px] sm:h-[400px]'>
+                    <div className='relative border-2 sm:border-4 border-[#2b2b38] rounded-lg overflow-hidden shadow-2xl'>
+                        <div className='grid grid-cols-8 w-[min(88vw,340px)] h-[min(88vw,340px)] sm:w-[400px] sm:h-[400px] touch-manipulation'>
                             {board.map((row, r) =>
                                 row.map((cell, c) => {
                                     const isLight = (r + c) % 2 === 0
@@ -443,7 +443,7 @@ const Chess = () => {
                                         <div
                                             key={`${r}-${c}`}
                                             onClick={() => handleSquareClick(r, c)}
-                                            className={`relative flex items-center justify-center cursor-pointer transition-colors ${
+                                            className={`relative flex items-center justify-center cursor-pointer transition-colors touch-manipulation ${
                                                 isLight ? 'bg-[#e2d6b5]' : 'bg-[#b88b4a]'
                                             } ${isSelected ? '!bg-amber-300 ring-2 ring-amber-500 z-10' : ''}`}
                                         >

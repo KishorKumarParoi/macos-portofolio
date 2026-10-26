@@ -120,8 +120,12 @@ const ClashDefense = () => {
         const canvas = canvasRef.current
         if (!canvas) return
         const rect = canvas.getBoundingClientRect()
-        const clickX = e.clientX - rect.left
-        const clickY = e.clientY - rect.top
+        const clientX = e.clientX ?? (e.touches && e.touches[0] ? e.touches[0].clientX : (e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientX : 0))
+        const clientY = e.clientY ?? (e.touches && e.touches[0] ? e.touches[0].clientY : (e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientY : 0))
+        const scaleX = canvas.width / (rect.width || 1)
+        const scaleY = canvas.height / (rect.height || 1)
+        const clickX = (clientX - rect.left) * scaleX
+        const clickY = (clientY - rect.top) * scaleY
 
         // Distance to Town Hall check
         const distToTh = Math.hypot(clickX - gameRef.current.townHall.x, clickY - gameRef.current.townHall.y)
@@ -487,7 +491,8 @@ const ClashDefense = () => {
                     width={750}
                     height={500}
                     onClick={handleCanvasClick}
-                    className='w-full h-full'
+                    onTouchStart={handleCanvasClick}
+                    className='w-full h-full touch-none'
                 />
 
                 {/* Permission Required Modal */}

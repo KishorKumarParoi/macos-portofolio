@@ -121,8 +121,24 @@ const Finder = () => {
                 <SearchIcon className='icon' />
             </div>
 
+            {/* Mobile Quick Location Chips */}
+            <div className='flex sm:hidden overflow-x-auto gap-1.5 px-3 py-1.5 bg-gray-100/90 border-b border-gray-200 text-xs'>
+                {Object.values(locations).map((loc) => (
+                    <button
+                        key={loc.id}
+                        onClick={() => setActiveLocation(loc)}
+                        className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] whitespace-nowrap transition cursor-pointer ${
+                            activeLocation?.name === loc.name ? 'bg-blue-600 text-white font-bold' : 'bg-white text-gray-700 border border-gray-200 shadow-xs'
+                        }`}
+                    >
+                        <img src={loc.icon} alt={loc.name} className='size-3' />
+                        <span>{loc.name}</span>
+                    </button>
+                ))}
+            </div>
+
             <div className='bg-white flex h-full'>
-                <div className='sidebar'>
+                <div className='sidebar hidden sm:flex'>
                     {
                         renderList("Favorites", Object.values(locations))
                     }
