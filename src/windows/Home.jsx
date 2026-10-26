@@ -9,28 +9,28 @@ import React, { useRef } from 'react'
 
 const projects = Array.isArray(locations.work?.children) ? locations.work.children : []
 
-// 🦅 Symmetrical Eagle Wing Desktop Formation
-// Distributes all 15 project folders serially along the left and right flanks,
-// creating the silhouette of an Eagle in flight while keeping the center 100% clean and unobstructed.
+// 🦅 Symmetrical Eagle Wing Desktop Formation (Staggered Dual-Column Flanks)
+// Distributes all 15 project folders along left and right flanks with safe vertical clearances (>= 21vh per column)
+// to completely prevent any folder data overlap, while keeping the center 100% clean and unobstructed.
 const EAGLE_WING_POSITIONS = [
-    // Left Wing (Projects 1 to 8: Outer soaring curve, tip to flank)
-    { top: '8vh',  left: '2.5vw', wing: 'left',  label: 'Left Wing Tip (Upper)' },
-    { top: '18vh', left: '6.5vw', wing: 'left',  label: 'Left Feather 1' },
-    { top: '29vh', left: '11vw',  wing: 'left',  label: 'Left Feather 2' },
-    { top: '40vh', left: '14.5vw', wing: 'left', label: 'Left Wing Crest' },
-    { top: '51vh', left: '14.5vw', wing: 'left', label: 'Left Wing Joint' },
-    { top: '62vh', left: '11vw',  wing: 'left',  label: 'Left Secondary' },
-    { top: '72vh', left: '6.5vw', wing: 'left',  label: 'Left Lower Feather' },
-    { top: '82vh', left: '2.5vw', wing: 'left',  label: 'Left Wing Flank' },
+    // Left Wing (Projects 01 to 08: Staggered Dual-Column Flank)
+    { top: '7.5vh',  left: '2.5vw',  wing: 'left' },   // 01 Outer
+    { top: '17.5vh', left: '12vw',   wing: 'left' },   // 02 Inner
+    { top: '28.5vh', left: '2.5vw',  wing: 'left' },   // 03 Outer
+    { top: '39vh',   left: '12vw',   wing: 'left' },   // 04 Inner
+    { top: '50vh',   left: '2.5vw',  wing: 'left' },   // 05 Outer
+    { top: '60.5vh', left: '12vw',   wing: 'left' },   // 06 Inner
+    { top: '71vh',   left: '2.5vw',  wing: 'left' },   // 07 Outer
+    { top: '81.5vh', left: '12vw',   wing: 'left' },   // 08 Inner
 
-    // Right Wing (Projects 9 to 15: Mirroring soaring flank, tip to flank)
-    { top: '8vh',  left: '91vw',  wing: 'right', label: 'Right Wing Tip (Upper)' },
-    { top: '20vh', left: '87vw',  wing: 'right', label: 'Right Feather 1' },
-    { top: '32vh', left: '82.5vw', wing: 'right', label: 'Right Feather 2' },
-    { top: '45vh', left: '79vw',  wing: 'right', label: 'Right Wing Crest' },
-    { top: '58vh', left: '82.5vw', wing: 'right', label: 'Right Secondary' },
-    { top: '70vh', left: '87vw',  wing: 'right', label: 'Right Lower Feather' },
-    { top: '82vh', left: '91vw',  wing: 'right', label: 'Right Wing Flank' },
+    // Right Wing (Projects 09 to 15: Staggered Dual-Column Flank anchored to right edge)
+    { top: '7.5vh',  right: '12vw',  wing: 'right' },  // 09 Inner
+    { top: '17.5vh', right: '2.5vw',  wing: 'right' },  // 10 Outer
+    { top: '28.5vh', right: '12vw',  wing: 'right' },  // 11 Inner
+    { top: '39vh',   right: '2.5vw',  wing: 'right' },  // 12 Outer
+    { top: '50vh',   right: '12vw',  wing: 'right' },  // 13 Inner
+    { top: '60.5vh', right: '2.5vw',  wing: 'right' },  // 14 Outer
+    { top: '71vh',   right: '12vw',  wing: 'right' },  // 15 Inner
 ]
 
 const Home = () => {
@@ -98,7 +98,8 @@ const Home = () => {
                 {projects.map((project, index) => {
                     const pos = EAGLE_WING_POSITIONS[index] || {
                         top: `${10 + (index % 8) * 10}vh`,
-                        left: index < 8 ? '4vw' : '88vw',
+                        left: index < 8 ? '2.5vw' : undefined,
+                        right: index >= 8 ? '2.5vw' : undefined,
                         wing: index < 8 ? 'left' : 'right',
                     }
 
@@ -124,7 +125,8 @@ const Home = () => {
                             )}
                             style={{
                                 top: pos.top,
-                                left: pos.left,
+                                ...(pos.left ? { left: pos.left } : {}),
+                                ...(pos.right ? { right: pos.right } : {}),
                             }}
                             title={`${project.name} (Click or double-click to open in Finder)`}
                         >
@@ -139,7 +141,7 @@ const Home = () => {
                                         {projectNum}
                                     </span>
                                 </div>
-                                <p className='text-[11px] font-medium text-white text-center px-1.5 py-0.5 rounded-md mt-1 group-hover:bg-blue-600/90 shadow-xs transition-colors max-w-[105px] line-clamp-2 leading-tight drop-shadow-md backdrop-blur-xs'>
+                                <p className='text-[10px] sm:text-[10.5px] font-medium text-white text-center px-2 py-0.5 rounded-md mt-1 bg-black/45 group-hover:bg-blue-600/90 border border-white/10 group-hover:border-blue-400/60 shadow-md transition-colors w-28 max-w-[136px] line-clamp-3 leading-snug drop-shadow-md backdrop-blur-xs select-none'>
                                     {cleanName}
                                 </p>
                             </div>

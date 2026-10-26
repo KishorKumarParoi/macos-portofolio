@@ -40,15 +40,31 @@ import {
     BatteryCharging,
 } from 'lucide-react'
 
-// Authentic Apple MacBook Wallpapers (macOS Sonoma Horizon default)
+// Authentic Apple MacBook Wallpapers (macOS Sequoia Dark / Space Black default)
 export const MACBOOK_WALLPAPERS = [
+    {
+        id: 'sequoia-dark',
+        name: 'macOS Sequoia Dark (Space Black)',
+        badge: 'Sequoia 4K',
+        url: '/images/wallpaper-sequoia.jpg',
+        thumb: '/images/wallpaper-sequoia.jpg',
+        desc: 'Official macOS Sequoia Dark Retina wallpaper for M-Series MacBook Pro',
+    },
+    {
+        id: 'sonoma-dark',
+        name: 'macOS Sonoma Dark',
+        badge: 'Sonoma 4K',
+        url: '/images/wallpaper-apple-sonoma.jpg',
+        thumb: '/images/wallpaper-apple-sonoma.jpg',
+        desc: 'Official Apple dark Sonoma cinematic fluid typography',
+    },
     {
         id: 'sonoma-horizon',
         name: 'macOS Sonoma Horizon',
         badge: 'Sonoma 4K',
         url: '/images/macbook-wallpaper-sonoma-horizon.jpg',
         thumb: '/images/macbook-wallpaper-sonoma-horizon.jpg',
-        desc: 'Official Sonoma Horizon 4K hills',
+        desc: 'Official Sonoma Horizon 4K hills (daylight)',
     },
     {
         id: 'oceanic-blue',
@@ -108,6 +124,13 @@ const Navbar = () => {
     const [wallpaperIndex, setWallpaperIndex] = useState(() => {
         if (typeof window === 'undefined') return 0
         const saved = localStorage.getItem('macos_wallpaper_idx')
+        const savedUrl = localStorage.getItem('macos_wallpaper')
+        // Automatically migrate away from previously cached bright sonoma horizon to dark sequoia
+        if (savedUrl === '/images/macbook-wallpaper-sonoma-horizon.jpg' && (!saved || saved === '0')) {
+            localStorage.setItem('macos_wallpaper', '/images/wallpaper-sequoia.jpg')
+            localStorage.setItem('macos_wallpaper_idx', '0')
+            return 0
+        }
         const parsed = parseInt(saved, 10)
         return !isNaN(parsed) && parsed >= 0 && parsed < MACBOOK_WALLPAPERS.length ? parsed : 0
     })

@@ -155,7 +155,7 @@ const Finder = () => {
                                     onClick={() => openItem(item)}
                                     onDoubleClick={() => openItem(item)}>
                                     <img src={item.icon} alt={item.name} />
-                                    <p className='text-xs font-medium text-gray-800 dark:text-gray-200 text-center max-w-[110px] break-words'>{item.name}</p>
+                                    <p className='text-[10.5px] font-medium text-gray-800 dark:text-gray-200 text-center w-28 max-w-[130px] line-clamp-3 leading-snug break-words'>{item.name}</p>
                                 </li>
                             ))
                         }

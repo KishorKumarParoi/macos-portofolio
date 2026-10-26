@@ -91,7 +91,12 @@ const ClashDefense = ({ isOpen = false }) => {
         running: false,
     })
 
-    const resetGame = () => {
+    const clickCooldownRef = useRef(0)
+
+    const resetGame = (e) => {
+        if (e?.stopPropagation) e.stopPropagation()
+        clickCooldownRef.current = Date.now() + 600 // 600ms immunity against click-through from start button
+
         gameRef.current = {
             townHall: { x: 375, y: 250, hp: 1200, maxHp: 1200, radius: 36 },
             defenses: [
@@ -114,9 +119,12 @@ const ClashDefense = ({ isOpen = false }) => {
         setGameState('playing')
     }
 
-    // Canvas click to place defense
+    // Canvas pointer/click to place defense (with debounce to prevent automatic/accidental placement)
     const handleCanvasClick = (e) => {
         if (gameState !== 'playing') return
+        if (Date.now() < clickCooldownRef.current) return
+        if (e?.stopPropagation) e.stopPropagation()
+
         const canvas = canvasRef.current
         if (!canvas) return
         const rect = canvas.getBoundingClientRect()
@@ -127,16 +135,25 @@ const ClashDefense = ({ isOpen = false }) => {
         const clickX = (clientX - rect.left) * scaleX
         const clickY = (clientY - rect.top) * scaleY
 
-        // Distance to Town Hall check
+        // Canvas edge boundary check
+        if (clickX < 30 || clickX > 720 || clickY < 30 || clickY > 470) return
+
+        // Distance to Town Hall check (keep perimeter open)
         const distToTh = Math.hypot(clickX - gameRef.current.townHall.x, clickY - gameRef.current.townHall.y)
         if (distToTh < 60) return
+
+        // Distance to existing defenses (prevent overlapping towers)
+        const tooClose = gameRef.current.defenses.some(
+            (d) => Math.hypot(clickX - d.x, clickY - d.y) < 36
+        )
+        if (tooClose) return
 
         // Cost check
         const costs = { cannon: { gold: 120, elixir: 0 }, archer: { gold: 150, elixir: 50 }, wizard: { gold: 200, elixir: 120 } }
         const cost = costs[selectedDefense]
-        if (gold < cost.gold || elixir < cost.elixir) return
+        if (!cost || gold < cost.gold || elixir < cost.elixir) return
 
-        // Place defense
+        // Place defense deliberately
         const newDefense = {
             type: selectedDefense,
             x: clickX,
@@ -150,6 +167,9 @@ const ClashDefense = ({ isOpen = false }) => {
         gameRef.current.defenses.push(newDefense)
         setGold((prev) => prev - cost.gold)
         setElixir((prev) => prev - cost.elixir)
+
+        // Set mini-cooldown of 200ms between deliberate placements to prevent accidental rapid double-taps
+        clickCooldownRef.current = Date.now() + 200
     }
 
     // Main Game Loop
@@ -490,9 +510,8 @@ const ClashDefense = ({ isOpen = false }) => {
                     ref={canvasRef}
                     width={750}
                     height={500}
-                    onClick={handleCanvasClick}
-                    onTouchStart={handleCanvasClick}
-                    className='w-full h-full touch-none'
+                    onPointerDown={handleCanvasClick}
+                    className='w-full h-full touch-none select-none'
                 />
 
                 {/* Permission Required Modal */}
