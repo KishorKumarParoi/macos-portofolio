@@ -230,6 +230,7 @@ const Navbar = () => {
         { name: '2-Min Blitz Chess AI', type: 'chess', icon: '/images/chess.svg' },
         { name: 'Clash Village Defense (RTS)', type: 'clash', icon: '/images/clash.svg' },
         { name: 'Nexus AI Multi-Agent Cockpit', type: 'aichat', icon: '/images/ai-agent.svg' },
+        { name: 'Reinvent 3D Portfolio (3d.kishor.tech)', type: 'external', href: 'https://3d.kishor.tech/', icon: '/images/safari.png' },
         { name: 'Contact Me & Booking', type: 'contact', icon: '/images/contact.png' },
     ].filter((app) => app.name.toLowerCase().includes(spotlightQuery.toLowerCase()))
 
@@ -240,7 +241,13 @@ const Navbar = () => {
         setShowSpotlight(false)
     }
 
-    const handleOpenApp = (appType) => {
+    const handleOpenApp = (app) => {
+        if (app?.href) {
+            window.open(app.href, '_blank')
+            setShowSpotlight(false)
+            return
+        }
+        const appType = typeof app === 'string' ? app : app.type
         openWindow(appType)
         focusWindow(appType)
         setShowSpotlight(false)
@@ -258,6 +265,19 @@ const Navbar = () => {
                             <p>{name}</p>
                         </li>
                     ))}
+                    {/* Reinvent 3D Portfolio direct link */}
+                    <li>
+                        <a
+                            href="https://3d.kishor.tech/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-500/15 hover:bg-cyan-500/30 border border-cyan-400/40 text-cyan-200 hover:text-white transition shadow-xs text-xs font-semibold cursor-pointer"
+                            title="Open Reinvent 3D Futuristic Portfolio (3d.kishor.tech)"
+                        >
+                            <span className="size-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                            <span>Reinvent 3D ↗</span>
+                        </a>
+                    </li>
                     {/* Games dropdown launcher */}
                     <li className='relative'>
                         <p

@@ -248,7 +248,7 @@ const KNOWLEDGE_BASE = [
 • **GSAP 3.12 Camera Choreography:** Fluid 3D camera transitions synchronized with user scroll and navigation.
 • **30-Track Beatbox & EDM Audio Engine:** High-octane procedural audio with Web Audio API synthetic fallback and global keyboard shortcuts.
 • **Draco Geometry Compression:** Compressed 3D GLB assets by 74%, sustaining **60 FPS** performance on mobile and desktop browsers.
-• **Live Experience:** [re-invent-rust.vercel.app](https://re-invent-rust.vercel.app/)`,
+• **Live Experience:** [3d.kishor.tech](https://3d.kishor.tech/)`,
     },
     {
         id: 'macos_portfolio',

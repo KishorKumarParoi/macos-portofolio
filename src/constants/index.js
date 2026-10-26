@@ -200,7 +200,7 @@ const blogPosts = [
     date: "Apr 2026",
     title: "14. re:invent 3D: High-Fidelity WebGL Shaders, Three.js Camera Choreography & Live EDM Audio Mesh",
     image: "/images/projects/reinvent/01_3d_architecture.png",
-    link: "https://re-invent-rust.vercel.app/",
+    link: "https://3d.kishor.tech/",
   },
   {
     id: 15,
@@ -357,7 +357,7 @@ const socials = [
     text: "Re-Invent 3D (Live)",
     icon: "/icons/mode.svg",
     bg: "#7c3aed",
-    link: "https://re-invent-rust.vercel.app/",
+    link: "https://3d.kishor.tech/",
   },
 ];
 
@@ -2109,7 +2109,7 @@ const WORK_LOCATION = {
             "Integrated a 30-track procedural Beatbox & EDM audio engine with Web Audio API synthetic fallback and global keyboard shortcuts [M, N, P, R].",
             "Implemented dynamic GLTF/GLB 3D model loaders with Draco geometry compression, cutting initial asset bundle size by 74% and sustaining 60 FPS on mobile.",
             "Configured automated edge deployment on Vercel with zero-configuration serverless visitor telemetry APIs and real-time live visitor counters.",
-            "🚀 Live Experience: https://re-invent-rust.vercel.app/",
+            "🚀 Live Experience: https://3d.kishor.tech/",
             "💻 GitHub Repository: https://github.com/KishorKumarParoi/reinvent",
           ],
         },
@@ -2119,7 +2119,7 @@ const WORK_LOCATION = {
           icon: "/images/safari.png",
           kind: "file",
           fileType: "url",
-          href: "https://re-invent-rust.vercel.app/",
+          href: "https://3d.kishor.tech/",
           position: "top-8 left-48",
         },
         {
