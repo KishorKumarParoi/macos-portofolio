@@ -296,8 +296,8 @@ export const PROJECT_ARTICLES = [
         date: "Jun 2026",
         readTime: "6 min read",
         image: "/images/projects/koom/01_architecture_flow.jpg",
-        repoUrl: "https://koom-ai.vercel.app/",
-        liveUrl: "https://koom-ai.vercel.app/",
+        repoUrl: "https://github.com/KishorKumarParoi/Koom-AI",
+        liveUrl: "https://koom.kishor.tech/",
         deployCmd: "git clone https://github.com/KishorKumarParoi/koom-ai.git && cd koom-ai && npm install && npm run dev",
         overview: "Founded and engineered Koom-AI ($24K MRR), a real-time collaborative workspace and ultra-low-latency WebRTC (<120ms) screen recorder featuring Electron desktop clients with hardware acceleration (NVENC/VideoToolbox).",
         architecture: [

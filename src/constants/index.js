@@ -186,7 +186,7 @@ const blogPosts = [
     date: "Jun 2026",
     title: "12. Koom-AI: Building an Ultra-Low-Latency WebRTC (<120ms) Screen Recording Platform ($24K MRR)",
     image: "/images/projects/koom/01_architecture_flow.jpg",
-    link: "https://koom-ai.vercel.app/",
+    link: "https://koom.kishor.tech/",
   },
   {
     id: 13,
@@ -350,7 +350,7 @@ const socials = [
     text: "Koom-AI (Live)",
     icon: "/icons/atom.svg",
     bg: "#641C26",
-    link: "https://koom-ai.vercel.app/",
+    link: "https://koom.kishor.tech/",
   },
   {
     id: 5,
@@ -1870,7 +1870,7 @@ const WORK_LOCATION = {
             "Engineered Manifest V3 Chrome Extension capturing synchronized tab/microphone audio mixing with immediate background streaming, capturing 10K+ user sessions.",
             "Built video cockpit using Next.js 16 App Router, React Server Components, and dynamic waveform scrubbing, cutting FCP by 58%.",
             "Architected Express media ingestion backend with AWS S3 parallel multipart uploads, CloudFront CDN edge delivery, and Stripe recurring subscription billing ($24K MRR in enterprise pilot).",
-            "🚀 Live Platform: https://koom-ai.vercel.app/",
+            "🚀 Live Platform: https://koom.kishor.tech/",
             "💻 Full-Stack Next.js: https://github.com/KishorKumarParoi/Koom-AI",
             "🖥️ Desktop Client (Electron): https://github.com/KishorKumarParoi/Koom-ai-desktop",
             "🌐 Chrome Extension: https://github.com/KishorKumarParoi/Koom-AI-Chrome-Extension",
@@ -1883,7 +1883,7 @@ const WORK_LOCATION = {
           icon: "/images/safari.png",
           kind: "file",
           fileType: "url",
-          href: "https://koom-ai.vercel.app/",
+          href: "https://koom.kishor.tech/",
           position: "top-8 left-48",
         },
         {

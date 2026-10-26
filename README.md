@@ -18,7 +18,7 @@
 </p>
 <p align="center">
   <b>🐾 <i>"Meowww! Click any window to explore!"</i></b> &nbsp;•&nbsp; 
-  <a href="https://www.myinstants.com/media/sounds/meow.mp3" target="_blank">
+  <a href="https://raw.githubusercontent.com/KishorKumarParoi/KishorKumarParoi/main/assets/meow.mp3" target="_blank">
     <img src="https://img.shields.io/badge/🔊_Audio-Meowww!-ff69b4?style=flat-square&logo=apple-music&logoColor=white" alt="Play Meow" style="vertical-align: middle;" />
   </a> &nbsp;•&nbsp; 
   <b>🐍 <i>Live Snake eating bugs & patrolling commits 24/7!</i></b>
