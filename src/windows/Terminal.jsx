@@ -207,9 +207,9 @@ const Terminal = () => {
                     type: 'output',
                     text: [
                         "KOOM-AI ENTERPRISE VIDEO INTELLIGENCE PLATFORM:",
-                        "🚀 Live Production: https://koom-ai.vercel.app",
-                        "🌐 Custom Domain:   https://koom.kishor.tech (CNAME cname.vercel-dns.com)",
-                        "📊 Recruiter Proof:  https://koom-ai.vercel.app/status (Live Neon PostgreSQL)",
+                        "🚀 Subdomain URL:   https://koom.kishor.tech",
+                        "🌐 Production Host:  https://koom-ai.vercel.app",
+                        "📊 Recruiter Proof:  https://koom.kishor.tech/status (Live Neon PostgreSQL)",
                         "⚡ Live Telemetry:   3 Verified Users • 2 Active PRO Subscriptions ($19/mo)",
                         "💳 Stripe Customer: cus_Sa8WlnKaXniRPq, cus_SaBPjj2abks12w",
                         "📈 Unit Economics:   88.4% Gross Margin • <61ms Query SLA • Whisper V3 AI",
