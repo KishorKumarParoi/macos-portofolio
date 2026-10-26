@@ -13,7 +13,10 @@ pdfjs.GlobalWorkerOptions.workerSrc =
 const Resume = () => {
     const [selectedResume, setSelectedResume] = useState('academic') // 'academic' | 'detailed'
     const [numPages, setNumPages] = useState(1)
-    const [scale, setScale] = useState(0.95)
+    const [scale, setScale] = useState(() => {
+        if (typeof window !== 'undefined' && window.innerWidth < 640) return 0.52
+        return 0.95
+    })
 
     const resumeFile = selectedResume === 'academic' 
         ? '/files/resume.pdf' 
@@ -29,7 +32,7 @@ const Resume = () => {
 
     return (
         <>
-            <div id='window-header' className='flex items-center justify-between px-3 py-1.5 border-b border-gray-200 bg-gray-50/90 backdrop-blur-md select-none'>
+            <div id='window-header' className='flex flex-wrap items-center justify-between gap-2 px-3 py-1.5 border-b border-gray-200 bg-gray-50/90 backdrop-blur-md select-none'>
                 <div className='flex items-center gap-2'>
                     <WindowControls target="resume" />
                     <span className='text-xs font-semibold text-gray-700 ml-2'>{resumeTitle}</span>

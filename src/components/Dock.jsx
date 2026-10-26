@@ -90,13 +90,16 @@ const Dock = () => {
     }
 
     const [isHovered, setIsHovered] = useState(false)
-    const [isPinned, setIsPinned] = useState(false)
+    const [isPinned, setIsPinned] = useState(() => {
+        if (typeof window !== 'undefined' && window.innerWidth < 640) return true
+        return false
+    })
 
     return (
         <>
             {/* Bottom Screen Hover Sensor Zone (macOS Dock Trigger) */}
             <div
-                className='fixed bottom-0 left-0 right-0 h-16 z-40 pointer-events-auto'
+                className='hidden sm:block fixed bottom-0 left-0 right-0 h-16 z-40 pointer-events-auto'
                 onMouseEnter={() => setIsHovered(true)}
             />
 
@@ -111,10 +114,10 @@ const Dock = () => {
                 }`}
             >
                 <div ref={dockRef} className='dock-container relative'>
-                    {/* Auto-Hide Indicator / Pin Toggle */}
+                    {/* Auto-Hide Indicator / Pin Toggle (Desktop Only) */}
                     <button
                         onClick={() => setIsPinned(!isPinned)}
-                        className='absolute -top-6 right-3 text-[10px] bg-black/60 hover:bg-black/90 text-gray-300 px-2 py-0.5 rounded-full backdrop-blur-md border border-white/10 transition flex items-center gap-1 shadow-xs'
+                        className='hidden sm:flex absolute -top-6 right-3 text-[10px] bg-black/60 hover:bg-black/90 text-gray-300 px-2 py-0.5 rounded-full backdrop-blur-md border border-white/10 transition items-center gap-1 shadow-xs'
                         title={isPinned ? 'Click to enable Auto-Hide' : 'Click to Pin Dock'}
                     >
                         <span>{isPinned ? '📌 Pinned' : '👁️ Auto-Hide'}</span>

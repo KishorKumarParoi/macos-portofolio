@@ -22,6 +22,7 @@ const renderText = (text, className, basWeight = 400) => {
 
 const setupTextHover = (container, type) => {
     if (!container) return
+    if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(pointer: coarse)').matches) return
 
     const letters = container.querySelectorAll('span')
     const { min, max, default: base } = FONT_WEIGHTS[type]
@@ -500,15 +501,15 @@ const Welcome = () => {
             {/* Portfolio Master Title */}
             <h1 
                 ref={titleRef} 
-                className='relative z-10 mt-2 sm:mt-3 text-7xl sm:text-9xl italic font-georama font-extrabold text-white/90 drop-shadow-[0_15px_35px_rgba(0,0,0,0.85)] tracking-tight pointer-events-auto'
+                className='relative z-10 mt-2 sm:mt-3 text-5xl sm:text-8xl md:text-9xl italic font-georama font-extrabold text-white/90 drop-shadow-[0_15px_35px_rgba(0,0,0,0.85)] tracking-tight pointer-events-auto'
             >
                 {renderText('portfolio', 'font-georama')}
             </h1>
 
             {/* Subtitle Credentials Badge */}
-            <p className='relative z-10 mt-3 text-xs sm:text-sm font-mono text-gray-300/90 bg-black/45 backdrop-blur-md border border-white/15 px-4 py-1.5 rounded-full shadow-xl pointer-events-auto flex items-center gap-2'>
-                <Star className='size-3 text-amber-400 fill-amber-400' />
-                <span>Principal AI Systems Architect • Medallion Lakehouses &amp; LLMOps • Founder @ Koom-AI</span>
+            <p className='relative z-10 mt-3 text-[10px] sm:text-sm font-mono text-gray-300/90 bg-black/45 backdrop-blur-md border border-white/15 px-3 sm:px-4 py-1.5 rounded-full shadow-xl pointer-events-auto flex items-center justify-center gap-1.5 sm:gap-2 max-w-[92vw] text-center'>
+                <Star className='size-3 text-amber-400 fill-amber-400 shrink-0' />
+                <span className='truncate sm:whitespace-normal'>Principal AI Systems Architect • Medallion Lakehouses &amp; LLMOps • Founder @ Koom-AI</span>
             </p>
 
             {/* 🤖 Robotic Hacker Style Serial Expertise & Work Experience Telemetry Terminal */}
@@ -626,10 +627,6 @@ const Welcome = () => {
                         <span>Re-expand Robotic Hacker Telemetry [{blockIndex + 1}/05]</span>
                     </button>
                 )}
-            </div>
-
-            <div className='small-screen'>
-                <p>This portfolio is designed for desktop/tablet screens. You can also view it by selecting Chrome Desktop Version.</p>
             </div>
         </section>
     )
