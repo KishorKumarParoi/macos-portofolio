@@ -26,11 +26,11 @@ const DesktopFooter = () => {
                 </a>
 
                 <a
-                    href="https://koom-ai.vercel.app/"
+                    href="https://koom.kishor.tech"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-md border border-purple-500/30 hover:border-purple-400 text-[11px] text-purple-300 hover:text-purple-200 transition-all shadow-sm"
-                    title="Open KoomAI Platform"
+                    title="Open KoomAI Subdomain (https://koom.kishor.tech)"
                 >
                     <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
                     <span>KoomAI ↗</span>
