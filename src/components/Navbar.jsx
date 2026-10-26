@@ -51,6 +51,14 @@ export const MACBOOK_WALLPAPERS = [
         desc: 'Official macOS Sequoia Dark Retina wallpaper for M-Series MacBook Pro',
     },
     {
+        id: 'oceanic-blue',
+        name: 'MacBook Pro Oceanic Fluid Blue',
+        badge: 'Retina 6K',
+        url: '/images/macbook-wallpaper-2.jpg',
+        thumb: '/images/macbook-wallpaper-2.jpg',
+        desc: 'Deep oceanic fluid waves (Retina 6K)',
+    },
+    {
         id: 'sonoma-dark',
         name: 'macOS Sonoma Dark',
         badge: 'Sonoma 4K',
@@ -65,14 +73,6 @@ export const MACBOOK_WALLPAPERS = [
         url: '/images/macbook-wallpaper-sonoma-horizon.jpg',
         thumb: '/images/macbook-wallpaper-sonoma-horizon.jpg',
         desc: 'Official Sonoma Horizon 4K hills (daylight)',
-    },
-    {
-        id: 'oceanic-blue',
-        name: 'MacBook Pro Ocean Blue',
-        badge: 'Retina 6K',
-        url: '/images/macbook-wallpaper-2.jpg',
-        thumb: '/images/macbook-wallpaper-2.jpg',
-        desc: 'Deep oceanic fluid waves',
     },
     {
         id: 'royal-purple',

@@ -39,8 +39,8 @@ const LockScreen = () => {
     })
 
     const [wallpaperUrl, setWallpaperUrl] = useState(() => {
-        if (typeof window === 'undefined') return '/images/macbook-wallpaper-1.jpg'
-        return localStorage.getItem('macos_wallpaper') || '/images/macbook-wallpaper-1.jpg'
+        if (typeof window === 'undefined') return '/images/wallpaper-sequoia.jpg'
+        return localStorage.getItem('macos_wallpaper') || '/images/wallpaper-sequoia.jpg'
     })
 
     const [currentTime, setCurrentTime] = useState(new Date())

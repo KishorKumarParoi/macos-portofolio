@@ -178,7 +178,8 @@ const Welcome = () => {
         return () => clearInterval(interval)
     }, [])
 
-    // Arijit Singh "Asatoma Sadgamaya" Vedic Audio State
+    // Arijit Singh "Asatoma Sadgamaya" Vedic Audio State (starts from 40s)
+    const SLOKA_START_TIME = 40
     const slokaAudioRef = useRef(null)
     const [slokaPlaying, setSlokaPlaying] = useState(false)
     const [slokaMuted, setSlokaMuted] = useState(false)
@@ -188,6 +189,14 @@ const Welcome = () => {
         const audio = new Audio('/audio/asato_ma_sadgamaya.mp3')
         audio.preload = 'auto'
         audio.volume = 0.5
+
+        const handleLoadedMetadata = () => {
+            if (audio.currentTime < SLOKA_START_TIME) {
+                audio.currentTime = SLOKA_START_TIME
+            }
+        }
+        audio.addEventListener('loadedmetadata', handleLoadedMetadata)
+
         slokaAudioRef.current = audio
 
         const handleEnded = () => {
@@ -199,6 +208,7 @@ const Welcome = () => {
 
         return () => {
             audio.pause()
+            audio.removeEventListener('loadedmetadata', handleLoadedMetadata)
             audio.removeEventListener('ended', handleEnded)
             slokaAudioRef.current = null
         }
@@ -207,6 +217,9 @@ const Welcome = () => {
     const handleSlokaHover = () => {
         if (slokaVanished) return
         if (slokaAudioRef.current && !slokaPlaying) {
+            if (slokaAudioRef.current.currentTime < SLOKA_START_TIME) {
+                slokaAudioRef.current.currentTime = SLOKA_START_TIME
+            }
             slokaAudioRef.current.play()
                 .then(() => setSlokaPlaying(true))
                 .catch((e) => console.log('Autoplay caught:', e))
@@ -220,6 +233,9 @@ const Welcome = () => {
             slokaAudioRef.current.pause()
             setSlokaPlaying(false)
         } else {
+            if (slokaAudioRef.current.currentTime < SLOKA_START_TIME) {
+                slokaAudioRef.current.currentTime = SLOKA_START_TIME
+            }
             slokaAudioRef.current.play().then(() => setSlokaPlaying(true)).catch(console.error)
         }
     }
@@ -228,7 +244,7 @@ const Welcome = () => {
         e?.stopPropagation()
         if (!slokaAudioRef.current) return
         slokaAudioRef.current.pause()
-        slokaAudioRef.current.currentTime = 0
+        slokaAudioRef.current.currentTime = SLOKA_START_TIME
         setSlokaPlaying(false)
     }
 
@@ -488,7 +504,7 @@ const Welcome = () => {
                 <button
                     onClick={() => {
                         setSlokaVanished(false)
-                        if (slokaAudioRef.current) slokaAudioRef.current.currentTime = 0
+                        if (slokaAudioRef.current) slokaAudioRef.current.currentTime = SLOKA_START_TIME
                     }}
                     className='relative z-10 mb-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/50 border border-amber-400/30 text-amber-300 text-[10px] font-mono shadow-md hover:border-amber-400 transition cursor-pointer pointer-events-auto'
                 >
