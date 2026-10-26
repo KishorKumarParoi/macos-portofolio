@@ -53,7 +53,8 @@ const Home = () => {
             cursor: 'grab',
             activeCursor: 'grabbing',
             zIndexBoost: true,
-            dragClickables: false,
+            dragClickables: true,
+            minimumMovement: 6,
             onClick: function () {
                 const id = this.target.getAttribute('data-project-id')
                 const proj = projects.find((p) => String(p.id) === String(id))

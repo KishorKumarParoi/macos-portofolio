@@ -7,9 +7,9 @@
 ### **Executive Portfolio & Interactive Operating System**
 *Crafted for Principal AI Systems Architects, Distributed Systems Leaders & High-Scale Engineers*
 
-[![Live Platform](https://img.shields.io/badge/Live%20Platform-macos--portofolio--virid.vercel.app-0071e3?style=for-the-badge&logo=apple&logoColor=white)](https://macos-portofolio-virid.vercel.app/)
+[![Live Platform](https://img.shields.io/badge/Live%20Platform-kishor.tech-0071e3?style=for-the-badge&logo=apple&logoColor=white)](https://kishor.tech/)
 [![GitHub](https://img.shields.io/badge/GitHub-KishorKumarParoi%2Fmacos--portofolio-24292e?style=for-the-badge&logo=github&logoColor=white)](https://github.com/KishorKumarParoi/macos-portofolio)
-[![Download Resume](https://img.shields.io/badge/📄%20Executive%20Resume-Download%20PDF-641C26?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](https://macos-portofolio-virid.vercel.app/files/resume.pdf)
+[![Download Resume](https://img.shields.io/badge/📄%20Executive%20Resume-Download%20PDF-641C26?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](https://kishor.tech/files/resume.pdf)
 [![React 19](https://img.shields.io/badge/React-19.2-61dafb?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![Rolldown Vite](https://img.shields.io/badge/Bundler-Rolldown%20Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vite.dev/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind-v4.1-38bdf8?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
@@ -17,7 +17,7 @@
 
 ---
 
-### [🚀 Launch Live macOS Desktop Environment](https://macos-portofolio-virid.vercel.app/) &nbsp;•&nbsp; [📄 Direct Resume PDF](https://macos-portofolio-virid.vercel.app/files/resume.pdf) &nbsp;•&nbsp; [📑 Detailed ATS Resume](https://macos-portofolio-virid.vercel.app/files/resume_single_column.pdf)
+### [🚀 Launch Live macOS Desktop Environment (kishor.tech)](https://kishor.tech/) &nbsp;•&nbsp; [📄 Direct Resume PDF](https://kishor.tech/files/resume.pdf) &nbsp;•&nbsp; [📑 Detailed ATS Resume](https://kishor.tech/files/resume_single_column.pdf)
 
 </div>
 
@@ -29,8 +29,8 @@ This portfolio features direct access to Kishor Kumar Paroi's verified technical
 
 | Format | Document | Target Audience | Direct Download Link |
 | :--- | :--- | :--- | :--- |
-| **Academic / Executive** | `resume.pdf` | Executive Leadership, Staff/Principal AI Architects | [📥 **Download 1-Page A4 PDF**](https://macos-portofolio-virid.vercel.app/files/resume.pdf) |
-| **Comprehensive ATS** | `resume_single_column.pdf` | Enterprise ATS Screening, Deep Systems Due-Diligence | [📥 **Download Detailed ATS PDF**](https://macos-portofolio-virid.vercel.app/files/resume_single_column.pdf) |
+| **Academic / Executive** | `resume.pdf` | Executive Leadership, Staff/Principal AI Architects | [📥 **Download 1-Page A4 PDF**](https://kishor.tech/files/resume.pdf) |
+| **Comprehensive ATS** | `resume_single_column.pdf` | Enterprise ATS Screening, Deep Systems Due-Diligence | [📥 **Download Detailed ATS PDF**](https://kishor.tech/files/resume_single_column.pdf) |
 | **Interactive In-App** | `Resume.app` | Interactive Web Previewers & Recruiters | *Click the "Resume" icon on the macOS Desktop or Dock* |
 
 > [!TIP]
@@ -130,7 +130,7 @@ This repository is optimized for zero-configuration continuous deployment on the
 
 **Kishor Kumar Paroi**  
 *Principal AI Systems Architect | Enterprise Platform & Distributed Systems Leader*  
-- 🌐 **macOS Portfolio:** [macos-portofolio-virid.vercel.app](https://macos-portofolio-virid.vercel.app/)  
+- 🌐 **macOS Portfolio:** [kishor.tech](https://kishor.tech/)  
 - 🚀 **3D Interactive Portfolio:** [re-invent-rust.vercel.app](https://re-invent-rust.vercel.app/)  
 - 💼 **LinkedIn:** [linkedin.com/in/kishor-kumar-paroi-b06344166](https://www.linkedin.com/in/kishor-kumar-paroi-b06344166/)  
 - 🐙 **GitHub Portfolio Repo:** [github.com/KishorKumarParoi/macos-portofolio](https://github.com/KishorKumarParoi/macos-portofolio)  

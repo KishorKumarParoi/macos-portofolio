@@ -95,7 +95,7 @@ const WindowWrapper = (Component, windowKey) => {
                 onMouseDown={() => focusWindow(windowKey)}
                 className={`absolute will-change-transform transition-shadow ${isMaximized ? 'shadow-none' : 'shadow-2xl'}`}
             >
-                <Component {...props} isMaximized={isMaximized} />
+                <Component {...props} isMaximized={isMaximized} isOpen={isOpen} />
             </section>
         )
     }

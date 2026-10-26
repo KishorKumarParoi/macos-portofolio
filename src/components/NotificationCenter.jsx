@@ -29,10 +29,10 @@ const NotificationCenter = () => {
     const surpriseTriggeredRef = useRef(false)
     const intervalRef = useRef(null)
 
-    // Strictly lock official MacBook wallpaper
+    // Strictly lock official MacBook wallpaper (macOS Sonoma Horizon)
     const applyWallpaper = () => {
         if (typeof document === 'undefined') return
-        const macbookWp = '/images/wallpaper-sequoia.jpg'
+        const macbookWp = '/images/macbook-wallpaper-sonoma-horizon.jpg'
         document.body.style.backgroundImage = `url('${macbookWp}')`
         document.body.style.backgroundSize = 'cover'
         document.body.style.backgroundPosition = 'center'

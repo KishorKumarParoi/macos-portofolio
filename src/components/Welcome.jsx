@@ -139,6 +139,19 @@ const HACKER_EXPERTISE_BLOCKS = [
     },
 ]
 
+const RANDOM_TERMINAL_MSGS = [
+    "[sys://kernel] Apple Silicon M3 Max • 16-Core CPU • 40-Core GPU • 64GB Unified Memory [ONLINE]",
+    "[mesh://langgraph] Autonomous 5-agent state graph active with PostgreSQL checkpointer (99.4% SLA)",
+    "[sec://zerotrust] NVIDIA NeMo Guardrails & BotShield WAF armed • 98%+ jailbreak intercept rate",
+    "[lakehouse://delta] Medallion stream: AWS S3 + GCS + Azure ADLS • 35M+ orders • <5ms Feast latency",
+    "[latency://simd] Rust 1.85 SIMD vectorized scoring engine active • p99: 0.42ms (50x speedup)",
+    "[serving://vllm] Multi-LoRA dynamic multiplexing with continuous RSLoRA fine-tuning flywheel (-68% GPU cost)",
+    "[webrtc://koomai] Native NVENC hardware encoder active • 60 FPS 1080p • <120ms peer-to-peer latency",
+    "[network://domain] kishor.tech online • Anycast HTTP/2 TLS 1.3 • Global Edge CDN verified",
+    "[infra://gitops] ArgoCD GitOps declarative controller synced to Kubernetes (GKE/K3s) [HEALTHY]",
+    "[algos://ruet] RUET CSE Merit 483rd • Codeforces Div-2 232 • CodeChef 5★ algorithmic foundations loaded",
+]
+
 const Welcome = () => {
     const titleRef = useRef(null)
     const subtitleRef = useRef(null)
@@ -155,6 +168,15 @@ const Welcome = () => {
     const [isVanishing, setIsVanishing] = useState(false)
     const [isPaused, setIsPaused] = useState(false)
     const [isMinimized, setIsMinimized] = useState(false)
+
+    // Dynamic random terminal hacker messages below Namaste
+    const [terminalMsgIdx, setTerminalMsgIdx] = useState(0)
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTerminalMsgIdx((prev) => (prev + 1) % RANDOM_TERMINAL_MSGS.length)
+        }, 3200)
+        return () => clearInterval(interval)
+    }, [])
 
     // Arijit Singh "Asatoma Sadgamaya" Vedic Audio State
     const slokaAudioRef = useRef(null)
@@ -239,11 +261,11 @@ const Welcome = () => {
     })
 
     // Serial Telemetry Rotating & Vanishing Engine
-    // Displays each experience for 4 seconds, triggers robotic vanish transition (500ms), then cycles to next
+    // Displays each experience for 7 seconds (+2.8s longer stay as requested), triggers robotic vanish transition (600ms), then cycles to next
     useEffect(() => {
         if (isPaused || isMinimized) return
 
-        const displayDuration = 4200
+        const displayDuration = 7000
         const vanishDuration = 600
 
         const vanishTimeout = setTimeout(() => {
@@ -275,11 +297,12 @@ const Welcome = () => {
         resize()
         window.addEventListener('resize', resize)
 
-        // 120 Twinkling Stars
-        const stars = Array.from({ length: 120 }, () => ({
+        // Responsive Twinkling Stars (Optimized: 50 on mobile, 100 on desktop)
+        const starCount = typeof window !== 'undefined' && window.innerWidth < 640 ? 50 : 100
+        const stars = Array.from({ length: starCount }, () => ({
             x: Math.random() * window.innerWidth,
             y: Math.random() * window.innerHeight,
-            radius: Math.random() * 1.8 + 0.4,
+            radius: Math.random() * 1.5 + 0.4,
             alpha: Math.random() * 0.8 + 0.2,
             speed: Math.random() * 0.02 + 0.005,
             color: ['#ffffff', '#fde047', '#38bdf8', '#f472b6', '#fed7aa'][Math.floor(Math.random() * 5)],
@@ -288,24 +311,24 @@ const Welcome = () => {
         // Shooting Stars (Meteors)
         const meteors = []
         const spawnMeteor = () => {
-            if (meteors.length >= 4) return
+            if (meteors.length >= 3) return
             meteors.push({
                 x: Math.random() * (canvas.width * 0.7),
                 y: Math.random() * (canvas.height * 0.4),
-                length: Math.random() * 90 + 50,
-                speed: Math.random() * 10 + 14,
+                length: Math.random() * 80 + 40,
+                speed: Math.random() * 8 + 12,
                 angle: (Math.PI / 4) + (Math.random() * 0.2 - 0.1),
                 opacity: 1,
                 color: ['#38bdf8', '#fde047', '#f472b6', '#fed7aa'][Math.floor(Math.random() * 4)],
             })
         }
-        const meteorInterval = setInterval(spawnMeteor, 2200)
+        const meteorInterval = setInterval(spawnMeteor, 2600)
 
         // Burst Particles
         const burstParticles = []
         const handleClick = (e) => {
-            for (let i = 0; i < 18; i++) {
-                const angle = (Math.PI * 2 * i) / 18
+            for (let i = 0; i < 14; i++) {
+                const angle = (Math.PI * 2 * i) / 14
                 const speed = Math.random() * 3 + 2
                 burstParticles.push({
                     x: e.clientX,
@@ -323,18 +346,18 @@ const Welcome = () => {
         const render = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-            // Draw Twinkling Stars
-            stars.forEach((s) => {
+            // Draw Twinkling Stars (Batch optimized without expensive save/restore)
+            for (let i = 0; i < stars.length; i++) {
+                const s = stars[i]
                 s.alpha += s.speed
                 if (s.alpha > 1 || s.alpha < 0.2) s.speed = -s.speed
-                ctx.save()
                 ctx.globalAlpha = Math.max(0.1, Math.min(1, s.alpha))
                 ctx.fillStyle = s.color
                 ctx.beginPath()
                 ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2)
                 ctx.fill()
-                ctx.restore()
-            })
+            }
+            ctx.globalAlpha = 1
 
             // Draw Shooting Stars
             for (let i = meteors.length - 1; i >= 0; i--) {
@@ -498,6 +521,17 @@ const Welcome = () => {
                 <span className='text-emerald-400 font-semibold'>SYSTEM_OK</span>
             </div>
 
+            {/* 💻 Authentic Random Terminal Stream Message below Namaste */}
+            <div className='relative z-10 mt-2 max-w-xl mx-auto px-3 py-1.5 rounded-lg bg-black/70 border border-cyan-500/35 backdrop-blur-md shadow-lg pointer-events-auto select-none'>
+                <div className='flex items-center gap-2 text-[10px] sm:text-[11px] font-mono text-cyan-300'>
+                    <span className='size-2 rounded-full bg-emerald-400 animate-ping shrink-0' />
+                    <span className='text-amber-400 font-bold shrink-0'>paroi@kishor.tech:~$</span>
+                    <span className='text-gray-200 truncate font-medium transition-all duration-300'>
+                        {RANDOM_TERMINAL_MSGS[terminalMsgIdx]}
+                    </span>
+                </div>
+            </div>
+
             {/* Portfolio Master Title */}
             <h1 
                 ref={titleRef} 
@@ -612,7 +646,7 @@ const Welcome = () => {
                         <div className='mt-2.5 pt-2 border-t border-white/5 flex items-center justify-between text-[9px] font-mono text-gray-400'>
                             <div className='flex items-center gap-1.5'>
                                 <span className='size-1.5 rounded-full bg-cyan-400 animate-ping' />
-                                <span>CYBERNETIC TELEMETRY STREAMING • VANISHES IN 4s</span>
+                                <span>CYBERNETIC TELEMETRY STREAMING • VANISHES IN 7s</span>
                             </div>
                             <span className='text-cyan-300/80 font-semibold'>STATUS: ONLINE</span>
                         </div>

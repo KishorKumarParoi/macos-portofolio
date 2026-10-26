@@ -264,7 +264,7 @@ const KNOWLEDGE_BASE = [
 • **Live Games Suite:** Minimax Blitz Chess AI (5-minute clock) and Clash of Villages RTS defense simulation.
 • **Nexus AI Agent:** Autonomous LangGraph chat interface with BotShield WAF, semantic caching, and FastMCP sandboxing.
 • **Apple Official 4K Wallpaper:** Locked Sequoia 4K wallpaper with dynamic Dark/Light mode theme switching.
-• **Live Platform:** [https://macos-portofolio-virid.vercel.app/](https://macos-portofolio-virid.vercel.app/)
+• **Live Platform:** [https://kishor.tech](https://kishor.tech)
 • **GitHub Repository:** [KishorKumarParoi/macos-portofolio](https://github.com/KishorKumarParoi/macos-portofolio)`,
     },
     {

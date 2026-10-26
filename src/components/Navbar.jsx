@@ -163,6 +163,19 @@ const Navbar = () => {
                             </li>
                         ))
                     }
+                    {/* Reinvent 3D Portfolio direct link */}
+                    <li>
+                        <a
+                            href="https://re-invent-rust.vercel.app/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-500/15 hover:bg-cyan-500/30 border border-cyan-400/40 text-cyan-200 hover:text-white transition shadow-xs text-xs font-semibold cursor-pointer"
+                            title="Open Reinvent 3D Futuristic Portfolio (WebGL / Three.js)"
+                        >
+                            <span className="size-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                            <span>Reinvent 3D ↗</span>
+                        </a>
+                    </li>
                     {/* Games dropdown launcher */}
                     <li className='relative'>
                         <p 

@@ -64,7 +64,7 @@ const playSound = (type) => {
     } catch (e) {}
 }
 
-const ClashDefense = () => {
+const ClashDefense = ({ isOpen = false }) => {
     const canvasRef = useRef(null)
     const { closeWindow } = useWindowStore()
     const [gameState, setGameState] = useState('permission') // permission | playing | won | lost
@@ -154,7 +154,7 @@ const ClashDefense = () => {
 
     // Main Game Loop
     useEffect(() => {
-        if (gameState !== 'playing') {
+        if (!isOpen || gameState !== 'playing') {
             gameRef.current.running = false
             return
         }
@@ -402,7 +402,7 @@ const ClashDefense = () => {
             cancelAnimationFrame(animationFrameId)
             clearInterval(timerInterval)
         }
-    }, [gameState, soundEnabled])
+    }, [isOpen, gameState, soundEnabled])
 
     return (
         <div className='flex flex-col w-[760px] max-w-[96vw] bg-[#0b0f19] text-white rounded-xl shadow-2xl border border-white/20 select-none overflow-hidden'>

@@ -2,9 +2,15 @@ import { WindowControls } from '#components'
 import { blogPosts } from '#constants'
 import WindowWrapper from '#hoc/WindowWrapper'
 import { ChevronLeft, ChevronRight, Copy, MoveRight, PanelLeft, Plus, SearchIcon, SearchX, Share, ShieldHalf } from 'lucide-react'
-import React from 'react'
+import React, { useState } from 'react'
 
 const Safari = () => {
+    const [searchQuery, setSearchQuery] = useState('')
+
+    const filteredPosts = blogPosts.filter((post) =>
+        post.title.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+
     return (
         <>
             <div id='window-header'>
@@ -20,9 +26,13 @@ const Safari = () => {
                     <ShieldHalf className='icon' />
                     <div className='search'>
                         <SearchIcon className='icon' />
-                        <input type='text'
-                            placeholder='Search or Enter Website name'
-                            className='flex-1' />
+                        <input
+                            type='text'
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            placeholder='Search among 15 flagship architecture articles...'
+                            className='flex-1 bg-transparent border-none outline-none text-xs'
+                        />
                     </div>
                 </div>
 
@@ -39,15 +49,23 @@ const Safari = () => {
 
                 <div className='space-y-8'>
                     {
-                        blogPosts.map(({ id, image, title, date, link }) => (
+                        filteredPosts.map(({ id, image, title, date, link }) => (
                             <div key={id} className='blog-post'>
                                 <div className='col-span-2'>
-                                    <img src={image} alt={title} />
+                                    <img
+                                        src={image}
+                                        alt={title}
+                                        onError={(e) => {
+                                            e.currentTarget.onerror = null;
+                                            e.currentTarget.src = '/images/macbook-wallpaper-sonoma-horizon.jpg';
+                                        }}
+                                        className='w-full h-auto object-cover rounded-md'
+                                    />
                                 </div>
                                 <div className='content'>
                                     <p>{date}</p>
                                     <h3>{title}</h3>
-                                    <a href={link} target='__blank' rel='noopener noreferrer' >
+                                    <a href={link} target='_blank' rel='noopener noreferrer' >
                                         Checkout the full post <MoveRight className='icon-hover' />
                                     </a>
                                 </div>

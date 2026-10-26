@@ -207,7 +207,7 @@ const blogPosts = [
     date: "Mar 2026",
     title: "15. macOS Tahoe Portfolio: Engineering an OS-Grade Windowing Web Environment in React 19 & Tailwind",
     image: "/images/projects/macos/01_desktop_os.jpg",
-    link: "https://macos-portofolio-virid.vercel.app/",
+    link: "https://kishor.tech/",
   },
 ];
 
@@ -2214,7 +2214,7 @@ const WORK_LOCATION = {
             "Implemented multi-agent LangGraph chat interface with BotShield WAF, semantic similarity caching, and isolated FastMCP tool sandboxing.",
             "Locked official Apple 4K macOS Sequoia wallpaper with dynamic Dark/Light mode theme switching and 100% responsive fluid mobile layouts.",
             "Single-command deployment pipeline on Vercel with automated build optimization, achieving sub-second production builds (0 errors).",
-            "🚀 Live Operating System: https://macos-portofolio-virid.vercel.app/",
+            "🚀 Live Operating System: https://kishor.tech/",
             "💻 GitHub Repository: https://github.com/KishorKumarParoi/macos-portofolio",
           ],
         },
@@ -2224,7 +2224,7 @@ const WORK_LOCATION = {
           icon: "/images/safari.png",
           kind: "file",
           fileType: "url",
-          href: "https://macos-portofolio-virid.vercel.app/",
+          href: "https://kishor.tech/",
           position: "top-8 left-48",
         },
         {

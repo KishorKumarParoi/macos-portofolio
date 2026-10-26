@@ -7,8 +7,8 @@ body {
   width: 100dvw;
   overflow: hidden;
   height: 100dvh;
-  background-color: #0c0d14;
-  background-image: var(--macos-wallpaper, url("/images/macbook-wallpaper-1.jpg"));
+  background-color: #000000;
+  background-image: var(--macos-wallpaper, url("/images/macbook-wallpaper-sonoma-horizon.jpg"));
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -36,7 +36,7 @@ body {
 @layer base {
   main {
     @apply w-dvw h-dvh overflow-hidden;
-    background-image: var(--macos-wallpaper, url("/images/macbook-wallpaper-1.jpg"));
+    background-image: var(--macos-wallpaper, url("/images/macbook-wallpaper-sonoma-horizon.jpg"));
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -499,21 +499,21 @@ html.dark #safari .blog-post .content a {
   color: #60a5fa;
 }
 
-/* 5. Finder Window */
+/* 5. Finder Window (Pure Pitch Black in Dark Mode) */
 html.dark #finder {
-  background-color: #13141f;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: #000000 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
 }
 
 html.dark #finder #window-header {
-  background-color: #1b1c2b;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: #0d0d12 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
   color: #d1d5db;
 }
 
 html.dark #finder .sidebar {
-  background-color: #171825;
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: #050508 !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
 html.dark #finder .sidebar h3 {
@@ -535,7 +535,7 @@ html.dark #finder .sidebar ul .active {
 }
 
 html.dark #finder .content {
-  background-color: #13141f;
+  background-color: #000000 !important;
 }
 
 html.dark #finder .content li p {
@@ -546,23 +546,27 @@ html.dark #finder .content li img {
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
 }
 
+html.dark #finder table {
+  background-color: #000000 !important;
+}
+
 html.dark #finder table thead tr {
-  background-color: #1b1c2b;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: #0d0d12 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
   color: #9ca3af;
 }
 
 html.dark #finder table tbody tr {
-  background-color: #13141f;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: #000000 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
 }
 
 html.dark #finder table tbody tr:nth-child(even) {
-  background-color: #171825;
+  background-color: #050508 !important;
 }
 
 html.dark #finder table tbody tr:hover {
-  background-color: rgba(59, 130, 246, 0.22);
+  background-color: rgba(59, 130, 246, 0.22) !important;
 }
 
 html.dark #finder table tbody td span {
@@ -574,7 +578,7 @@ html.dark #finder table tbody td {
 }
 
 html.dark #finder > div:last-child {
-  background-color: #171825 !important;
+  background-color: #08080c !important;
   border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
   color: #9ca3af !important;
 }
@@ -648,28 +652,33 @@ html.dark #photos .gallery {
   background-color: #141522;
 }
 
-/* 8. Image & Text Preview Windows */
+/* 8. Image & Text Preview Windows (Pure Pitch Black in Dark Mode) */
 html.dark #imgfile {
-  background-color: #141522;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: #000000 !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
 }
 
 html.dark #imgfile #window-header {
-  background-color: #1c1d2e;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: #0d0d12 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
 html.dark #imgfile #window-header p,
 html.dark #imgfile #window-header h2 {
-  color: #e5e7eb;
+  color: #f3f4f6;
 }
 
 html.dark #imgfile .preview {
-  background-color: #0f1019;
+  background-color: #000000 !important;
 }
 
 html.dark #imgfile .bg-white {
-  background-color: #141522;
+  background-color: #000000 !important;
+}
+
+html.dark #txtfile {
+  background-color: #000000 !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
 }
 
 /* 9. Terminal Window Glass Frame */

@@ -122,13 +122,13 @@ const Finder = () => {
             </div>
 
             {/* Mobile Quick Location Chips */}
-            <div className='flex sm:hidden overflow-x-auto gap-1.5 px-3 py-1.5 bg-gray-100/90 border-b border-gray-200 text-xs'>
+            <div className='flex sm:hidden overflow-x-auto gap-1.5 px-3 py-1.5 bg-gray-100/90 dark:bg-black border-b border-gray-200 dark:border-white/10 text-xs'>
                 {Object.values(locations).map((loc) => (
                     <button
                         key={loc.id}
                         onClick={() => setActiveLocation(loc)}
                         className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] whitespace-nowrap transition cursor-pointer ${
-                            activeLocation?.name === loc.name ? 'bg-blue-600 text-white font-bold' : 'bg-white text-gray-700 border border-gray-200 shadow-xs'
+                            activeLocation?.name === loc.name ? 'bg-blue-600 text-white font-bold' : 'bg-white dark:bg-[#101016] text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-white/10 shadow-xs'
                         }`}
                     >
                         <img src={loc.icon} alt={loc.name} className='size-3' />
@@ -137,8 +137,8 @@ const Finder = () => {
                 ))}
             </div>
 
-            <div className='bg-white flex h-full'>
-                <div className='sidebar hidden sm:flex'>
+            <div className='bg-white dark:bg-black flex h-full'>
+                <div className='sidebar hidden sm:flex dark:bg-[#050508]'>
                     {
                         renderList("Favorites", Object.values(locations))
                     }
@@ -148,24 +148,24 @@ const Finder = () => {
                 </div>
 
                 {viewMode === 'grid' ? (
-                    <ul className='content relative overflow-auto'>
+                    <ul className='content relative overflow-auto dark:bg-black'>
                         {
                             Array.isArray(activeLocation?.children) && activeLocation.children.map((item) => (
                                 <li key={item.id} className={item.position}
                                     onClick={() => openItem(item)}
                                     onDoubleClick={() => openItem(item)}>
                                     <img src={item.icon} alt={item.name} />
-                                    <p className='text-xs font-medium text-gray-800 text-center max-w-[110px] break-words'>{item.name}</p>
+                                    <p className='text-xs font-medium text-gray-800 dark:text-gray-200 text-center max-w-[110px] break-words'>{item.name}</p>
                                 </li>
                             ))
                         }
                     </ul>
                 ) : (
                     /* macOS List View Table */
-                    <div className='flex-1 overflow-auto bg-white select-none text-xs'>
+                    <div className='flex-1 overflow-auto bg-white dark:bg-black select-none text-xs'>
                         <table className='w-full text-left border-collapse'>
                             <thead>
-                                <tr className='border-b border-gray-200 bg-gray-50/80 text-[11px] font-semibold text-gray-500 sticky top-0'>
+                                <tr className='border-b border-gray-200 dark:border-white/10 bg-gray-50/80 dark:bg-[#0a0a0f] text-[11px] font-semibold text-gray-500 dark:text-gray-400 sticky top-0'>
                                     <th className='py-1.5 px-3'>Name</th>
                                     <th className='py-1.5 px-3'>Date Modified</th>
                                     <th className='py-1.5 px-3'>Kind</th>
@@ -177,15 +177,15 @@ const Finder = () => {
                                     <tr
                                         key={item.id}
                                         onClick={() => openItem(item)}
-                                        className={`cursor-pointer transition hover:bg-blue-50/70 border-b border-gray-100 ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50/30'}`}
+                                        className={`cursor-pointer transition hover:bg-blue-50/70 dark:hover:bg-blue-900/30 border-b border-gray-100 dark:border-white/5 ${idx % 2 === 0 ? 'bg-white dark:bg-black' : 'bg-gray-50/30 dark:bg-[#06060a]'}`}
                                     >
                                         <td className='py-1.5 px-3 flex items-center gap-2'>
                                             <img src={item.icon} alt={item.name} className='size-4 shrink-0' />
-                                            <span className='font-medium text-gray-800 truncate max-w-[280px]'>{item.name}</span>
+                                            <span className='font-medium text-gray-800 dark:text-gray-200 truncate max-w-[280px]'>{item.name}</span>
                                         </td>
-                                        <td className='py-1.5 px-3 text-gray-500 text-[11px]'>{getItemDate(item)}</td>
-                                        <td className='py-1.5 px-3 text-gray-500 text-[11px]'>{getItemKind(item)}</td>
-                                        <td className='py-1.5 px-3 text-right text-gray-500 text-[11px]'>{getItemSize(item)}</td>
+                                        <td className='py-1.5 px-3 text-gray-500 dark:text-gray-400 text-[11px]'>{getItemDate(item)}</td>
+                                        <td className='py-1.5 px-3 text-gray-500 dark:text-gray-400 text-[11px]'>{getItemKind(item)}</td>
+                                        <td className='py-1.5 px-3 text-right text-gray-500 dark:text-gray-400 text-[11px]'>{getItemSize(item)}</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -195,7 +195,7 @@ const Finder = () => {
             </div>
 
             {/* Finder Footer Status Bar */}
-            <div className='flex items-center justify-between px-3 py-1 bg-gray-100/90 border-t border-gray-200 text-[11px] text-gray-500 select-none'>
+            <div className='flex items-center justify-between px-3 py-1 bg-gray-100/90 dark:bg-[#08080c] border-t border-gray-200 dark:border-white/10 text-[11px] text-gray-500 dark:text-gray-400 select-none'>
                 <span>{Array.isArray(activeLocation?.children) ? activeLocation.children.length : 0} items, 412.8 GB available</span>
                 <span className='flex items-center gap-1.5 font-medium'>
                     <span className='w-1.5 h-1.5 rounded-full bg-emerald-500'></span>
