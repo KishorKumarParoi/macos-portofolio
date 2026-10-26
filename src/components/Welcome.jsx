@@ -445,7 +445,7 @@ const Welcome = () => {
             {/* Background Interactive Starfield Canvas */}
             <canvas
                 ref={canvasRef}
-                className='fixed inset-0 pointer-events-auto z-0 opacity-80'
+                className='fixed inset-0 pointer-events-none z-0 opacity-80'
             />
 
             {/* Glowing Nebula Backdrop Behind Namaste */}

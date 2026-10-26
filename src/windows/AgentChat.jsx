@@ -524,11 +524,11 @@ Kishor approaches this challenge through the lens of **Enterprise AI Systems Arc
                 <div className='flex items-center gap-2 text-[10px]'>
                     <button
                         onClick={() => toggleMaximize('aichat')}
-                        className='flex items-center gap-1 bg-white/10 hover:bg-cyan-500/20 text-gray-300 hover:text-cyan-300 border border-white/15 px-2 py-1 rounded-lg font-mono transition cursor-pointer'
-                        title={isMaximized ? 'Restore Window Size' : 'Maximize to Fullscreen'}
+                        className='flex items-center gap-1.5 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 hover:from-cyan-500/35 hover:to-blue-500/35 text-cyan-300 border border-cyan-400/40 px-2.5 py-1 rounded-lg font-mono transition cursor-pointer'
+                        title={isMaximized ? 'Restore Window Size' : 'To chat with Nexus Agent, switch to Full Screen'}
                     >
-                        {isMaximized ? <Minimize2 className='size-3 text-cyan-400' /> : <Maximize2 className='size-3 text-cyan-400' />}
-                        <span>{isMaximized ? 'Restore' : 'Fullscreen'}</span>
+                        {isMaximized ? <Minimize2 className='size-3 text-cyan-400' /> : <Maximize2 className='size-3 text-cyan-400 animate-pulse' />}
+                        <span className='font-bold'>{isMaximized ? 'Exit Full Screen' : '⛶ Full Screen (Chat Mode)'}</span>
                     </button>
                     <span className='hidden sm:flex items-center gap-1 bg-emerald-950/70 border border-emerald-500/40 text-emerald-300 px-2.5 py-0.5 rounded-full font-mono'>
                         <ShieldCheck className='size-3 text-emerald-400' />
@@ -649,35 +649,74 @@ Kishor approaches this challenge through the lens of **Enterprise AI Systems Arc
                 {starterQueries.map((q, i) => (
                     <button
                         key={i}
-                        onClick={() => handleSend(q)}
+                        onClick={() => {
+                            if (!isMaximized) {
+                                toggleMaximize('aichat')
+                            }
+                            handleSend(q)
+                        }}
                         className='px-2.5 py-1 rounded-full bg-white/5 hover:bg-cyan-500/20 text-gray-300 hover:text-cyan-200 border border-white/10 hover:border-cyan-400/50 whitespace-nowrap transition cursor-pointer shrink-0'
+                        title='Click to ask Nexus Agent (switches to Full Screen)'
                     >
                         {q}
                     </button>
                 ))}
             </div>
 
-            {/* Input Form */}
+            {/* Option to chat in Full Screen */}
+            {!isMaximized && (
+                <div className='px-3.5 py-2 bg-gradient-to-r from-cyan-950/80 via-[#161622] to-blue-950/80 border-t border-cyan-500/30 flex items-center justify-between gap-2 text-[11px] select-none'>
+                    <div className='flex items-center gap-2 truncate'>
+                        <Maximize2 className='size-3 text-cyan-400 shrink-0 animate-pulse' />
+                        <span className='text-gray-300 truncate'>
+                            Want full diagrams & LangGraph telemetry?
+                        </span>
+                    </div>
+                    <button
+                        type='button'
+                        onClick={() => toggleMaximize('aichat')}
+                        className='px-3 py-1 rounded-lg bg-linear-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-black font-extrabold text-[10px] shrink-0 transition cursor-pointer shadow-sm shadow-cyan-400/40'
+                    >
+                        Chat in Full Screen ⛶
+                    </button>
+                </div>
+            )}
+
+            {/* Universal Input Form — Active on small, mobile, normal and fullscreen sizes */}
             <form 
                 onSubmit={(e) => {
                     e.preventDefault()
                     handleSend(input)
                 }} 
-                className='p-3 bg-[#1e1e28] border-t border-gray-800 flex items-center gap-2'
+                className='p-2.5 sm:p-3 bg-[#1e1e28] border-t border-gray-800 flex items-center gap-2 select-none'
             >
+                <div className='hidden lg:flex items-center gap-1.5 px-2 text-[10px] font-mono text-emerald-400 shrink-0'>
+                    <span className='size-2 rounded-full bg-emerald-400 animate-ping' />
+                    <span>NEXUS_AGENT_ONLINE</span>
+                </div>
                 <input
                     type='text'
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    placeholder='Ask about Kishor&apos;s architectures, metrics, experience, or ask for diagrams...'
-                    className='flex-1 bg-black/40 border border-gray-700/80 rounded-xl px-3.5 py-2 text-xs text-white placeholder-gray-500 focus:outline-hidden focus:border-cyan-400/70 transition'
+                    placeholder="Ask about Kishor's architectures, metrics, or experience..."
+                    className='flex-1 min-w-0 bg-black/50 border border-cyan-500/40 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gray-400 focus:outline-hidden focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition'
+                    autoFocus
                 />
                 <button
                     type='submit'
                     disabled={!input.trim()}
-                    className='p-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 disabled:opacity-40 text-black font-bold transition shadow-md cursor-pointer'
+                    className='px-3.5 sm:px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 disabled:opacity-40 text-black font-bold text-xs flex items-center gap-1.5 transition shadow-md cursor-pointer shrink-0'
                 >
-                    <Send className='size-4' />
+                    <span className='hidden sm:inline'>Send</span>
+                    <Send className='size-3.5' />
+                </button>
+                <button
+                    type='button'
+                    onClick={() => toggleMaximize('aichat')}
+                    className='p-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition cursor-pointer shrink-0 border border-white/10'
+                    title={isMaximized ? 'Restore Window Size' : 'Expand Fullscreen'}
+                >
+                    {isMaximized ? <Minimize2 className='size-3.5' /> : <Maximize2 className='size-3.5' />}
                 </button>
             </form>
         </div>

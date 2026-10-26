@@ -79,7 +79,7 @@ const Home = () => {
     }
 
     return (
-        <section id='home' ref={containerRef} className='relative z-0'>
+        <section id='home' ref={containerRef} className='relative z-20 pointer-events-auto'>
             {/* Desktop Quick Symmetrical Eagle Wings Formation Indicator */}
             <div className='hidden sm:flex fixed bottom-2 left-3 z-10 items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/40 border border-white/10 backdrop-blur-md text-[10px] font-mono text-gray-300 opacity-60 hover:opacity-100 transition duration-300'>
                 <span>🦅 Eagle Formation</span>
