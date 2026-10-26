@@ -1,6 +1,40 @@
-# 🍎 macOS Sonoma Interactive Engineering Portfolio
-
 <div align="center">
+
+<!-- 🌊 Live Dynamic Animated Twinkling Wave Header -->
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,2,2,5,30&height=180&section=header&text=macOS%20Sonoma%20OS%20Portfolio&fontSize=38&fontAlignY=36&animation=twinkling&desc=Interactive%20Desktop%20•%20Enterprise%20AI%20Architect%20•%20kishor.tech&descSize=16&descAlignY=62" width="100%" alt="macOS Sonoma Portfolio Header" />
+
+<!-- ⚡ Live Dynamic Animated Typing Terminal -->
+<a href="https://kishor.tech">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=19&duration=3000&pause=1000&color=0071E3&center=true&vCenter=true&multiline=false&width=680&height=45&lines=🍎+Welcome+to+macOS+Sonoma+Interactive+Portfolio;🚀+Live+at+kishor.tech+•+High-Scale+AI+Systems;🐱+Meowww!+Tap+any+window+to+explore+production+work;🐍+Snake+eating+commits+across+the+repository+grid!" alt="Live Typing SVG" />
+</a>
+
+<!-- 🌈 Animated Neon Gradient Divider -->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%" height="4" alt="Neon Divider" />
+
+<!-- 🐾 🐱 Cute Meowing Cat Mascot & 🐍 Live Contribution Snake Animation -->
+<table align="center" style="border: none; background: transparent;">
+  <tr>
+    <td align="center" width="220" style="border: none;">
+      <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" width="150" alt="Cute Meowing Kitty" style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);" />
+      <br />
+      <b>🐾 <i>"Meowww! Click any window to explore!"</i></b>
+      <br />
+      <a href="https://www.myinstants.com/media/sounds/meow.mp3" target="_blank">
+        <img src="https://img.shields.io/badge/🔊_Click_for-Meowww!-ff69b4?style=flat-square&logo=apple-music&logoColor=white" alt="Play Meow" />
+      </a>
+    </td>
+    <td align="center" width="480" style="border: none;">
+      <img src="https://raw.githubusercontent.com/platane/snk/output/github-contribution-grid-snake.svg" width="460" alt="Snake eating contributions" />
+      <br />
+      <b>🐍 <i>Live Snake eating bugs & patrolling commits 24/7!</i></b>
+    </td>
+  </tr>
+</table>
+
+<!-- 🌈 Animated Neon Gradient Divider -->
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%" height="4" alt="Neon Divider" />
+
+<br />
 
 ![macOS Portfolio Banner](public/macbook.png)
 
