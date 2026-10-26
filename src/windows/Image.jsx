@@ -10,6 +10,7 @@ import {
     Image as ImageIcon,
     Columns2,
     LayoutGrid,
+    List,
     X,
     ChevronLeft,
     ChevronRight,
@@ -141,6 +142,16 @@ const Image = () => {
                             <LayoutGrid className='size-3 inline mr-1' />
                             <span>Grid ({openedImages.length})</span>
                         </button>
+                        <button
+                            onClick={() => setViewMode('list')}
+                            className={`px-2 py-0.5 rounded transition cursor-pointer ${
+                                viewMode === 'list' ? 'bg-white dark:bg-black text-blue-600 dark:text-cyan-300 font-bold shadow-xs' : 'text-gray-500 hover:text-white'
+                            }`}
+                            title='List View of All Open Images'
+                        >
+                            <List className='size-3 inline mr-1' />
+                            <span>List</span>
+                        </button>
                     </div>
 
                     {/* Navigation Buttons for Multiple Images */}
@@ -235,7 +246,7 @@ const Image = () => {
             )}
 
             {/* Display Body according to viewMode */}
-            <div className='p-4 bg-white dark:bg-black min-h-[320px] max-h-[72vh] overflow-auto flex items-center justify-center'>
+            <div className={`p-4 bg-white dark:bg-black min-h-[320px] max-h-[72vh] overflow-y-auto ${viewMode === 'single' ? 'flex items-center justify-center' : 'block'}`}>
                 {viewMode === 'single' && activeImage && (
                     /* Single Focused View with Zoom */
                     <div className='relative transition-transform duration-200 ease-out flex items-center justify-center w-full h-full' style={{ transform: `scale(${scale})` }}>
@@ -278,8 +289,8 @@ const Image = () => {
                 )}
 
                 {viewMode === 'grid' && (
-                    /* Multi-Image Grid View */
-                    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 w-full'>
+                    /* Multi-Image Grid View (Sequential Non-Overlapping) */
+                    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5 w-full auto-rows-max'>
                         {openedImages.map((img) => (
                             <div
                                 key={img.id}
@@ -298,16 +309,68 @@ const Image = () => {
                                         <X className='size-3' />
                                     </button>
                                 </div>
-                                <img
-                                    src={img.imageUrl}
-                                    alt={img.name}
-                                    onError={(e) => {
-                                        e.currentTarget.onerror = null
-                                        e.currentTarget.src = FALLBACK_IMAGE
-                                    }}
-                                    className='w-full h-40 object-contain rounded bg-black/40 p-1 group-hover:scale-102 transition'
-                                />
+                                <div className='w-full h-36 flex items-center justify-center bg-black/40 rounded p-1 overflow-hidden'>
+                                    <img
+                                        src={img.imageUrl}
+                                        alt={img.name}
+                                        onError={(e) => {
+                                            e.currentTarget.onerror = null
+                                            e.currentTarget.src = FALLBACK_IMAGE
+                                        }}
+                                        className='max-w-full max-h-full object-contain rounded group-hover:scale-105 transition'
+                                    />
+                                </div>
                                 <span className='text-[10px] text-cyan-400 font-mono mt-1'>Click to Enlarge</span>
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+                {viewMode === 'list' && (
+                    /* Multi-Image List View */
+                    <div className='flex flex-col gap-2 w-full'>
+                        {openedImages.map((img) => (
+                            <div
+                                key={img.id}
+                                onClick={() => {
+                                    setActiveImageId(img.id)
+                                    setViewMode('single')
+                                }}
+                                className='flex items-center justify-between p-2 rounded-xl bg-gray-50 dark:bg-[#0e0f18] border border-gray-200 dark:border-white/10 hover:border-cyan-400 transition cursor-pointer group'
+                            >
+                                <div className='flex items-center gap-3 min-w-0'>
+                                    <img
+                                        src={img.imageUrl}
+                                        alt={img.name}
+                                        onError={(e) => {
+                                            e.currentTarget.onerror = null
+                                            e.currentTarget.src = FALLBACK_IMAGE
+                                        }}
+                                        className='size-12 object-cover rounded-md bg-black/40 shrink-0'
+                                    />
+                                    <div className='min-w-0 flex flex-col'>
+                                        <span className='text-xs font-semibold text-gray-800 dark:text-gray-200 truncate group-hover:text-cyan-400 transition'>{img.name}</span>
+                                        <span className='text-[10px] text-gray-400 font-mono truncate'>macOS Preview Asset • Click to Enlarge</span>
+                                    </div>
+                                </div>
+                                <div className='flex items-center gap-2 shrink-0'>
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation()
+                                            setActiveImageId(img.id)
+                                            setViewMode('single')
+                                        }}
+                                        className='px-2 py-1 text-[10px] font-mono bg-blue-500/10 hover:bg-blue-500/20 text-blue-500 dark:text-cyan-300 rounded transition'
+                                    >
+                                        View
+                                    </button>
+                                    <button
+                                        onClick={(e) => handleCloseTab(img.id, e)}
+                                        className='p-1 rounded text-gray-400 hover:text-white transition'
+                                    >
+                                        <X className='size-3.5' />
+                                    </button>
+                                </div>
                             </div>
                         ))}
                     </div>

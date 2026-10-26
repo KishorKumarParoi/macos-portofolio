@@ -4,12 +4,18 @@ import WindowWrapper from '#hoc/WindowWrapper'
 import useLocationStore from '#store/location'
 import useWindowStore from '#store/window'
 import clsx from 'clsx'
-import { ArrowLeft, SearchIcon, List } from 'lucide-react'
+import { ArrowLeft, SearchIcon, List, LayoutGrid } from 'lucide-react'
 import React, { useState, useRef, useEffect } from 'react'
 
 const Finder = ({ isMaximized }) => {
     const { openWindow } = useWindowStore();
     const { activeLocation, setActiveLocation } = useLocationStore();
+
+    // View Mode: 'list' (default) or 'grid' (non-overlapping auto-flow)
+    const [viewMode, setViewMode] = useState(() => {
+        if (typeof window === 'undefined') return 'list';
+        return localStorage.getItem('macos_finder_view_mode') || 'list';
+    });
 
     // Resizable middle border line (sidebar width)
     const [sidebarWidth, setSidebarWidth] = useState(() => {
@@ -183,10 +189,38 @@ const Finder = ({ isMaximized }) => {
                     </span>
                 </div>
 
-                {/* View Mode: List View Only */}
-                <div className='flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-gray-200/80 dark:bg-gray-800 text-[11px] font-medium text-gray-700 dark:text-gray-300 select-none shadow-xs'>
-                    <List className='size-3.5 text-blue-500' />
-                    <span>List</span>
+                {/* View Mode Toggle: List & Grid */}
+                <div className='flex items-center gap-0.5 bg-gray-200/80 dark:bg-gray-800 p-0.5 rounded-md text-[11px] font-medium text-gray-700 dark:text-gray-300 select-none shadow-xs'>
+                    <button
+                        onClick={() => {
+                            setViewMode('list');
+                            localStorage.setItem('macos_finder_view_mode', 'list');
+                        }}
+                        className={`flex items-center gap-1 px-2 py-0.5 rounded transition cursor-pointer ${
+                            viewMode === 'list'
+                                ? 'bg-white dark:bg-black text-blue-600 dark:text-cyan-400 font-bold shadow-xs'
+                                : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'
+                        }`}
+                        title='List View (macOS Table)'
+                    >
+                        <List className='size-3.5' />
+                        <span>List</span>
+                    </button>
+                    <button
+                        onClick={() => {
+                            setViewMode('grid');
+                            localStorage.setItem('macos_finder_view_mode', 'grid');
+                        }}
+                        className={`flex items-center gap-1 px-2 py-0.5 rounded transition cursor-pointer ${
+                            viewMode === 'grid'
+                                ? 'bg-white dark:bg-black text-blue-600 dark:text-cyan-400 font-bold shadow-xs'
+                                : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'
+                        }`}
+                        title='Grid View (Non-overlapping sequential layout)'
+                    >
+                        <LayoutGrid className='size-3.5' />
+                        <span>Grid</span>
+                    </button>
                 </div>
 
                 <SearchIcon className='icon' />
@@ -229,47 +263,93 @@ const Finder = ({ isMaximized }) => {
                     <div className='w-0.5 h-8 bg-gray-400 dark:bg-white/40 rounded-full opacity-0 group-hover:opacity-100 transition' />
                 </div>
 
-                {/* Main Content Pane — Strict macOS List View */}
-                <div className='flex-1 overflow-auto bg-white dark:bg-black select-none text-xs'>
-                    <table className='w-full text-left border-collapse'>
-                        <thead>
-                            <tr className='border-b border-gray-200 dark:border-white/10 bg-gray-50/90 dark:bg-[#0a0a0f] text-[11px] font-semibold text-gray-500 dark:text-gray-400 sticky top-0 backdrop-blur-md z-10'>
-                                <th className='py-2 px-3'>Name</th>
-                                <th className='py-2 px-3'>Date Modified</th>
-                                <th className='py-2 px-3'>Kind</th>
-                                <th className='py-2 px-3 text-right'>Size</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {Array.isArray(activeLocation?.children) && activeLocation.children.length > 0 ? (
-                                activeLocation.children.map((item, idx) => (
-                                    <tr
-                                        key={item.id || idx}
-                                        onClick={() => openItem(item)}
-                                        onDoubleClick={() => openItem(item)}
-                                        className={`cursor-pointer transition hover:bg-blue-50/80 dark:hover:bg-blue-900/30 border-b border-gray-100 dark:border-white/5 ${
-                                            idx % 2 === 0 ? 'bg-white dark:bg-black' : 'bg-gray-50/40 dark:bg-[#06060a]'
-                                        }`}
-                                    >
-                                        <td className='py-2 px-3 flex items-center gap-2.5'>
-                                            <img src={item.icon} alt={item.name} className='size-5 shrink-0 object-contain' />
-                                            <span className='font-medium text-gray-800 dark:text-gray-200 truncate max-w-[280px]'>{item.name}</span>
-                                        </td>
-                                        <td className='py-2 px-3 text-gray-500 dark:text-gray-400 text-[11px] whitespace-nowrap'>{getItemDate(item)}</td>
-                                        <td className='py-2 px-3 text-gray-500 dark:text-gray-400 text-[11px] whitespace-nowrap'>{getItemKind(item)}</td>
-                                        <td className='py-2 px-3 text-right text-gray-500 dark:text-gray-400 text-[11px] whitespace-nowrap'>{getItemSize(item)}</td>
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td colSpan={4} className='py-12 text-center text-gray-400 text-xs italic'>
-                                        This folder is empty
-                                    </td>
+                {/* Main Content Pane — Strict List Table OR Sequential Non-Overlapping Grid */}
+                {viewMode === 'grid' ? (
+                    <div className='flex-1 overflow-y-auto bg-white dark:bg-black select-none p-3 sm:p-5'>
+                        {Array.isArray(activeLocation?.children) && activeLocation.children.length > 0 ? (
+                            <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 auto-rows-max content-start w-full'>
+                                {activeLocation.children.map((item, idx) => {
+                                    const isImg = (item.fileType === 'img' || ["png", "jpg", "jpeg", "webp", "gif"].includes(item.fileType)) && item.imageUrl;
+                                    return (
+                                        <div
+                                            key={item.id || idx}
+                                            onClick={() => openItem(item)}
+                                            onDoubleClick={() => openItem(item)}
+                                            className='flex flex-col items-center justify-between p-2.5 rounded-xl cursor-pointer hover:bg-gray-100/90 dark:hover:bg-white/10 active:scale-95 transition text-center group border border-transparent hover:border-gray-200 dark:hover:border-white/10'
+                                        >
+                                            <div className='size-14 sm:size-16 flex items-center justify-center mb-1.5 overflow-hidden rounded-lg bg-gray-50 dark:bg-white/5 p-1'>
+                                                {isImg ? (
+                                                    <img
+                                                        src={item.imageUrl}
+                                                        alt={item.name}
+                                                        className='w-full h-full object-cover rounded shadow-xs group-hover:scale-105 transition duration-200'
+                                                    />
+                                                ) : (
+                                                    <img
+                                                        src={item.icon}
+                                                        alt={item.name}
+                                                        className='size-12 object-contain group-hover:scale-105 transition drop-shadow-md'
+                                                    />
+                                                )}
+                                            </div>
+                                            <p className='text-[11px] font-medium text-gray-800 dark:text-gray-200 text-center w-full truncate max-w-[120px] group-hover:text-blue-600 dark:group-hover:text-cyan-400 transition-colors' title={item.name}>
+                                                {item.name}
+                                            </p>
+                                            <span className='text-[10px] text-gray-400 font-mono mt-0.5'>
+                                                {getItemSize(item)}
+                                            </span>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        ) : (
+                            <div className='py-16 text-center text-gray-400 text-xs italic'>
+                                This folder is empty
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    <div className='flex-1 overflow-auto bg-white dark:bg-black select-none text-xs'>
+                        <table className='w-full text-left border-collapse'>
+                            <thead>
+                                <tr className='border-b border-gray-200 dark:border-white/10 bg-gray-50/90 dark:bg-[#0a0a0f] text-[11px] font-semibold text-gray-500 dark:text-gray-400 sticky top-0 backdrop-blur-md z-10'>
+                                    <th className='py-2 px-3'>Name</th>
+                                    <th className='py-2 px-3'>Date Modified</th>
+                                    <th className='py-2 px-3'>Kind</th>
+                                    <th className='py-2 px-3 text-right'>Size</th>
                                 </tr>
-                            )}
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                                {Array.isArray(activeLocation?.children) && activeLocation.children.length > 0 ? (
+                                    activeLocation.children.map((item, idx) => (
+                                        <tr
+                                            key={item.id || idx}
+                                            onClick={() => openItem(item)}
+                                            onDoubleClick={() => openItem(item)}
+                                            className={`cursor-pointer transition hover:bg-blue-50/80 dark:hover:bg-blue-900/30 border-b border-gray-100 dark:border-white/5 ${
+                                                idx % 2 === 0 ? 'bg-white dark:bg-black' : 'bg-gray-50/40 dark:bg-[#06060a]'
+                                            }`}
+                                        >
+                                            <td className='py-2 px-3 flex items-center gap-2.5'>
+                                                <img src={item.icon} alt={item.name} className='size-5 shrink-0 object-contain' />
+                                                <span className='font-medium text-gray-800 dark:text-gray-200 truncate max-w-[280px]'>{item.name}</span>
+                                            </td>
+                                            <td className='py-2 px-3 text-gray-500 dark:text-gray-400 text-[11px] whitespace-nowrap'>{getItemDate(item)}</td>
+                                            <td className='py-2 px-3 text-gray-500 dark:text-gray-400 text-[11px] whitespace-nowrap'>{getItemKind(item)}</td>
+                                            <td className='py-2 px-3 text-right text-gray-500 dark:text-gray-400 text-[11px] whitespace-nowrap'>{getItemSize(item)}</td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan={4} className='py-12 text-center text-gray-400 text-xs italic'>
+                                            This folder is empty
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
             </div>
 
             {/* Finder Footer Status Bar */}

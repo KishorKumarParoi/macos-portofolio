@@ -333,17 +333,17 @@ body {
     }
 
     .content {
-      @apply flex-1 p-4 sm:p-8 bg-white max-w-2xl relative min-h-[360px] sm:min-h-[480px] max-h-[70vh] overflow-y-auto max-sm:grid max-sm:grid-cols-2 max-sm:gap-3;
+      @apply flex-1 p-3 sm:p-5 bg-white overflow-y-auto min-h-[360px] max-h-[70vh];
 
       li {
-        @apply max-sm:static sm:absolute flex items-center flex-col gap-2 sm:gap-3 p-2 rounded-lg cursor-pointer hover:bg-gray-100/60 active:scale-95 transition;
+        @apply static flex items-center flex-col gap-2 p-2.5 rounded-xl cursor-pointer hover:bg-gray-100/80 active:scale-95 transition text-center select-none;
 
         img {
-          @apply object-contain object-center size-12 sm:size-16 relative group-hover:scale-105;
+          @apply object-contain size-12 sm:size-14 relative group-hover:scale-105 transition;
         }
 
         p {
-          @apply text-xs sm:text-sm text-center font-medium w-full sm:w-40 break-words;
+          @apply text-xs text-center font-medium w-full break-words;
         }
       }
     }
