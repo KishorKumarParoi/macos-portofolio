@@ -14,7 +14,7 @@ const KNOWLEDGE_BASE = [
 • **Autonomous Agent Mesh & LLMOps:** LangGraph cyclic state machines, Model Context Protocol (FastMCP) with Human-in-the-Loop financial approval gates, Portkey Gateway, semantic similarity caching (<50ms), and NVIDIA NeMo Guardrails.
 • **High-Performance Distributed Systems:** Polyglot microservices in Rust 1.85 SIMD (<0.5ms scoring, 50x speedup), Go 1.24 ingress gateways (12K req/s), and Python FastAPI cores over Kafka event streams.
 • **Big Data & Multi-Cloud Medallion Lakehouses:** Apache Spark, Snowflake, Delta Lake, dbt Core SCD-2, and Feast Feature Stores handling 35M+ orders.
-• **Founder @ KoomAI:** Ultra low-latency WebRTC (<120ms) screen recorder, Electron desktop client (NVENC/VideoToolbox), MV3 Chrome extension, and Next.js 16 cockpit ($24K MRR).
+• **Founder @ KoomAI:** Sub-120ms WebRTC 60 FPS video pipeline, 20-agent LangGraph mesh (<35ms p99), NotebookLLM studio, MV3 Pomodoro extension, and Next.js 16 cockpit ($24K MRR).
 • **Education & Competitive Programming:** B.Sc. in CSE from RUET (Merit Rank 483rd in Bangladesh); Codeforces Div-2 Rank 232 (Blue Coder), CodeChef 5★, 2000+ DSA problems solved, Meta Hacker Cup R3, IUPC 17th.`,
     },
     {
@@ -196,14 +196,14 @@ const KNOWLEDGE_BASE = [
     {
         id: 'koom',
         keywords: ['koom', 'koomai', 'loom', 'webrtc', 'electron', 'extension', 'mrr'],
-        title: '12. KOOM-AI: High-Performance WebRTC Video Recording Platform',
-        answer: `**12. KOOM-AI: Autonomous Video Recording & Intelligence Platform:**
+        title: '12. KOOM-AI: Autonomous Remote Engineering & Video Intelligence Operating System',
+        answer: `**12. KOOM-AI: Autonomous Video Intelligence & Agentic Operating System:**
 • **Founder & Principal Architect:** Engineered complete platform spanning Electron desktop client, MV3 Chrome extension, Express backend, and Next.js 16 cockpit.
-• **WebRTC Low-Latency Pipeline:** Real-time WebRTC media engine (<120ms latency) with adaptive bitrate; sustained **60 FPS 1080p video with 0% stutter across 50K+ active video minutes**.
-• **ElectronJS Desktop Client:** Hardware-accelerated NVENC/VideoToolbox encoding, native OS IPC audio/display capture (45% lower idle CPU).
-• **Chrome Extension MV3:** Offscreen documents for synchronized tab/mic mixing across **10K+ user recordings**.
-• **Commercial Traction:** Stripe Connect billing engine with idempotent webhooks generating **$24K MRR**.
-• **Live Platform:** [koom-ai.vercel.app](https://koom-ai.vercel.app/)`,
+• **WebRTC 60 FPS Engine & Desktop:** Real-time WebRTC media engine (<120ms latency) and native NVENC/VideoToolbox encoding (60 FPS 1080p, -45% idle CPU across 50K+ mins).
+• **20-Agent Parallel Autonomous Mesh:** 20 concurrent LangGraph specialist agents (<35ms p99) and interactive video chatbot generating 1-click GitHub PRs, Jira user stories, and Playwright E2E tests.
+• **NotebookLLM Studio & Job Recon:** Conversational two-host audio podcast studio, system design interview drills (Kafka, CDC, Feast, Saga), and automated ai-job-search Trojan Horse proposals.
+• **Pomodoro Chrome MV3 & Invoicing:** Screen-recording extension with Pomodoro focus sprints, tab usage monitors, 432Hz meditation audio, and Stripe client invoicing ($24K MRR pilot).
+• **Live Platform:** [koom.kishor.tech](https://koom.kishor.tech/)`,
     },
     {
         id: 'cp',
