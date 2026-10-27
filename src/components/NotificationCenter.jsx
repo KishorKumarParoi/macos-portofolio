@@ -63,14 +63,17 @@ const NotificationCenter = () => {
         pushNotification({
             icon: '♟️',
             title: '🎉 2-Minute Surprise: 5-Minute Blitz Chess!',
-            subtitle: 'Your 2 minutes are up! Would you like to start the 5-Minute Blitz Chess challenge against Minimax AI? Win to claim bragging rights and a virtual MacBook!',
+            subtitle: 'Your 2 minutes are up! Would you like to accept the 5-Minute Blitz Chess challenge against Minimax AI? Win to claim bragging rights and a virtual MacBook! (If you lose, you must gift AirPods to the computer!)',
             type: 'challenge',
             persistent: true,
             actions: [
                 {
                     label: 'Accept & Play Chess (5 Min) ♟️',
                     primary: true,
-                    onClick: () => openWindow('chess'),
+                    onClick: () => {
+                        window.dispatchEvent(new CustomEvent('start-chess-challenge'))
+                        openWindow('chess')
+                    },
                 },
                 {
                     label: 'Ignore / Keep Closed ✕',
@@ -144,8 +147,8 @@ const NotificationCenter = () => {
         const handleChessLoss = () => {
             pushNotification({
                 icon: '🎧',
-                title: 'Gift AirPods to Computer! 🎧',
-                subtitle: 'You have to give AirPods as a gift to the computer, as the computer is tired from playing CHESS!',
+                title: 'You Lost! Gift AirPods to Computer! 🎧',
+                subtitle: 'You agreed to play and lost the match against Minimax AI! You have to give AirPods as a gift to the computer, as the computer is tired from playing CHESS!',
                 type: 'loss',
                 persistent: true,
             })

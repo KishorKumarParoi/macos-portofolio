@@ -1,5 +1,6 @@
 import { WindowControls } from '#components'
 import WindowWrapper from '#hoc/WindowWrapper'
+import useWindowStore from '#store/window'
 import { RotateCcw, Trophy, Clock, Flag, Zap, Swords, ChevronRight } from 'lucide-react'
 import React, { useState, useEffect, useRef } from 'react'
 
@@ -84,6 +85,8 @@ const PREDEFINED_SETS = [
 ]
 
 const Chess = () => {
+    const isChessOpen = useWindowStore((state) => state.windows.chess?.isOpen)
+    const [hasAgreedToPlay, setHasAgreedToPlay] = useState(false)
     const [selectedSet, setSelectedSet] = useState(PREDEFINED_SETS[0])
     const [board, setBoard] = useState(PREDEFINED_SETS[0].board)
     const [turn, setTurn] = useState('w') // 'w' for user, 'b' for computer
@@ -92,16 +95,36 @@ const Chess = () => {
     const [capturedWhite, setCapturedWhite] = useState([])
     const [capturedBlack, setCapturedBlack] = useState([])
     const [moveHistory, setMoveHistory] = useState([])
-    const [gameStatus, setGameStatus] = useState('playing') // 'playing', 'win', 'loss', 'draw'
-    const [statusMessage, setStatusMessage] = useState('Your turn (White)')
+    const [gameStatus, setGameStatus] = useState('idle') // 'idle', 'playing', 'win', 'loss', 'draw'
+    const [statusMessage, setStatusMessage] = useState('Click "Agree & Start Blitz Match" to challenge Computer AI!')
 
     // 5-Minute (300 seconds) Blitz Clocks
     const [whiteTime, setWhiteTime] = useState(300)
     const [blackTime, setBlackTime] = useState(300)
     const timerRef = useRef(null)
 
-    // Dispatch global notification events on Win / Loss
+    // Start match handler
+    const handleStartMatch = () => {
+        setHasAgreedToPlay(true)
+        setGameStatus('playing')
+        setStatusMessage('Match started! Your turn (White)')
+    }
+
+    // Listen for global challenge acceptance (from 2-Minute surprise prompt)
     useEffect(() => {
+        const handleStartChallenge = () => {
+            setHasAgreedToPlay(true)
+            setGameStatus('playing')
+            setStatusMessage('Challenge Accepted! Your turn (White)')
+        }
+        window.addEventListener('start-chess-challenge', handleStartChallenge)
+        return () => window.removeEventListener('start-chess-challenge', handleStartChallenge)
+    }, [])
+
+    // Dispatch global notification events on Win / Loss ONLY when user agreed to play
+    useEffect(() => {
+        if (!hasAgreedToPlay) return
+
         if (gameStatus === 'win') {
             setStatusMessage('🎉 You have won a MACBOOK virtually! Claim your victory!')
             window.dispatchEvent(new CustomEvent('chess-game-win'))
@@ -109,12 +132,12 @@ const Chess = () => {
             setStatusMessage('🎧 You have to give AirPods as a gift to the computer, as computer is tired playing CHESS!')
             window.dispatchEvent(new CustomEvent('chess-game-loss'))
         }
-    }, [gameStatus])
+    }, [gameStatus, hasAgreedToPlay])
 
-    // Clock Interval
+    // Clock Interval - ONLY runs when window is open, user agreed, and game is actively playing
     useEffect(() => {
-        if (gameStatus !== 'playing') {
-            clearInterval(timerRef.current)
+        if (!isChessOpen || !hasAgreedToPlay || gameStatus !== 'playing') {
+            if (timerRef.current) clearInterval(timerRef.current)
             return
         }
 
@@ -140,8 +163,10 @@ const Chess = () => {
             }
         }, 1000)
 
-        return () => clearInterval(timerRef.current)
-    }, [turn, gameStatus])
+        return () => {
+            if (timerRef.current) clearInterval(timerRef.current)
+        }
+    }, [turn, gameStatus, isChessOpen, hasAgreedToPlay])
 
     // Reset Game
     const handleReset = (set = selectedSet) => {
@@ -153,6 +178,7 @@ const Chess = () => {
         setCapturedWhite([])
         setCapturedBlack([])
         setMoveHistory([])
+        setHasAgreedToPlay(true)
         setGameStatus('playing')
         setStatusMessage('Your turn (White)')
         setWhiteTime(300)
@@ -308,7 +334,7 @@ const Chess = () => {
 
     // Computer Move (AI Minimax / Heuristic)
     useEffect(() => {
-        if (turn !== 'b' || gameStatus !== 'playing') return
+        if (!hasAgreedToPlay || turn !== 'b' || gameStatus !== 'playing') return
 
         const timer = setTimeout(() => {
             // Find all black pieces and their moves
@@ -362,10 +388,14 @@ const Chess = () => {
         }, 500)
 
         return () => clearTimeout(timer)
-    }, [turn, board, gameStatus])
+    }, [turn, board, gameStatus, hasAgreedToPlay])
 
     // Square Click Handler
     const handleSquareClick = (r, c) => {
+        if (!hasAgreedToPlay) {
+            handleStartMatch()
+            return
+        }
         if (gameStatus !== 'playing' || turn !== 'w') return
 
         // If clicking on an active legal move destination
@@ -518,14 +548,23 @@ const Chess = () => {
                                 ? 'bg-emerald-950/60 border-emerald-500 text-emerald-300'
                                 : gameStatus === 'loss'
                                 ? 'bg-red-950/60 border-red-500 text-red-300'
-                                : 'bg-[#23232c] border-gray-800 text-gray-300'
+                                : gameStatus === 'playing'
+                                ? 'bg-[#23232c] border-gray-800 text-gray-300'
+                                : 'bg-blue-950/50 border-blue-600/50 text-blue-200'
                         }`}
                     >
                         <div className='flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-wider mb-1'>
                             {gameStatus === 'win' && <Trophy className='size-4 text-yellow-400 animate-bounce' />}
                             {gameStatus === 'loss' && <Flag className='size-4 text-red-400' />}
                             {gameStatus === 'playing' && <Zap className='size-4 text-cyan-400' />}
-                            <span>{gameStatus === 'playing' ? 'Game in Progress' : 'Game Over'}</span>
+                            {gameStatus === 'idle' && <Swords className='size-4 text-amber-400 animate-pulse' />}
+                            <span>
+                                {gameStatus === 'playing'
+                                    ? 'Game in Progress'
+                                    : gameStatus === 'idle'
+                                    ? 'Challenge Ready'
+                                    : 'Game Over'}
+                            </span>
                         </div>
                         <p className='text-xs font-medium'>{statusMessage}</p>
                     </div>
@@ -574,24 +613,36 @@ const Chess = () => {
 
                     {/* Action Buttons */}
                     <div className='flex gap-2'>
-                        <button
-                            onClick={() => handleReset(selectedSet)}
-                            className='flex-1 flex items-center justify-center gap-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold py-2 px-3 rounded-lg shadow transition hover:scale-[1.02]'
-                        >
-                            <RotateCcw className='size-3.5' />
-                            Restart (5m)
-                        </button>
-                        <button
-                            onClick={() => {
-                                setGameStatus('loss')
-                                setStatusMessage('You resigned. Computer Wins.')
-                            }}
-                            disabled={gameStatus !== 'playing'}
-                            className='flex items-center justify-center gap-1.5 bg-red-950/60 hover:bg-red-900 text-red-300 border border-red-800/80 text-xs font-medium py-2 px-3 rounded-lg transition disabled:opacity-50'
-                        >
-                            <Flag className='size-3.5' />
-                            Resign
-                        </button>
+                        {!hasAgreedToPlay || gameStatus === 'idle' ? (
+                            <button
+                                onClick={handleStartMatch}
+                                className='w-full flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold py-2.5 px-3 rounded-lg shadow-lg transition hover:scale-[1.02] cursor-pointer'
+                            >
+                                <Swords className='size-4' />
+                                <span>Agree & Start Blitz Match (5m)</span>
+                            </button>
+                        ) : (
+                            <>
+                                <button
+                                    onClick={() => handleReset(selectedSet)}
+                                    className='flex-1 flex items-center justify-center gap-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold py-2 px-3 rounded-lg shadow transition hover:scale-[1.02] cursor-pointer'
+                                >
+                                    <RotateCcw className='size-3.5' />
+                                    Restart (5m)
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        setGameStatus('loss')
+                                        setStatusMessage('You resigned. Computer Wins.')
+                                    }}
+                                    disabled={gameStatus !== 'playing'}
+                                    className='flex items-center justify-center gap-1.5 bg-red-950/60 hover:bg-red-900 text-red-300 border border-red-800/80 text-xs font-medium py-2 px-3 rounded-lg transition disabled:opacity-50 cursor-pointer'
+                                >
+                                    <Flag className='size-3.5' />
+                                    Resign
+                                </button>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>
