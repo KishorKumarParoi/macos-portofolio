@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🐾 Kitten Audio Lounge • Kishor Kumar Paroi</title>
+  <link rel="icon" type="image/svg+xml" href="/macbook.png" />
+  <meta name="theme-color" content="#0d0d12" />
+  <meta property="og:title" content="🐾 Kitten Audio Lounge • Kishor Kumar Paroi" />
+  <meta property="og:description" content="Instant play/pause kitten sound player for GitHub profile & portfolio" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: radial-gradient(circle at 50% 20%, #1a1a2e 0%, #0d0d14 70%, #050508 100%);
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+    .player-card {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      padding: 32px 28px;
+      width: 100%;
+      max-width: 440px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 105, 180, 0.12);
+      animation: fadeIn 0.6s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .cat-avatar {
+      width: 130px;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #ff69b4;
+      box-shadow: 0 0 24px rgba(255, 105, 180, 0.4);
+      margin: 0 auto 16px auto;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .cat-avatar.playing {
+      animation: bounce 0.8s infinite alternate ease-in-out;
+    }
+    @keyframes bounce {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-8px) scale(1.04); }
+    }
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+      letter-spacing: -0.3px;
+    }
+    .subtitle {
+      font-size: 13px;
+      color: #a0a0b2;
+      margin-bottom: 22px;
+    }
+    .waveform-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      height: 40px;
+      margin-bottom: 24px;
+    }
+    .bar {
+      width: 5px;
+      background: linear-gradient(180deg, #ff1493 0%, #ff69b4 100%);
+      border-radius: 4px;
+      height: 6px;
+      transition: height 0.15s ease;
+    }
+    .waveform-container.playing .bar {
+      animation: wave 0.6s infinite ease-in-out alternate;
+    }
+    .waveform-container.playing .bar:nth-child(1) { animation-delay: 0.1s; height: 18px; }
+    .waveform-container.playing .bar:nth-child(2) { animation-delay: 0.25s; height: 32px; }
+    .waveform-container.playing .bar:nth-child(3) { animation-delay: 0.05s; height: 26px; }
+    .waveform-container.playing .bar:nth-child(4) { animation-delay: 0.4s; height: 36px; }
+    .waveform-container.playing .bar:nth-child(5) { animation-delay: 0.15s; height: 22px; }
+    .waveform-container.playing .bar:nth-child(6) { animation-delay: 0.3s; height: 30px; }
+    .waveform-container.playing .bar:nth-child(7) { animation-delay: 0.2s; height: 16px; }
+    @keyframes wave {
+      0% { height: 8px; }
+      100% { height: 36px; }
+    }
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 26px;
+    }
+    .btn-play {
+      background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(255, 20, 147, 0.45);
+      transition: all 0.2s ease;
+    }
+    .btn-play:hover {
+      transform: scale(1.08);
+      box-shadow: 0 10px 30px rgba(255, 20, 147, 0.6);
+    }
+    .btn-play:active {
+      transform: scale(0.96);
+    }
+    .btn-play svg {
+      width: 26px;
+      height: 26px;
+      fill: currentColor;
+      margin-left: 2px;
+    }
+    .btn-play.playing svg {
+      margin-left: 0;
+    }
+    .btn-sub {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e0e0e8;
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .btn-sub:hover {
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 20px;
+    }
+    .footer-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 10px 16px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .footer-btn:hover {
+      background: #0071e3;
+      border-color: #0071e3;
+      transform: translateY(-1px);
+    }
+    .status-text {
+      font-size: 11.5px;
+      color: #ff69b4;
+      font-weight: 600;
+      margin-bottom: 14px;
+      min-height: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="player-card">
+    <img id="catImg" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Cute Meowing Cat" class="cat-avatar" />
+    
+    <h1>🐾 Kitten Audio Lounge</h1>
+    <p class="subtitle">Live interactive soundtrack for Kishor's GitHub Profile</p>
+
+    <div class="waveform-container" id="waveform">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+
+    <div id="statusText" class="status-text">Click Play to hear Meowww!</div>
+
+    <div class="controls">
+      <button class="btn-sub" id="btnLoop" title="Toggle repeat">🔁 Loop: Off</button>
+      <button class="btn-play" id="btnPlay" title="Play / Pause Meow">
+        <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <button class="btn-sub" id="btnRestart" title="Restart sound">⏮️ Replay</button>
+    </div>
+
+    <div class="footer-links">
+      <a href="https://kishor.tech" class="footer-btn">
+        <span>🍎</span>
+        <span>Enter macOS Portfolio (kishor.tech)</span>
+      </a>
+      <a href="https://github.com/KishorKumarParoi" class="footer-btn" style="background: rgba(255,255,255,0.03);">
+        <span>🐙</span>
+        <span>Back to GitHub Profile</span>
+      </a>
+    </div>
+  </div>
+
+  <audio id="audioElement" preload="auto">
+    <source src="/sounds/meow.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script>
+    const audio = document.getElementById('audioElement');
+    const btnPlay = document.getElementById('btnPlay');
+    const playIcon = document.getElementById('playIcon');
+    const catImg = document.getElementById('catImg');
+    const waveform = document.getElementById('waveform');
+    const statusText = document.getElementById('statusText');
+    const btnLoop = document.getElementById('btnLoop');
+    const btnRestart = document.getElementById('btnRestart');
+
+    let isPlaying = false;
+    let isLooping = false;
+
+    function updateUI(playing) {
+      isPlaying = playing;
+      if (playing) {
+        btnPlay.classList.add('playing');
+        playIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+        catImg.classList.add('playing');
+        waveform.classList.add('playing');
+        statusText.innerText = '🔊 Playing "Meowww!" 🐾';
+      } else {
+        btnPlay.classList.remove('playing');
+        playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+        catImg.classList.remove('playing');
+        waveform.classList.remove('playing');
+        statusText.innerText = '⏸️ Paused (Click to Play)';
+      }
+    }
+
+    function togglePlay() {
+      if (audio.paused) {
+        audio.play().then(() => updateUI(true)).catch(err => {
+          console.warn('Autoplay blocked:', err);
+          updateUI(false);
+        });
+      } else {
+        audio.pause();
+        updateUI(false);
+      }
+    }
+
+    btnPlay.addEventListener('click', togglePlay);
+
+    btnRestart.addEventListener('click', () => {
+      audio.currentTime = 0;
+      audio.play().then(() => updateUI(true));
+    });
+
+    btnLoop.addEventListener('click', () => {
+      isLooping = !isLooping;
+      audio.loop = isLooping;
+      btnLoop.innerText = isLooping ? '🔁 Loop: On' : '🔁 Loop: Off';
+      btnLoop.style.borderColor = isLooping ? '#ff1493' : 'rgba(255, 255, 255, 0.15)';
+      btnLoop.style.color = isLooping ? '#ff69b4' : '#e0e0e8';
+    });
+
+    audio.addEventListener('ended', () => {
+      if (!isLooping) {
+        updateUI(false);
+        statusText.innerText = '✅ Finished • Click to replay!';
+      }
+    });
+
+    // Attempt auto-play on load (works in most browsers on direct navigation)
+    window.addEventListener('load', () => {
+      audio.play().then(() => updateUI(true)).catch(() => {
+        statusText.innerText = '▶️ Tap Play button to start sound!';
+      });
+    });
+  </script>
+</body>
+</html>
