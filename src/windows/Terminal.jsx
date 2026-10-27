@@ -1,21 +1,37 @@
 import { WindowControls } from '#components'
-import { techStack } from '#constants'
+import { techStack, locations } from '#constants'
 import WindowWrapper from '#hoc/WindowWrapper'
 import useWindowStore from '#store/window'
-import { Check, Terminal as TerminalIcon } from 'lucide-react'
+import useLocationStore from '#store/location'
+import { Check, Terminal as TerminalIcon, Sparkles } from 'lucide-react'
 import React, { useState, useRef, useEffect } from 'react'
 
 const BANNER = [
     "Last login: " + new Date().toLocaleString() + " on ttys001",
     "Welcome to Paroi-macOS Darwin 24.1.0 (Apple Silicon arm64)",
-    "Type 'help' or click quick actions below to explore.",
+    "Type 'help' or click quick suggestions below to control the OS & explore.",
 ]
 
 // Fire spark colors
 const SPARK_COLORS = ['#ff6b35', '#ff3d00', '#ff9100', '#ffd600', '#ff4081', '#ff1744', '#ffab00']
 
+// Quick suggestion commands connected with macOS apps & system
+const QUICK_SUGGESTIONS = [
+    { label: 'skills', cmd: 'skills', color: 'hover:text-cyan-300' },
+    { label: 'whoami', cmd: 'whoami', color: 'hover:text-emerald-300' },
+    { label: 'projects', cmd: 'projects', color: 'hover:text-amber-300' },
+    { label: 'contact', cmd: 'contact', color: 'hover:text-pink-300' },
+    { label: 'agent', cmd: 'agent', color: 'hover:text-purple-300' },
+    { label: 'gallery', cmd: 'gallery', color: 'hover:text-blue-300' },
+    { label: 'chess', cmd: 'chess', color: 'hover:text-orange-300' },
+    { label: 'coc', cmd: 'coc', color: 'hover:text-red-300' },
+    { label: 'resume', cmd: 'resume', color: 'hover:text-yellow-300' },
+    { label: 'neofetch', cmd: 'neofetch', color: 'hover:text-green-300' },
+]
+
 const Terminal = () => {
     const { openWindow } = useWindowStore()
+    const { setActiveLocation } = useLocationStore()
     const [history, setHistory] = useState([
         { type: 'output', text: BANNER.join("\n") },
         { type: 'cmd', text: 'show tech stack' },
@@ -94,19 +110,37 @@ const Terminal = () => {
         switch (trimmed) {
             case 'help':
             case 'commands':
+            case '?':
                 newEntries.push({
                     type: 'output',
                     text: [
-                        "Available commands:",
-                        "  skills          - Display all 7 verified technology stacks",
-                        "  whoami          - Principal Architect identity & background",
-                        "  projects        - List 15 production projects & one-click deploys",
-                        "  education       - RUET B.Sc. in CSE (Rank 483rd Bangladesh)",
-                        "  cp              - Competitive programming ratings & honors",
-                        "  resume          - Launch ATS Resume viewer window",
-                        "  contact         - Launch Contact & socials window",
-                        "  neofetch        - System architecture & polyglot kernel specs",
-                        "  clear           - Clear terminal window",
+                        "PAROI-MACOS INTERACTIVE SHELL COMMANDS (OS INTEGRATED):",
+                        "--------------------------------------------------------------------------------",
+                        "SYSTEM & ARCHITECTURE:",
+                        "  skills          - Display all 7 verified technology domains (interactive)",
+                        "  whoami          - Principal Architect identity, degree & background",
+                        "  projects        - List 15 enterprise projects & copyable deploy commands",
+                        "  education       - RUET B.Sc. in CSE (Admission Rank 483rd in Bangladesh)",
+                        "  cp              - Competitive programming honors (Codeforces, CodeChef 5★)",
+                        "  neofetch        - Apple Silicon kernel specs & polyglot system architecture",
+                        "",
+                        "INTEGRATED MACOS APPS & DIRECT WINDOW LAUNCHERS:",
+                        "  contact         - Launch Contact & direct encrypted uplink channels",
+                        "  agent           - Launch Nexus-AI Multi-Agent mesh chat (LangGraph + FastMCP)",
+                        "  gallery         - Launch Architecture Blueprint Image viewer & Photos",
+                        "  chess           - Launch Live 5-Minute Blitz Chess AI (Minimax challenge)",
+                        "  coc             - Launch Clash of Villages (CVD) RTS Defense simulation",
+                        "  resume          - Launch ATS Executive Resume PDF viewer",
+                        "  safari          - Launch Safari browser (production live portal)",
+                        "  finder          - Launch macOS Finder systems directory",
+                        "  notes           - Launch TextEdit technical documentation",
+                        "",
+                        "LIVE PLATFORM & UTILITIES:",
+                        "  koom            - Inspect Koom-AI live telemetry, Stripe & user metrics",
+                        "  matrix          - Transmit cyberpunk neural telemetry stream",
+                        "  clear           - Clear terminal window history",
+                        "--------------------------------------------------------------------------------",
+                        "💡 Click any suggestion pill above or type a command to control the OS!",
                     ].join("\n"),
                 })
                 break
@@ -192,13 +226,163 @@ const Terminal = () => {
                 break
 
             case 'resume':
+            case 'cv':
                 openWindow('resume')
-                newEntries.push({ type: 'output', text: "Opening Resume Window..." })
+                newEntries.push({
+                    type: 'output',
+                    text: "📄 Launching ATS Verified Executive Resume (PDF Viewer)...",
+                })
                 break
 
             case 'contact':
                 openWindow('contact')
-                newEntries.push({ type: 'output', text: "Opening Contact Window..." })
+                newEntries.push({
+                    type: 'output',
+                    text: [
+                        "📬 Launching Contact & Secure Uplink Window...",
+                        "--------------------------------------------------------------------------------",
+                        "  Email:      paroi.kishor@gmail.com",
+                        "  Phone:      +880 1781682312",
+                        "  WhatsApp:   https://wa.me/8801781682312",
+                        "  Telegram:   @kishorparoi",
+                        "  LinkedIn:   https://linkedin.com/in/kishorkumarparoi",
+                        "  GitHub:     https://github.com/KishorKumarParoi",
+                        "  Location:   Dhaka, Bangladesh (Open to Global Relocation / Remote)",
+                        "  Status:     Available for Principal AI/ML & Lakehouse Architect roles",
+                        "--------------------------------------------------------------------------------",
+                    ].join("\n"),
+                })
+                break
+
+            case 'agent':
+            case 'nexus':
+            case 'nexus-ai':
+            case 'nexus-ai-agent':
+            case 'ai':
+            case 'chat':
+                openWindow('aichat')
+                newEntries.push({
+                    type: 'output',
+                    text: [
+                        "🤖 Launching Nexus-AI Autonomous Multi-Agent Mesh (LangGraph + FastMCP)...",
+                        "--------------------------------------------------------------------------------",
+                        "  Agent Mesh:      ONLINE (Port 8000 / WebSocket streaming)",
+                        "  Supervisor:      Autonomous Gated Lakehouse & Repo Auditing Supervisor",
+                        "  Model Context:   FastMCP server connected • RAG semantic cache <35ms",
+                        "  Inquiry Topics:  Ask about 15 architectures, Zomato lakehouse, vLLM multi-LoRA",
+                        "--------------------------------------------------------------------------------",
+                    ].join("\n"),
+                })
+                break
+
+            case 'gallery':
+            case 'photos':
+            case 'picture':
+            case 'pictures':
+            case 'images':
+            case 'image':
+                setActiveLocation(locations?.gallery)
+                openWindow('imgfile', {
+                    id: 'zomato_arch',
+                    name: 'Zomato Enterprise AI Lakehouse Architecture',
+                    imageUrl: '/images/projects/zomato/architecture.png',
+                })
+                openWindow('finder')
+                newEntries.push({
+                    type: 'output',
+                    text: [
+                        "🖼️ Launching High-Fidelity Architecture Gallery & Photos...",
+                        "--------------------------------------------------------------------------------",
+                        "  Preview Window:  Loaded Zomato Multi-Cloud Lakehouse blueprint.",
+                        "  Finder Gallery:  Navigated to /Systems/Architecture-Blueprints.",
+                        "  Controls:        Zoom (Scroll/Buttons), Split-Screen & Multi-Tab.",
+                        "--------------------------------------------------------------------------------",
+                    ].join("\n"),
+                })
+                break
+
+            case 'chess':
+            case 'play chess':
+                window.dispatchEvent(new CustomEvent('start-chess-challenge'))
+                openWindow('chess')
+                newEntries.push({
+                    type: 'output',
+                    text: [
+                        "♟️ Launching Chess Live: 5-Minute Blitz AI (Minimax Engine)...",
+                        "--------------------------------------------------------------------------------",
+                        "  Challenge Accepted: White Blitz Clock activated (5:00).",
+                        "  Victory Bounty:     Virtual Apple MacBook Pro + Grandmaster status!",
+                        "  Defeat Penalty:     You must gift AirPods to the computer! 🎧",
+                        "--------------------------------------------------------------------------------",
+                    ].join("\n"),
+                })
+                break
+
+            case 'coc':
+            case 'clash':
+            case 'cvd':
+            case 'defense':
+            case 'game':
+                openWindow('clash')
+                newEntries.push({
+                    type: 'output',
+                    text: [
+                        "⚔️ Launching Clash of Villages (CVD) RTS Defense Simulation...",
+                        "--------------------------------------------------------------------------------",
+                        "  Objective:  Defend Town Hall 12 against goblin & barbarian waves.",
+                        "  Arsenal:    Archer Towers, Wizard Towers, Cannon Defenses.",
+                        "  Condition:  Survive 60 seconds of relentless raid siege to WIN!",
+                        "--------------------------------------------------------------------------------",
+                    ].join("\n"),
+                })
+                break
+
+            case 'safari':
+            case 'browser':
+            case 'web':
+                openWindow('safari')
+                newEntries.push({
+                    type: 'output',
+                    text: "🧭 Launching Safari Web Browser (Connecting to https://kishor.tech)...",
+                })
+                break
+
+            case 'finder':
+            case 'files':
+            case 'ls':
+            case 'dir':
+                openWindow('finder')
+                newEntries.push({
+                    type: 'output',
+                    text: [
+                        "📁 Launching macOS Finder Desktop & Storage Directory...",
+                        "  Available mounts: /Work, /About, /Resume, /Games, /Gallery, /Trash",
+                    ].join("\n"),
+                })
+                break
+
+            case 'notes':
+            case 'text':
+            case 'doc':
+            case 'txt':
+                openWindow('txtfile')
+                newEntries.push({
+                    type: 'output',
+                    text: "📝 Launching TextEdit Executive Documentation Viewer...",
+                })
+                break
+
+            case 'matrix':
+                newEntries.push({
+                    type: 'output',
+                    text: [
+                        "Wake up, Neo...",
+                        "The Matrix has you.",
+                        "Follow the white rabbit. 🐇",
+                        "01001011 01001001 01010011 01001000 01001111 01010010 (KISHOR)",
+                        "Principal AI Systems & Distributed Mesh Telemetry: NOMINAL",
+                    ].join("\n"),
+                })
                 break
 
             case 'koom':
@@ -264,39 +448,24 @@ const Terminal = () => {
 
     return (
         <>
-            <div id='window-header' className='flex items-center justify-between px-3 py-1.5 border-b border-gray-800 bg-[#1e1e1e] text-gray-300 select-none'>
-                <div className='flex items-center gap-2'>
+            <div id='window-header' className='flex items-center justify-between px-3 py-1.5 border-b border-gray-800 bg-[#1e1e1e] text-gray-300 select-none overflow-x-auto no-scrollbar'>
+                <div className='flex items-center gap-2 shrink-0 mr-3'>
                     <WindowControls target="terminal" />
                     <span className='text-xs font-mono font-medium flex items-center gap-1.5 ml-2 text-gray-300'>
                         <TerminalIcon size={13} className='text-emerald-400' />
                         kishor — zsh — 80x24
                     </span>
                 </div>
-                <div className='flex items-center gap-1.5 text-[11px] font-mono'>
-                    <button
-                        onClick={() => handleRunCommand('skills')}
-                        className='px-2 py-0.5 rounded bg-gray-800 hover:bg-gray-700 text-gray-300 transition'
-                    >
-                        skills
-                    </button>
-                    <button
-                        onClick={() => handleRunCommand('whoami')}
-                        className='px-2 py-0.5 rounded bg-gray-800 hover:bg-gray-700 text-gray-300 transition'
-                    >
-                        whoami
-                    </button>
-                    <button
-                        onClick={() => handleRunCommand('projects')}
-                        className='px-2 py-0.5 rounded bg-gray-800 hover:bg-gray-700 text-gray-300 transition'
-                    >
-                        projects
-                    </button>
-                    <button
-                        onClick={() => handleRunCommand('neofetch')}
-                        className='px-2 py-0.5 rounded bg-gray-800 hover:bg-gray-700 text-gray-300 transition'
-                    >
-                        neofetch
-                    </button>
+                <div className='flex items-center gap-1.5 text-[11px] font-mono shrink-0 overflow-x-auto py-0.5 no-scrollbar'>
+                    {QUICK_SUGGESTIONS.map(({ label, cmd, color }) => (
+                        <button
+                            key={cmd}
+                            onClick={() => handleRunCommand(cmd)}
+                            className={`px-2 py-0.5 rounded bg-gray-800/90 hover:bg-gray-700 text-gray-300 ${color || ''} transition cursor-pointer whitespace-nowrap border border-white/5 shadow-xs`}
+                        >
+                            {label}
+                        </button>
+                    ))}
                 </div>
             </div>
 
@@ -367,11 +536,28 @@ const Terminal = () => {
                         type='text'
                         value={inputVal}
                         onChange={(e) => { setInputVal(e.target.value); spawnSparks(); }}
-                        placeholder="type 'help' or command..."
+                        placeholder="type 'help', 'contact', 'agent', 'gallery', 'chess', 'coc'..."
                         className='flex-1 bg-transparent border-none outline-hidden text-gray-100 font-mono text-xs focus:ring-0 p-0'
                         autoFocus
                     />
                 </form>
+
+                {/* In-Terminal Quick Command Pills */}
+                <div className='mt-2.5 pt-2 border-t border-gray-800/60 flex items-center gap-1.5 flex-wrap text-[10px] text-gray-400 select-none'>
+                    <span className='flex items-center gap-1 text-gray-500 font-semibold uppercase tracking-wider text-[9px]'>
+                        <Sparkles size={11} className='text-amber-400' /> Suggestions:
+                    </span>
+                    {QUICK_SUGGESTIONS.map(({ label, cmd, color }) => (
+                        <button
+                            key={cmd}
+                            type='button'
+                            onClick={() => handleRunCommand(cmd)}
+                            className={`px-1.5 py-0.5 rounded bg-gray-900/80 hover:bg-gray-800 text-gray-300 ${color || ''} border border-gray-800 transition cursor-pointer font-mono`}
+                        >
+                            {label}
+                        </button>
+                    ))}
+                </div>
 
                 <div ref={bottomRef} />
             </div>
