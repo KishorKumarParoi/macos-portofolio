@@ -19,6 +19,11 @@ const navLinks = [
     name: "Resume",
     type: "resume",
   },
+  {
+    id: 5,
+    name: "AI Journey",
+    type: "journey",
+  },
 ];
 
 const navIcons = [
@@ -93,6 +98,12 @@ const dockApps = [
     id: "aichat",
     name: "Nexus AI Agent (Q&A)",
     icon: "ai-agent.svg",
+    canOpen: true,
+  },
+  {
+    id: "journey",
+    name: "AI Engineering Journey",
+    icon: "journey.svg",
     canOpen: true,
   },
   {
@@ -2579,6 +2590,7 @@ const WINDOW_CONFIG = {
   chess: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   clash: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   aichat: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
+  journey: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   trash: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
 };
 

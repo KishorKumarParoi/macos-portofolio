@@ -123,6 +123,7 @@ const Terminal = () => {
                         "  education       - RUET B.Sc. in CSE (Admission Rank 483rd in Bangladesh)",
                         "  cp              - Competitive programming honors (Codeforces, CodeChef 5★)",
                         "  neofetch        - Apple Silicon kernel specs & polyglot system architecture",
+                        "  journey         - Launch 38-Module AI Engineering Master Curriculum",
                         "",
                         "INTEGRATED MACOS APPS & DIRECT WINDOW LAUNCHERS:",
                         "  contact         - Launch Contact & direct encrypted uplink channels",
@@ -428,6 +429,16 @@ const Terminal = () => {
                 setHistory([])
                 setInputVal('')
                 return
+
+            case 'journey':
+            case 'curriculum':
+            case 'roadmap':
+                openWindow('journey')
+                newEntries.push({
+                    type: 'output',
+                    text: "🚀 Opening AI Engineering Learning Journey (38-Module Curriculum & Platform Governance)...",
+                })
+                break
 
             default:
                 newEntries.push({
