@@ -36,7 +36,8 @@
 
 [![Live Platform](https://img.shields.io/badge/Live%20Platform-kishor.tech-0071e3?style=for-the-badge&logo=apple&logoColor=white)](https://kishor.tech/)
 [![GitHub](https://img.shields.io/badge/GitHub-KishorKumarParoi%2Fmacos--portofolio-24292e?style=for-the-badge&logo=github&logoColor=white)](https://github.com/KishorKumarParoi/macos-portofolio)
-[![Download Resume](https://img.shields.io/badge/📄%20Executive%20Resume-Download%20PDF-641C26?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](https://kishor.tech/files/resume.pdf)
+[![Executive Resume](https://img.shields.io/badge/📄%20Executive%20Resume-1--Page%20(ATS%20100)-641C26?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)](https://kishor.tech/resume.pdf)
+[![ATS Resume](https://img.shields.io/badge/📑%20ATS%20Resume-2--Page%20(ATS%20100)-1a1a1a?style=for-the-badge&logo=files&logoColor=white)](https://kishor.tech/resume_single_column.pdf)
 [![React 19](https://img.shields.io/badge/React-19.2-61dafb?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![Rolldown Vite](https://img.shields.io/badge/Bundler-Rolldown%20Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vite.dev/)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind-v4.1-38bdf8?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
@@ -44,9 +45,23 @@
 
 ---
 
-### [🚀 Launch Live macOS Desktop Environment (kishor.tech)](https://kishor.tech/) &nbsp;•&nbsp; [📄 Direct Resume PDF](https://kishor.tech/files/resume.pdf) &nbsp;•&nbsp; [📑 Detailed ATS Resume](https://kishor.tech/files/resume_single_column.pdf)
+### [🚀 Launch Live macOS Desktop Environment (kishor.tech)](https://kishor.tech/) &nbsp;•&nbsp; [📄 Executive CV (1-Page)](https://kishor.tech/resume.pdf) &nbsp;•&nbsp; [📑 Detailed ATS Resume (2-Page)](https://kishor.tech/resume_single_column.pdf)
 
 </div>
+
+---
+
+## 🌐 Live Digital Ecosystem
+
+| Platform | URL | Architecture Highlights |
+| :--- | :--- | :--- |
+| **🎓 Kishor.tech (Main Academic Portfolio)** | **[kishor.tech](https://kishor.tech)** | Minimalist academic layout, sub-35ms Hybrid RAG, 38-module AI curriculum |
+| **💻 macos-portfolio (Desktop Environment)** | **[macos.kishor.tech](https://macos.kishor.tech)** | Interactive desktop OS emulator with draggable windows, dock, and terminal CLI |
+| **🧊 3d (Interactive 3D WebGL Platform)** | **[3d.kishor.tech](https://3d.kishor.tech)** | React 19.2, Rolldown Vite, Tailwind v4, GSAP 3.13 camera choreography |
+| **⚡ hacker (3D Cyber Hacker Workstation)** | **[hacker.kishor.tech](https://hacker.kishor.tech)** | 3D Cyber Hacker command room, CRT monitor shaders, Web Audio, terminal HUD |
+| **▶ KoomAI Video Intelligence** | **[koom.kishor.tech](https://koom.kishor.tech)** | Sub-120ms WebRTC SVC engine, Electron native capture, 20-agent LangGraph copilot |
+| **💼 LinkedIn Network** | **[linkedin.com/in/kishor-kumar-paroi-b06344166](https://linkedin.com/in/kishor-kumar-paroi-b06344166)** | Verified professional connections, endorsements, and leadership updates |
+| **🐙 GitHub Repositories** | **[github.com/KishorKumarParoi](https://github.com/KishorKumarParoi)** | 11 production-grade ML/LLM/Lakehouse systems with 1-click cloud bootstrap scripts |
 
 ---
 
@@ -54,10 +69,10 @@
 
 This portfolio features direct access to Kishor Kumar Paroi's verified technical credentials, academic background (**RUET CSE**), competitive programming track record (**Codeforces Blue, 5★ CodeChef**), and 11 end-to-end production AI/MLOps architectures.
 
-| Format | Document | Target Audience | Direct Download Link |
+| Format | Document | Specifications & ATS Score | Direct Download Link |
 | :--- | :--- | :--- | :--- |
-| **Academic / Executive** | `resume.pdf` | Executive Leadership, Staff/Principal AI Architects | [📥 **Download 1-Page A4 PDF**](https://kishor.tech/files/resume.pdf) |
-| **Comprehensive ATS** | `resume_single_column.pdf` | Enterprise ATS Screening, Deep Systems Due-Diligence | [📥 **Download Detailed ATS PDF**](https://kishor.tech/files/resume_single_column.pdf) |
+| **Academic / Executive** | `resume.pdf` | **Strict 1-Page A4 PDF &bull; 100/100 ATS Score:** High-DPI typography, RUET CSE credentials, 61 quantified metrics. | [📥 **Download 1-Page A4 PDF**](https://kishor.tech/resume.pdf) |
+| **Comprehensive ATS** | `resume_single_column.pdf` | **Comprehensive 2-Page A4 PDF &bull; 100/100 ATS Score:** 97 quantified metrics, deep architectural breakdown across all 11 production systems. | [📥 **Download Detailed ATS PDF**](https://kishor.tech/resume_single_column.pdf) |
 | **Interactive In-App** | `Resume.app` | Interactive Web Previewers & Recruiters | *Click the "Resume" icon on the macOS Desktop or Dock* |
 
 > [!TIP]
