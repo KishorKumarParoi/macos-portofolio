@@ -370,6 +370,13 @@ const socials = [
     bg: "#7c3aed",
     link: "https://3d.kishor.tech/",
   },
+  {
+    id: 6,
+    text: "kishor.tech (Macfolio)",
+    icon: "/images/kishor_tech_logo.svg",
+    bg: "#000000",
+    link: "https://kishor.tech",
+  },
 ];
 
 const photosLinks = [
