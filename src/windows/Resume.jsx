@@ -109,6 +109,26 @@ const Resume = () => {
                             LaTeX
                         </a>
                     </div>
+
+                    <div className='flex items-center gap-1.5 ml-2'>
+                        <a
+                            href="https://www.youtube.com/watch?v=mqX-2FW3o0Q"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className='flex items-center gap-1 text-[11px] font-extrabold px-2.5 py-1 bg-red-600 hover:bg-red-700 text-white rounded-md shadow-xs transition hover:scale-105 animate-pulse'
+                            title="Watch 90-Second Cinematic Pitch Video on YouTube"
+                        >
+                            🎬 Watch Reel
+                        </a>
+                        <a
+                            href="/files/Kishor_Kumar_Paroi_10000_Dollar_Executive_Deck.pptx"
+                            download
+                            className='flex items-center gap-1 text-[11px] font-extrabold px-2.5 py-1 bg-amber-500 hover:bg-amber-600 text-black rounded-md shadow-xs transition hover:scale-105'
+                            title="Download $10,000 Executive Pitch Deck (.pptx)"
+                        >
+                            💎 $10K Deck (.pptx)
+                        </a>
+                    </div>
                 </div>
             </div>
 
