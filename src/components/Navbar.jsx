@@ -301,6 +301,30 @@ const Navbar = () => {
                             <span>Reinvent 3D ↗</span>
                         </a>
                     </li>
+                    {/* $1.4M Reel YouTube Link */}
+                    <li>
+                        <a
+                            href="https://www.youtube.com/watch?v=mqX-2FW3o0Q"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-red-600/25 hover:bg-red-600/40 border border-red-500/50 text-red-200 hover:text-white transition shadow-xs text-xs font-bold cursor-pointer animate-pulse"
+                            title="Watch 90s $1.4M Cinematic Pitch Reel on YouTube"
+                        >
+                            <span className="size-1.5 rounded-full bg-red-400 animate-ping" />
+                            <span>🔥 Reel ↗</span>
+                        </a>
+                    </li>
+                    {/* $10K Pitch Deck */}
+                    <li>
+                        <a
+                            href="/files/pitch_deck.pptx"
+                            download="Kishor_Kumar_Paroi_10000_Dollar_Executive_Deck.pptx"
+                            className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/20 hover:bg-amber-500/35 border border-amber-400/40 text-amber-200 hover:text-white transition shadow-xs text-xs font-bold cursor-pointer"
+                            title="Download $10,000 Executive Pitch Deck (.pptx)"
+                        >
+                            <span>💎 $10K Deck ↓</span>
+                        </a>
+                    </li>
                     {/* Games dropdown launcher */}
                     <li className='relative'>
                         <p

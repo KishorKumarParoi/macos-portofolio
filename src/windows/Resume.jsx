@@ -115,18 +115,18 @@ const Resume = () => {
                             href="https://www.youtube.com/watch?v=mqX-2FW3o0Q"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className='flex items-center gap-1 text-[11px] font-extrabold px-2.5 py-1 bg-red-600 hover:bg-red-700 text-white rounded-md shadow-xs transition hover:scale-105 animate-pulse'
+                            className='flex items-center gap-1 text-[11px] font-extrabold px-3 py-1 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white rounded-md shadow-md shadow-red-500/30 transition hover:scale-105 active:scale-95 animate-pulse'
                             title="Watch 90-Second Cinematic Pitch Video on YouTube"
                         >
-                            🎬 Watch Reel
+                            🔥 Watch $1.4M Reel ↗
                         </a>
                         <a
-                            href="/files/Kishor_Kumar_Paroi_10000_Dollar_Executive_Deck.pptx"
-                            download
-                            className='flex items-center gap-1 text-[11px] font-extrabold px-2.5 py-1 bg-amber-500 hover:bg-amber-600 text-black rounded-md shadow-xs transition hover:scale-105'
+                            href="/files/pitch_deck.pptx"
+                            download="Kishor_Kumar_Paroi_10000_Dollar_Executive_Deck.pptx"
+                            className='flex items-center gap-1 text-[11px] font-extrabold px-3 py-1 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-black rounded-md shadow-md shadow-amber-500/30 transition hover:scale-105 active:scale-95'
                             title="Download $10,000 Executive Pitch Deck (.pptx)"
                         >
-                            💎 $10K Deck (.pptx)
+                            💎 $10K Deck (.pptx) ↓
                         </a>
                     </div>
                 </div>
