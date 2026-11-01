@@ -121,12 +121,13 @@ const Resume = () => {
                             🔥 Watch $1.4M Reel ↗
                         </a>
                         <a
-                            href="/files/pitch_deck.pptx"
-                            download="Kishor_Kumar_Paroi_10000_Dollar_Executive_Deck.pptx"
+                            href="https://pptx.kishor.tech"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className='flex items-center gap-1 text-[11px] font-extrabold px-3 py-1 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-black rounded-md shadow-md shadow-amber-500/30 transition hover:scale-105 active:scale-95'
-                            title="Download $10,000 Executive Pitch Deck (.pptx)"
+                            title="Open $10,000 Executive Pitch Deck (pptx.kishor.tech)"
                         >
-                            💎 $10K Deck (.pptx) ↓
+                            💎 $10K Deck ↗
                         </a>
                     </div>
                 </div>

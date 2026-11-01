@@ -317,12 +317,13 @@ const Navbar = () => {
                     {/* $10K Pitch Deck */}
                     <li>
                         <a
-                            href="/files/pitch_deck.pptx"
-                            download="Kishor_Kumar_Paroi_10000_Dollar_Executive_Deck.pptx"
+                            href="https://pptx.kishor.tech"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/20 hover:bg-amber-500/35 border border-amber-400/40 text-amber-200 hover:text-white transition shadow-xs text-xs font-bold cursor-pointer"
-                            title="Download $10,000 Executive Pitch Deck (.pptx)"
+                            title="Open $10,000 Executive Pitch Deck (pptx.kishor.tech)"
                         >
-                            <span>💎 $10K Deck ↓</span>
+                            <span>💎 $10K Deck ↗</span>
                         </a>
                     </li>
                     {/* Games dropdown launcher */}
