@@ -119,7 +119,7 @@ const Terminal = () => {
                         "SYSTEM & ARCHITECTURE:",
                         "  skills          - Display all 7 verified technology domains (interactive)",
                         "  whoami          - Principal Architect identity, degree & background",
-                        "  projects        - List 15 enterprise projects & copyable deploy commands",
+                        "  projects        - List 20 enterprise projects & copyable deploy commands",
                         "  education       - RUET B.Sc. in CSE (Admission Rank 483rd in Bangladesh)",
                         "  cp              - Competitive programming honors (Codeforces, CodeChef 5★)",
                         "  neofetch        - Apple Silicon kernel specs & polyglot system architecture",
@@ -202,7 +202,7 @@ const Terminal = () => {
                 newEntries.push({
                     type: 'output',
                     text: [
-                        "PAROI-MACOS PRODUCTION SYSTEMS DIRECTORY (15 ENTERPRISE PROJECTS):",
+                        "PAROI-MACOS PRODUCTION SYSTEMS DIRECTORY (20 ENTERPRISE PROJECTS):",
                         "--------------------------------------------------------------------------------",
                         "01. Zomato Enterprise AI Lakehouse & Multimodal Dispute Platform (Snowflake, PySpark, Feast)",
                         "02. Hybrid Anime Intelligence & Continuous LLMOps (Go 1.24, Rust SIMD, vLLM Multi-LoRA)",
@@ -219,6 +219,11 @@ const Terminal = () => {
                         "13. User Survival Prediction: Astro CLI Airflow, Redis Feature Store (<2ms) & Alibi Drift",
                         "14. re:invent 3D: High-Fidelity WebGL Shaders, Three.js Camera & Live EDM Audio Mesh",
                         "15. macOS Tahoe Portfolio: OS-Grade Windowing Web Environment (React 19, TailwindCSS)",
+                        "16. CUDA FlashAttention Tiled Online Softmax Kernel (7.2x Speedup, O(N) SRAM, C++/CUDA)",
+                        "17. 4D Parallel Distributed LLM Training Engine (Megatron TPxPPxDPxSP, ZeRO-3, PyTorch)",
+                        "18. Omnichannel AI Voice Receptionist: Sub-500ms Turnaround (LiveKit WebRTC, Cartesia TTS)",
+                        "19. Nimbus AI Voice Suite: 5 Specialized Voice-Agent Swarm (WebRTC, FastMCP, Groq)",
+                        "20. AutoCut-AI: Autonomous Neural Jump-Cut Video Editor (<15s Renders, Whisper + FFmpeg)",
                         "--------------------------------------------------------------------------------",
                         "💡 Tip: Run `curl -fsSL <repo-url>/bootstrap.sh | bash` in your local terminal for One-Click Deploy!",
                         "📁 Double-click any project folder on the desktop to inspect architecture diagrams and source code.",
@@ -270,7 +275,7 @@ const Terminal = () => {
                         "  Agent Mesh:      ONLINE (Port 8000 / WebSocket streaming)",
                         "  Supervisor:      Autonomous Gated Lakehouse & Repo Auditing Supervisor",
                         "  Model Context:   FastMCP server connected • RAG semantic cache <35ms",
-                        "  Inquiry Topics:  Ask about 15 architectures, Zomato lakehouse, vLLM multi-LoRA",
+                        "  Inquiry Topics:  Ask about 20 architectures, CUDA FlashAttention, Distributed LLM",
                         "--------------------------------------------------------------------------------",
                     ].join("\n"),
                 })

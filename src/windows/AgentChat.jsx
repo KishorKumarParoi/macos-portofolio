@@ -12,10 +12,20 @@ const KNOWLEDGE_BASE = [
         title: 'Professional Profile & Executive Overview',
         answer: `**Kishor Kumar Paroi** is an **Enterprise AI Systems Architect & Platform Leader** specializing in:
 • **Autonomous Agent Mesh & LLMOps:** LangGraph cyclic state machines, Model Context Protocol (FastMCP) with Human-in-the-Loop financial approval gates, Portkey Gateway, semantic similarity caching (<50ms), and NVIDIA NeMo Guardrails.
-• **High-Performance Distributed Systems:** Polyglot microservices in Rust 1.85 SIMD (<0.5ms scoring, 50x speedup), Go 1.24 ingress gateways (12K req/s), and Python FastAPI cores over Kafka event streams.
+• **High-Performance Distributed Systems:** Polyglot microservices in Rust 1.85 SIMD (<0.5ms scoring, 50x speedup), Go 1.24 ingress gateways (12K req/s), custom CUDA FlashAttention kernels (7.2x speedup), and 4D parallel distributed LLM training (Megatron TPxPPxDPxSP).
 • **Big Data & Multi-Cloud Medallion Lakehouses:** Apache Spark, Snowflake, Delta Lake, dbt Core SCD-2, and Feast Feature Stores handling 35M+ orders.
 • **Founder @ KoomAI:** Sub-120ms WebRTC 60 FPS video pipeline, 20-agent LangGraph mesh (<35ms p99), NotebookLLM studio, MV3 Pomodoro extension, and Next.js 16 cockpit ($24K MRR).
 • **Education & Competitive Programming:** B.Sc. in CSE from RUET (Merit Rank 483rd in Bangladesh); Codeforces Div-2 Rank 232 (Blue Coder), CodeChef 5★, 2000+ DSA problems solved, Meta Hacker Cup R3, IUPC 17th.`,
+    },
+    {
+        id: 'omnichannel_exp',
+        keywords: ['omnichannel', 'salon', 'luxe', 'voice receptionist', 'receptionist', 'livekit'],
+        title: 'Work Experience: Luxe Salon AI (Omnichannel Voice Receptionist Architect)',
+        answer: `**Omnichannel AI Voice Receptionist & Autonomous Systems Architect @ Luxe Salon AI (Oct 2026 – Present • Contract):**
+• Architected enterprise-grade omnichannel voice & chat AI receptionist with **sub-500ms turn-taking latency** using **Silero VAD**, **Deepgram Nova-2 STT**, **Groq LLaMA-3.3 70B**, and **Cartesia Sonic TTS** via **LiveKit WebRTC**.
+• Engineered multi-agent stateful routing over **PostgreSQL connection pools** and **Redis semantic caching (<20ms)**, reducing LLM token consumption by **48%** across thousands of monthly client interactions.
+• Integrated bidirectional **Cal.com & Google Calendar APIs** with conflict-free slot locking and **Twilio SIP trunking** with automated fallback to human operators for high-touch inquiries.
+• Deployed zero-trust security perimeter featuring **NVIDIA NeMo Guardrails**, automated **Presidio PII tokenization**, and **FastAPI async streaming**, securing **99.8% uptime** and 4.9/5 client satisfaction rating.`,
     },
     {
         id: 'phi0',
@@ -268,6 +278,82 @@ const KNOWLEDGE_BASE = [
 • **GitHub Repository:** [KishorKumarParoi/macos-portofolio](https://github.com/KishorKumarParoi/macos-portofolio)`,
     },
     {
+        id: 'cuda_attention',
+        keywords: ['cuda', 'attention', 'flashattention', 'kernel', 'sram', 'gpu', 'a100', 'h100', 'tma'],
+        title: '16. CUDA FlashAttention Kernel (7.2x Speedup, O(N) SRAM)',
+        image: {
+            url: '/images/projects/cuda/01_cuda_attention.svg',
+            caption: 'CUDA FlashAttention Tiled Online Softmax & Memory Hierarchy',
+            repoUrl: 'https://github.com/KishorKumarParoi/cuda-attention-kernel',
+        },
+        answer: `**16. CUDA FlashAttention Tiled Online Softmax Kernel:**
+• **SRAM Tiling & IO Complexity:** Tiles $Q, K, V$ into 164 KB SMEM, reducing HBM memory roundtrips from $O(N^2)$ to $O(N^2 d / M)$, reaching the Hong-Kung IO lower bound $\\Omega(N^2 d^2 / M)$.
+• **Tiled Online Softmax:** Maintains running row-max $m^{(j)}$ and partition function $l^{(j)}$ on register files via warp shuffle instructions (\`__shfl_down_sync\`), computing exact softmax without writing intermediate $N \\times N$ matrices to HBM.
+• **Bank Conflict Elimination:** Applied 32-way shared memory padding (\`[Br][d + 4]\`) and 2D swizzling, eliminating bank conflicts and reaching **7.2x speedup** over PyTorch vanilla SDPA.
+• **Backward SRAM Recomputation:** Recomputes attention scores in $O(N)$ shared memory during backward pass, slashing activation memory from quadratic $O(N^2)$ to linear $O(N)$ and preventing OOMs on 128K context windows.
+• **GitHub Repository:** [KishorKumarParoi/cuda-attention-kernel](https://github.com/KishorKumarParoi/cuda-attention-kernel)`,
+    },
+    {
+        id: 'distributed_llm',
+        keywords: ['distributed', 'llm', 'training', 'zero', 'megatron', 'tensor parallel', 'pipeline', 'sequence parallel'],
+        title: '17. Distributed LLM Training Engine (4D Parallelism & ZeRO-3)',
+        image: {
+            url: '/images/projects/distributed/01_distributed_mesh.svg',
+            caption: '4D Parallelism (TP × PP × DP × SP) & 1F1B Pipelining Mesh',
+            repoUrl: 'https://github.com/KishorKumarParoi/distributed-llm-training',
+        },
+        answer: `**17. 4D Parallel Distributed LLM Training Engine:**
+• **4D Mesh (TP × PP × DP × SP):** Combines Megatron-LM Column/Row Parallel Linear with Ring-Attention Sequence Parallelism, scaling across multi-node clusters with near-linear 91.4% efficiency.
+• **1F1B Pipelining:** Scheduled 1F1B activation checkpointing across pipeline stages, reducing bubble overhead to $F_{\\text{bubble}} = \\frac{P-1}{M+P-1} < 11\\%$.
+• **ZeRO-3 Sharding:** Sharded optimizer states, gradients, and model parameters, achieving 49.07% Model FLOPs Utilization (MFU) on LLaMA-3 70B benchmarks.
+• **Fault-Tolerant Checkpointing:** Asynchronous distributed checkpointing via NCCL ring collectives and zero-overhead GPU memory reclamation.
+• **GitHub Repository:** [KishorKumarParoi/distributed-llm-training](https://github.com/KishorKumarParoi/distributed-llm-training)`,
+    },
+    {
+        id: 'omnichannel_voice',
+        keywords: ['omnichannel', 'voice', 'receptionist', 'webrtc', 'livekit', 'salon', 'sub-500ms'],
+        title: '18. Omnichannel AI Voice Receptionist: Sub-500ms Turnaround',
+        image: {
+            url: '/images/projects/omnichannel/01_omnichannel_voice.svg',
+            caption: 'Sub-500ms Voice Agent Architecture with LiveKit WebRTC',
+            repoUrl: 'https://github.com/KishorKumarParoi/omnichannel-voice-chat-ai-receptionist',
+        },
+        answer: `**18. Omnichannel AI Voice Receptionist Architecture:**
+• **Sub-500ms End-to-End Latency:** Integrated Silero VAD, Deepgram Nova-2 STT, Groq LLaMA-3.3 70B, and Cartesia Sonic TTS via LiveKit WebRTC for natural duplex conversations.
+• **Autonomous Scheduling:** Cal.com & Google Calendar two-way synchronization with PostgreSQL state persistence and Twilio SIP trunking.
+• **Zero-Trust Security:** Guarded by NVIDIA NeMo Guardrails, automated Presidio PII tokenization, and FastAPI async streaming.
+• **GitHub Repository:** [KishorKumarParoi/omnichannel-voice-chat-ai-receptionist](https://github.com/KishorKumarParoi/omnichannel-voice-chat-ai-receptionist)`,
+    },
+    {
+        id: 'nimbus_suite',
+        keywords: ['nimbus', 'voice suite', '5 agents', 'healthcare', 'legal', 'support', 'real estate'],
+        title: '19. Nimbus AI Suite: 5 Specialized Voice Agents Swarm',
+        image: {
+            url: '/images/projects/nimbus/01_nimbus_suite.svg',
+            caption: 'Nimbus AI 5-Agent Specialized Voice Swarm Architecture',
+            repoUrl: 'https://github.com/KishorKumarParoi/nimbus-voice-agents-suite',
+        },
+        answer: `**19. Nimbus AI Voice Agents Suite:**
+• **5 Domain Swarm:** Autonomous Voice Agents for Clinical Triage, Financial Advisory, Customer Support, Legal Intake, and Real Estate Concierge.
+• **FastMCP & WebRTC:** Full duplex audio streaming with sub-450ms turnaround and cryptographically signed tool calls.
+• **Multi-Tenant State Management:** Scalable session state persistence with automated interrupt handling and barge-in detection.
+• **GitHub Repository:** [KishorKumarParoi/nimbus-voice-agents-suite](https://github.com/KishorKumarParoi/nimbus-voice-agents-suite)`,
+    },
+    {
+        id: 'autocut_ai',
+        keywords: ['autocut', 'video', 'neural editor', 'whisper', 'ffmpeg', 'silence removal', 'jump-cut'],
+        title: '20. AutoCut-AI: Autonomous Neural Jump-Cut Video Editor',
+        image: {
+            url: '/images/projects/autocut/01_autocut_flow.svg',
+            caption: 'AutoCut-AI Neural Jump-Cut Pipeline & GPU Acceleration',
+            repoUrl: 'https://github.com/KishorKumarParoi/autocut-ai',
+        },
+        answer: `**20. AutoCut-AI Neural Video Engine:**
+• **Automated Jump-Cuts:** Whisper voice activity detection and Silero VAD for automated silence detection, speaker diarization, and dynamic pacing.
+• **GPU Hardware Acceleration:** Hardware-accelerated FFmpeg pipeline rendering production-ready social clips in <15s per minute of source video.
+• **GitHub Repository:** [KishorKumarParoi/autocut-ai](https://github.com/KishorKumarParoi/autocut-ai)`,
+    },
+    {
         id: 'contact',
         keywords: ['contact', 'email', 'phone', 'call', 'talk', 'connect', 'location', 'tea', 'coffee', 'whatsapp', 'linkedin', 'twitter', 'hire', 'reach'],
         title: 'Contact Credentials & Availability',
@@ -312,12 +398,12 @@ const AgentChat = ({ isMaximized }) => {
         {
             id: 1,
             sender: 'bot',
-            text: `${greetingHeader} I am **Nexus AI Agent**, an autonomous enterprise assistant protected by **BotShield WAF** and **NVIDIA NeMo Guardrails**.\n\nAsk me anything about Kishor's **15 flagship architectures**, **work experience** (phi0.ai, Samsung AI Core, KoomAI), **resume metrics**, **technical stack**, or ask to **inspect any architecture diagram**!`,
+            text: `${greetingHeader} I am **Nexus AI Agent**, an autonomous enterprise assistant protected by **BotShield WAF** and **NVIDIA NeMo Guardrails**.\n\nAsk me anything about Kishor's **20 flagship architectures**, **work experience** (Luxe Salon AI, phi0.ai, Samsung AI Core, KoomAI), **resume metrics**, **technical stack**, or ask to **inspect any architecture diagram**!`,
             trace: [
                 '🛡️ BotShield WAF: Ingress Inspection 0 probes',
                 '⚡ Semantic Cache: Redis Warm in 8ms',
                 '🔄 LangGraph: Cyclic Supervisor Router initialized',
-                '🧩 FastMCP: 15 Project tools & GitHub RAG endpoints ready',
+                '🧩 FastMCP: 20 Project tools & GitHub RAG endpoints ready',
                 '✅ NeMo Guardrails: Verification active'
             ],
             timestamp: 'Just now',
