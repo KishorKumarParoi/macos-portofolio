@@ -19,13 +19,13 @@ const KNOWLEDGE_BASE = [
     },
     {
         id: 'omnichannel_exp',
-        keywords: ['omnichannel', 'salon', 'luxe', 'voice receptionist', 'receptionist', 'livekit'],
-        title: 'Work Experience: Luxe Salon AI (Omnichannel Voice Receptionist Architect)',
-        answer: `**Omnichannel AI Voice Receptionist & Autonomous Systems Architect @ Luxe Salon AI (Oct 2026 – Present • Contract):**
-• Architected enterprise-grade omnichannel voice & chat AI receptionist with **sub-500ms turn-taking latency** using **Silero VAD**, **Deepgram Nova-2 STT**, **Groq LLaMA-3.3 70B**, and **Cartesia Sonic TTS** via **LiveKit WebRTC**.
-• Engineered multi-agent stateful routing over **PostgreSQL connection pools** and **Redis semantic caching (<20ms)**, reducing LLM token consumption by **48%** across thousands of monthly client interactions.
-• Integrated bidirectional **Cal.com & Google Calendar APIs** with conflict-free slot locking and **Twilio SIP trunking** with automated fallback to human operators for high-touch inquiries.
-• Deployed zero-trust security perimeter featuring **NVIDIA NeMo Guardrails**, automated **Presidio PII tokenization**, and **FastAPI async streaming**, securing **99.8% uptime** and 4.9/5 client satisfaction rating.`,
+        keywords: ['omnichannel', 'salon', 'luxe', 'voice receptionist', 'receptionist', 'vapi', 'deepgram', 'cartesia'],
+        title: 'Work Experience: Omnichannel AI Solutions — Voice & Chat Receptionist',
+        answer: `**Lead Conversational Voice AI & Systems Architect @ Omnichannel AI Solutions (Sept 2026 – Present):**
+• Launched live **6-vertical multi-tenant AI Voice & Chat Receptionist SaaS** ([ai-voice-receptionist.kishor.tech](https://ai-voice-receptionist.kishor.tech/) · PSTN \`+1 (617) 271-8180\` · WebRTC \`/vapi-call\`) orchestrated via **Vapi Squad (Marcus ↔ Sophia)** on **Clerk Auth & Neon Serverless PostgreSQL**.
+• Architected real-time voice pipeline combining **Deepgram Nova-2 STT (<180ms)**, **FastAPI mid-call tool calling (<40ms)**, and **Cartesia Sonic-3.5 TTS (<110ms)** for **sub-500ms conversational turnaround**.
+• Engineered unified omnichannel webhook router spanning \`/widget.js\`, WhatsApp Cloud API, Messenger, Instagram, Telegram, X, LinkedIn & TikTok with **2-way Google Calendar API v3 OAuth2** sync and per-tenant vector FAQ RAG.
+• Automated post-call lifecycle with **Twilio SMS & WhatsApp** confirmations, daily Vercel cron 24h/1h reminders, **n8n + Slack** escalations, and automated pytest pre-push verification gates.`,
     },
     {
         id: 'phi0',
@@ -311,32 +311,31 @@ const KNOWLEDGE_BASE = [
     },
     {
         id: 'omnichannel_voice',
-        keywords: ['omnichannel', 'voice', 'receptionist', 'webrtc', 'livekit', 'salon', 'sub-500ms'],
+        keywords: ['omnichannel', 'voice', 'receptionist', 'webrtc', 'vapi', 'salon', 'sub-500ms'],
         title: '18. Omnichannel AI Voice Receptionist: Sub-500ms Turnaround',
         image: {
             url: '/images/projects/omnichannel/01_omnichannel_voice.svg',
-            caption: 'Sub-500ms Voice Agent Architecture with LiveKit WebRTC',
+            caption: 'Sub-500ms Vapi Squad + FastAPI + Neon PostgreSQL Architecture',
             repoUrl: 'https://github.com/KishorKumarParoi/omnichannel-voice-chat-ai-receptionist',
         },
-        answer: `**18. Omnichannel AI Voice Receptionist Architecture:**
-• **Sub-500ms End-to-End Latency:** Integrated Silero VAD, Deepgram Nova-2 STT, Groq LLaMA-3.3 70B, and Cartesia Sonic TTS via LiveKit WebRTC for natural duplex conversations.
-• **Autonomous Scheduling:** Cal.com & Google Calendar two-way synchronization with PostgreSQL state persistence and Twilio SIP trunking.
-• **Zero-Trust Security:** Guarded by NVIDIA NeMo Guardrails, automated Presidio PII tokenization, and FastAPI async streaming.
+        answer: `**18. Omnichannel AI Voice & Chat Receptionist Architecture:**
+• **Live SaaS & Studio:** Deployed at [ai-voice-receptionist.kishor.tech](https://ai-voice-receptionist.kishor.tech/) (WebRTC \`/vapi-call\`, PSTN \`+1 (617) 271-8180\`) across 6 verticals.
+• **Sub-500ms End-to-End Latency:** Combined Vapi Squad (Marcus ↔ Sophia), **Deepgram Nova-2 STT (<180ms)**, **FastAPI (<40ms)**, and **Cartesia Sonic-3.5 TTS (<110ms)**.
+• **Full-Stack Persistence & Webhooks:** Clerk Auth, Neon Serverless PostgreSQL, 2-way Google Calendar v3 OAuth2, 8+ social channels, Twilio 24h/1h cron & n8n/Slack escalation.
 • **GitHub Repository:** [KishorKumarParoi/omnichannel-voice-chat-ai-receptionist](https://github.com/KishorKumarParoi/omnichannel-voice-chat-ai-receptionist)`,
     },
     {
         id: 'nimbus_suite',
-        keywords: ['nimbus', 'voice suite', '5 agents', 'healthcare', 'legal', 'support', 'real estate'],
-        title: '19. Nimbus AI Suite: 5 Specialized Voice Agents Swarm',
+        keywords: ['nimbus', 'voice suite', '5 agents', 'sales', 'meeting', 'research', 'scheduling', 'desktop'],
+        title: '19. Nimbus-AI Suite: 5-Agent Live Voice Ecosystem',
         image: {
             url: '/images/projects/nimbus/01_nimbus_suite.svg',
-            caption: 'Nimbus AI 5-Agent Specialized Voice Swarm Architecture',
+            caption: 'Nimbus-AI 5-Agent Live Voice Platform (LiveKit WebRTC + FastAPI + ElevenLabs)',
             repoUrl: 'https://github.com/KishorKumarParoi/nimbus-voice-agents-suite',
         },
-        answer: `**19. Nimbus AI Voice Agents Suite:**
-• **5 Domain Swarm:** Autonomous Voice Agents for Clinical Triage, Financial Advisory, Customer Support, Legal Intake, and Real Estate Concierge.
-• **FastMCP & WebRTC:** Full duplex audio streaming with sub-450ms turnaround and cryptographically signed tool calls.
-• **Multi-Tenant State Management:** Scalable session state persistence with automated interrupt handling and barge-in detection.
+        answer: `**19. Nimbus-AI Suite (Live Hub: [nimbus.kishor.tech](https://nimbus.kishor.tech/)):**
+• **Sub-400ms Scratch Voice Core:** Built unified 5-agent voice platform on **LiveKit WebRTC, FastAPI (/api/voice/process), OpenAI GPT-4o / Whisper ASR & ElevenLabs Turbo v2.5 TTS** with **60fps audio waveform**, instant barge-in, RAG vs. RAG-less toggle & latency waterfall telemetry.
+• **5 Live Deployed Specialist Agents:** [Sales](https://sales.kishor.tech/) (savings/quotes), [Meeting](https://meeting.kishor.tech/) (live scribe/actions), [Research](https://research.kishor.tech/) (corpus synthesis/citations), [Scheduling](https://scheduling.kishor.tech/) (calendar/conflicts), and [Desktop](https://desktop.kishor.tech/) (OS control/scripts), each backed by pytest suites.
 • **GitHub Repository:** [KishorKumarParoi/nimbus-voice-agents-suite](https://github.com/KishorKumarParoi/nimbus-voice-agents-suite)`,
     },
     {
@@ -398,7 +397,7 @@ const AgentChat = ({ isMaximized }) => {
         {
             id: 1,
             sender: 'bot',
-            text: `${greetingHeader} I am **Nexus AI Agent**, an autonomous enterprise assistant protected by **BotShield WAF** and **NVIDIA NeMo Guardrails**.\n\nAsk me anything about Kishor's **20 flagship architectures**, **work experience** (Luxe Salon AI, phi0.ai, Samsung AI Core, KoomAI), **resume metrics**, **technical stack**, or ask to **inspect any architecture diagram**!`,
+            text: `${greetingHeader} I am **Nexus AI Agent**, an autonomous enterprise assistant protected by **BotShield WAF** and **NVIDIA NeMo Guardrails**.\n\nAsk me anything about Kishor's **15 flagship architectures**, **work experience** (Omnichannel AI Solutions, phi0.ai, Samsung AI Core, KoomAI), **resume metrics**, **technical stack**, or ask to **inspect any architecture diagram**!`,
             trace: [
                 '🛡️ BotShield WAF: Ingress Inspection 0 probes',
                 '⚡ Semantic Cache: Redis Warm in 8ms',
@@ -477,7 +476,7 @@ const AgentChat = ({ isMaximized }) => {
 
 I am **Nexus AI**, an autonomous architectural assistant. I can guide you through:
 • **Kishor's 15 Flagship Production Projects** (Zomato Lakehouse, Hybrid Anime, AI Security, Smart Manufacturing, etc.)
-• **Work Experience:** phi0.ai (Forward Deployed AI Engineer), Samsung AI Core (Data Engineering & AI Systems Intern), Koom-AI (Founder)
+• **Work Experience:** Omnichannel AI Solutions (AI Engineer — Sub-500ms WebRTC), phi0.ai (Forward Deployed AI Engineer), Samsung AI Core (Data Engineering & AI Systems Intern), Koom-AI (Founder)
 • **High-Throughput Benchmarks:** Rust SIMD vector scoring (<0.5ms, 50x speedup), 35M+ Delta Lakehouse, and vLLM Multi-LoRA
 • **Live Architecture Diagrams & Source Code Repositories**
 

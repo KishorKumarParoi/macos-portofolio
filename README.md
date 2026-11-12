@@ -61,18 +61,18 @@
 | **⚡ hacker (3D Cyber Hacker Workstation)** | **[hacker.kishor.tech](https://hacker.kishor.tech)** | 3D Cyber Hacker command room, CRT monitor shaders, Web Audio, terminal HUD |
 | **▶ KoomAI Video Intelligence** | **[koom.kishor.tech](https://koom.kishor.tech)** | Sub-120ms WebRTC SVC engine, Electron native capture, 20-agent LangGraph copilot |
 | **💼 LinkedIn Network** | **[linkedin.com/in/kishor-kumar-paroi-b06344166](https://linkedin.com/in/kishor-kumar-paroi-b06344166)** | Verified professional connections, endorsements, and leadership updates |
-| **🐙 GitHub Repositories** | **[github.com/KishorKumarParoi](https://github.com/KishorKumarParoi)** | 11 production-grade ML/LLM/Lakehouse systems with 1-click cloud bootstrap scripts |
+| **🐙 GitHub Repositories** | **[github.com/KishorKumarParoi](https://github.com/KishorKumarParoi)** | 15+ production-grade AI, Voice, LLM & Lakehouse systems with 1-click cloud bootstrap scripts |
 
 ---
 
 ## 📄 Featured Executive Resumes & Dossiers
 
-This portfolio features direct access to Kishor Kumar Paroi's verified technical credentials, academic background (**RUET CSE**), competitive programming track record (**Codeforces Blue, 5★ CodeChef**), and 11 end-to-end production AI/MLOps architectures.
+This portfolio features direct access to Kishor Kumar Paroi's verified technical credentials, academic background (**RUET CSE**), competitive programming track record (**Codeforces Blue, 5★ CodeChef**), and 15 end-to-end production AI/Voice/MLOps architectures (including Omnichannel AI Live SaaS & Nimbus 5-Agent Live Suite).
 
 | Format | Document | Specifications & ATS Score | Direct Download Link |
 | :--- | :--- | :--- | :--- |
-| **Academic / Executive** | `resume.pdf` | **Strict 1-Page A4 PDF &bull; 100/100 ATS Score:** High-DPI typography, RUET CSE credentials, 61 quantified metrics. | [📥 **Download 1-Page A4 PDF**](https://kishor.tech/resume.pdf) |
-| **Comprehensive ATS** | `resume_single_column.pdf` | **Comprehensive 2-Page A4 PDF &bull; 100/100 ATS Score:** 97 quantified metrics, deep architectural breakdown across all 11 production systems. | [📥 **Download Detailed ATS PDF**](https://kishor.tech/resume_single_column.pdf) |
+| **Academic / Executive** | `resume.pdf` | **Strict 1-Page A4 PDF &bull; 100/100 ATS Score:** High-DPI typography, Omnichannel AI Live SaaS, Nimbus 5-Agent Live Suite, RUET CSE credentials. | [📥 **Download 1-Page A4 PDF**](https://kishor.tech/resume.pdf) |
+| **Comprehensive ATS** | `resume_single_column.pdf` | **Comprehensive 2-Page A4 PDF &bull; 100/100 ATS Score:** Deep architectural breakdown across Omnichannel AI & all 15 flagship systems. | [📥 **Download Detailed ATS PDF**](https://kishor.tech/resume_single_column.pdf) |
 | **Interactive In-App** | `Resume.app` | Interactive Web Previewers & Recruiters | *Click the "Resume" icon on the macOS Desktop or Dock* |
 
 > [!TIP]
@@ -97,8 +97,8 @@ This portfolio features direct access to Kishor Kumar Paroi's verified technical
 macos-portfolio/
 ├── public/
 │   ├── files/
-│   │   ├── resume.pdf                <-- Master 1-Page Academic Split PDF (691 KB)
-│   │   └── resume_single_column.pdf  <-- Master Comprehensive ATS PDF (1.5 MB)
+│   │   ├── resume.pdf                <-- Master 1-Page Academic Split PDF (890 KB)
+│   │   └── resume_single_column.pdf  <-- Master Comprehensive ATS PDF (1.2 MB)
 │   ├── icons/                        <-- High-resolution macOS application icons
 │   └── images/                       <-- System wallpapers & project previews
 ├── src/
