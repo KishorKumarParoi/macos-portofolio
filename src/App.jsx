@@ -1,7 +1,7 @@
 import { DesktopFooter, Dock, Navbar, Welcome, NotificationCenter, LockScreen } from '#components'
 import React from 'react'
 import gsap from 'gsap'
-import { Finder, Resume, Safari, Terminal, Text, Image, Contact, Home, Chess, ClashDefense, AgentChat, Journey } from '#windows'
+import { Finder, Resume, Safari, Terminal, Text, Image, Contact, Home, Chess, ClashDefense, AgentChat, Journey, Certificates } from '#windows'
 
 import { Draggable } from 'gsap/Draggable'
 gsap.registerPlugin(Draggable)
@@ -26,6 +26,7 @@ const App = () => {
       <ClashDefense />
       <AgentChat />
       <Journey />
+      <Certificates />
       <Home />
 
       <DesktopFooter />

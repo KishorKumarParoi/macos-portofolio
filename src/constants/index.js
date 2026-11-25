@@ -24,6 +24,11 @@ const navLinks = [
     name: "AI Journey",
     type: "journey",
   },
+  {
+    id: 6,
+    name: "Certificates (34)",
+    type: "certificates",
+  },
 ];
 
 const navIcons = [
@@ -104,6 +109,12 @@ const dockApps = [
     id: "journey",
     name: "AI Engineering Journey",
     icon: "journey.svg",
+    canOpen: true,
+  },
+  {
+    id: "certificates",
+    name: "34 Verified Certificates",
+    icon: "certificates.svg",
     canOpen: true,
   },
   {
@@ -2873,6 +2884,34 @@ const ABOUT_LOCATION = {
         "🌱 Technical Mentorship: Mentored 100+ students and junior engineers across Machine Learning, AI Agents, DevOps, and MLOps, leading production architecture reviews and career roadmapping.",
       ],
     },
+    {
+      id: 7,
+      name: "certifications.txt",
+      icon: "/images/txt.png",
+      kind: "file",
+      fileType: "txt",
+      position: "top-80 left-8",
+      subtitle: "34 Verified Certifications • 1,172.5 Audited Hours",
+      description: [
+        "🎓 Live Credential Vault (All 34 PDFs & Verify Links): https://certificate.kishor.tech",
+        "1. AI FDE: Forward Deployed Engineer & Agentic AI Architect — Ed Donner (21.5h | UC-43d06745)",
+        "2. AI Engineer Core Track: LLM, RAG, QLoRA, Agents — Ed Donner & Ligency (33.5h | UC-dfe1d249)",
+        "3. Complete MCP Bootcamp: Next-Gen AI Agents with MCP — KRISHAI (14.5h | UC-52eafb0d)",
+        "4. AI Security Bootcamp: Guardrails, Gateways & Observability — Krish Naik (82h | UC-94de281b)",
+        "5. AI Engineer Production Track & Agentic Track (Ed Donner, 39.5h combined)",
+        "6. Complete Agentic AI LangGraph (45.5h), LLMOps & AIOps (30h), Big Data GCP+Azure (74h), GCP Professional Cloud Architect (33.5h), Apache Iceberg, AWS AIF-C01 & Database Engineering (31h).",
+      ],
+    },
+    {
+      id: 8,
+      name: "Verified Certificates App (34)",
+      icon: "/images/certificates.svg",
+      kind: "file",
+      fileType: "app",
+      windowKey: "certificates",
+      position: "top-80 left-48",
+      subtitle: "Launch Interactive 34-Certificate Vault Window",
+    },
   ],
 };
 
@@ -3063,6 +3102,7 @@ const WINDOW_CONFIG = {
   clash: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   aichat: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   journey: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
+  certificates: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
   trash: { isOpen: false, zIndex: INITIAL_Z_INDEX, data: null },
 };
 

@@ -19,6 +19,7 @@ const SPARK_COLORS = ['#ff6b35', '#ff3d00', '#ff9100', '#ffd600', '#ff4081', '#f
 const QUICK_SUGGESTIONS = [
     { label: 'skills', cmd: 'skills', color: 'hover:text-cyan-300' },
     { label: 'whoami', cmd: 'whoami', color: 'hover:text-emerald-300' },
+    { label: 'certs', cmd: 'certs', color: 'hover:text-teal-300' },
     { label: 'projects', cmd: 'projects', color: 'hover:text-amber-300' },
     { label: 'contact', cmd: 'contact', color: 'hover:text-pink-300' },
     { label: 'agent', cmd: 'agent', color: 'hover:text-purple-300' },
@@ -120,6 +121,7 @@ const Terminal = () => {
                         "  skills          - Display all 7 verified technology domains (interactive)",
                         "  whoami          - Principal Architect identity, degree & background",
                         "  projects        - List 20 enterprise projects & copyable deploy commands",
+                        "  certs           - 34 Verified Certificates (1,172.5h) at certificate.kishor.tech",
                         "  education       - RUET B.Sc. in CSE (Admission Rank 483rd in Bangladesh)",
                         "  cp              - Competitive programming honors (Codeforces, CodeChef 5★)",
                         "  neofetch        - Apple Silicon kernel specs & polyglot system architecture",
@@ -426,6 +428,24 @@ const Terminal = () => {
                         ".MMMMMMMMMMMMMMMMMMMMMMMMX.      Architecture: Polyglot (Rust, Go, Python, Next.js)",
                         " kMMMMMMMMMMMMMMMMMMMMMMMMWd.    Specialization: GenAI, Lakehouses & Distributed MLOps",
                         "  .XMMMMMMMMMMMMMMMMMMMMMMMMk    Status: Open for Principal AI/ML & Lakehouse Roles",
+                    ].join("\n"),
+                })
+                break
+
+            case 'certs':
+            case 'certificates':
+                openWindow('certificates')
+                newEntries.push({
+                    type: 'output',
+                    text: [
+                        "🎓 Launching 34 Verified Certificates Vault Window (1,172.5 Audited Hours)...",
+                        "--------------------------------------------------------------------------------",
+                        "  Portal:   https://certificate.kishor.tech (Searchable Vault + Original PDFs)",
+                        "  #1–#3:    AI FDE (21.5h) · AI Production Track (18.5h) · AI Agentic & MCP (21h)",
+                        "  #4–#6:    AI Core RAG/QLoRA (33.5h) · AI Security Bootcamp (82h) · MCP Bootcamp (14.5h)",
+                        "  #7–#10:   Agentic LangGraph (45.5h) · LLMOps (30h) · Big Data (74h) · GCP Architect (33.5h)",
+                        "  Also:     Apache Iceberg, AWS AIF-C01, Hussein Nasser DB Eng (31h), Google Dataflow",
+                        "--------------------------------------------------------------------------------",
                     ].join("\n"),
                 })
                 break

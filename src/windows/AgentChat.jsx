@@ -374,6 +374,26 @@ const KNOWLEDGE_BASE = [
 • **Secondary School Certificate (SSC, 2013–2015):** S.J Govt Model High School — **GPA 5.00 / 5.00** (**Rank 90th** in Dhaka Board, 1st in Gopalganj District).`,
     },
     {
+        id: 'certifications',
+        keywords: ['cert', 'certificate', 'certificates', 'certification', 'udemy', 'credential', 'course', 'courses', 'iceberg', 'mcp', 'bootcamp', 'hours'],
+        title: '34 Verified Technical Certifications (1,172.5 Audited Hours)',
+        answer: `**Audited Certificate Archive live at [certificate.kishor.tech](https://certificate.kishor.tech) (34 PDFs • 1,172.5 Hours):**
+• **#1 AI FDE:** Forward Deployed Engineer & Agentic AI Architect — Ed Donner (21.5h, \`UC-43d06745\`)
+• **#2 AI Production Track:** Deploy LLMs & Agents at Scale — Ed Donner, Ligency (18.5h, \`UC-6ad5264d\`)
+• **#3 AI Agentic Track:** Complete Agent & MCP Course — Ed Donner, Ligency (21h, \`UC-3fd40475\`)
+• **#4 AI Core Track:** LLM Engineering, RAG, QLoRA, Agents — Ed Donner, Ligency (33.5h, \`UC-dfe1d249\`)
+• **#5 AI Security Bootcamp:** Guardrails, LLM Gateways & Observability — Krish Naik, Sudhanshu Gusain (82h, \`UC-94de281b\`)
+• **#6 Complete MCP Bootcamp:** Build Next-Gen AI Agents with MCP — KRISHAI, DS with Bappy (14.5h, \`UC-52eafb0d\`)
+• **#7–#10:** Complete Agentic AI LangGraph (45.5h), LLMOps & AIOps (30h), Big Data GCP+Azure (74h), GCP Professional Cloud Architect (33.5h) — plus **Apache Iceberg**, **AWS AIF-C01**, **Hussein Nasser Database Engineering (31h)** & **Large-Scale System Architecture**.`,
+    },
+    {
+        id: 'aisoln',
+        keywords: ['aisoln', 'aisoln.biz', 'ai solutions', 'founding'],
+        title: 'Omnichannel AI Solutions (aisoln.biz)',
+        answer: `**Founding AI Systems Architect @ [aisoln.biz](https://aisoln.biz) (Omnichannel AI Solutions):**
+• Commercial sub-500ms AI Voice & Chat Receptionist SaaS ([ai-voice-receptionist.kishor.tech](https://ai-voice-receptionist.kishor.tech/)) serving 6 high-demand verticals with Vapi Squad (Deepgram Nova-2 <180ms, FastAPI <40ms, Cartesia Sonic-3.5 <110ms), 8+ social webhooks, and atomic 2-way Google Calendar v3 sync.`,
+    },
+    {
         id: 'skills',
         keywords: ['skills', 'stack', 'languages', 'tech', 'tools', 'frameworks'],
         title: 'Full Technical Arsenal & Systems Expertise',
@@ -397,7 +417,7 @@ const AgentChat = ({ isMaximized }) => {
         {
             id: 1,
             sender: 'bot',
-            text: `${greetingHeader} I am **Nexus AI Agent**, an autonomous enterprise assistant protected by **BotShield WAF** and **NVIDIA NeMo Guardrails**.\n\nAsk me anything about Kishor's **15 flagship architectures**, **work experience** (Omnichannel AI Solutions, phi0.ai, Samsung AI Core, KoomAI), **resume metrics**, **technical stack**, or ask to **inspect any architecture diagram**!`,
+            text: `${greetingHeader} I am **Nexus AI Agent**, an autonomous enterprise assistant protected by **BotShield WAF** and **NVIDIA NeMo Guardrails**.\n\nAsk me anything about Kishor's **20 flagship architectures**, **34 verified certificates (1,172.5h at certificate.kishor.tech)**, **work experience** (Omnichannel AI Solutions / aisoln.biz, phi0.ai, Samsung AI Core, KoomAI), **resume metrics**, **technical stack**, or ask to **inspect any architecture diagram**!`,
             trace: [
                 '🛡️ BotShield WAF: Ingress Inspection 0 probes',
                 '⚡ Semantic Cache: Redis Warm in 8ms',
@@ -538,12 +558,12 @@ Kishor approaches this challenge through the lens of **Enterprise AI Systems Arc
     }
 
     const starterQueries = [
+        "Show 34 Verified Certificates & Top 10",
+        "Tell me about aisoln.biz & Voice AI",
         "Show me Zomato Lakehouse architecture diagram",
         "Tell me about phi0.ai & Samsung experience",
         "Explain Hybrid Anime Rust SIMD & vLLM serving",
-        "Show me Smart Manufacturing edge IIoT architecture",
         "Explain KoomAI's WebRTC & Electron platform",
-        "What are Kishor's competitive programming stats?",
     ]
 
     return (

@@ -253,6 +253,8 @@ const Navbar = () => {
         { name: '2-Min Blitz Chess AI', type: 'chess', icon: '/images/chess.svg' },
         { name: 'Clash Village Defense (RTS)', type: 'clash', icon: '/images/clash.svg' },
         { name: 'Nexus AI Multi-Agent Cockpit', type: 'aichat', icon: '/images/ai-agent.svg' },
+        { name: '34 Verified Certificates & PDFs Vault', type: 'certificates', icon: '/images/certificates.svg' },
+        { name: 'Standalone Certificate Portal (certificate.kishor.tech)', type: 'external', href: 'https://certificate.kishor.tech/', icon: '/images/certificates.svg' },
         { name: 'Reinvent 3D Portfolio (3d.kishor.tech)', type: 'external', href: 'https://3d.kishor.tech/', icon: '/images/safari.png' },
         { name: 'Contact Me & Booking', type: 'contact', icon: '/images/contact.png' },
     ].filter((app) => app.name.toLowerCase().includes(spotlightQuery.toLowerCase()))

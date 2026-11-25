@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#082f49"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fde68a"/>
+      <stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#67e8f9"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+  </defs>
+  <rect x="6" y="6" width="116" height="116" rx="28" fill="url(#bg)" stroke="url(#cyan)" stroke-width="3"/>
+  <circle cx="64" cy="54" r="24" fill="none" stroke="url(#gold)" stroke-width="6"/>
+  <circle cx="64" cy="54" r="14" fill="url(#gold)"/>
+  <polygon points="50,74 44,104 64,92 84,104 78,74" fill="#38bdf8"/>
+  <text x="64" y="59" text-anchor="middle" font-family="ui-monospace, monospace" font-weight="800" font-size="13" fill="#0f172a">34</text>
+</svg>

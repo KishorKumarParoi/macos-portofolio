@@ -227,6 +227,10 @@ body {
     }
   }
 
+  #certificates {
+    @apply w-[860px] max-w-[96vw] absolute top-10 left-2 sm:left-[8vw] shadow-2xl drop-shadow-2xl rounded-2xl overflow-hidden;
+  }
+
   #clash {
     @apply w-[780px] max-w-[96vw] absolute top-10 left-2 sm:left-[10vw] shadow-2xl drop-shadow-2xl rounded-2xl overflow-hidden;
 

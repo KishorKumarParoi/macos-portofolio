@@ -10,5 +10,6 @@ import Chess from './Chess.jsx';
 import ClashDefense from './ClashDefense.jsx';
 import AgentChat from './AgentChat.jsx';
 import Journey from './Journey.jsx';
+import Certificates from './Certificates.jsx';
 
-export { Terminal, Safari, Resume, Finder, Text, Image, Contact, Home, Chess, ClashDefense, AgentChat, Journey };
+export { Terminal, Safari, Resume, Finder, Text, Image, Contact, Home, Chess, ClashDefense, AgentChat, Journey, Certificates };
