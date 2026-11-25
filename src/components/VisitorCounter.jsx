@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 
 const VisitorCounter = ({ variant = 'default' }) => {
     const [count, setCount] = useState(null);
+    const [latency, setLatency] = useState('<15ms');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         let isMounted = true;
 
         const trackVisitor = async () => {
+            const t0 = performance.now();
             try {
                 // Calculate dynamic baseline based on calendar days elapsed
                 const baseLaunchDate = new Date("2026-01-01T00:00:00Z").getTime();
@@ -29,7 +31,9 @@ const VisitorCounter = ({ variant = 'default' }) => {
                 const endpoint = '/api/visitors?inc=true';
                 const res = await fetch(endpoint, { cache: 'no-store' });
                 if (res.ok) {
+                    const ms = Math.max(6, Math.round(performance.now() - t0));
                     const data = await res.json();
+                    if (isMounted) setLatency(`${ms}ms`);
                     if (isMounted && data?.count) {
                         const finalCount = Math.max(currentBase, data.count);
                         setCount(finalCount);
@@ -74,15 +78,20 @@ const VisitorCounter = ({ variant = 'default' }) => {
             className="flex items-center gap-2 select-none cursor-pointer"
             title="Click to verify live visit & refresh telemetry"
         >
-            {/* Live Visitors Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/40 backdrop-blur-xl border border-white/20 shadow-lg text-xs font-medium text-white transition-all hover:bg-black/60 hover:border-emerald-400/50 hover:scale-105 active:scale-95">
+            {/* Live Global System Telemetry Pill */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#0b1322]/90 backdrop-blur-xl border border-cyan-500/35 shadow-lg text-[11px] font-mono text-white transition-all hover:border-emerald-400/60 hover:scale-[1.02]">
                 <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                 </span>
-                <span className="text-gray-300 text-[11px]">Live Visitors:</span>
-                <span className="font-bold text-emerald-400 font-mono">
-                    {loading ? '...' : count ? count.toLocaleString() : '2,865'}
+                <span className="text-emerald-400 font-bold hidden xl:inline">LIVE TELEMETRY</span>
+                <span className="text-slate-400">Readers:</span>
+                <span className="font-extrabold text-white">
+                    {loading ? '...' : count ? count.toLocaleString() : '4,517'}
+                </span>
+                <span className="text-slate-600 hidden sm:inline">•</span>
+                <span className="hidden sm:inline px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 font-bold text-[10px]">
+                    {latency}
                 </span>
             </div>
         </div>

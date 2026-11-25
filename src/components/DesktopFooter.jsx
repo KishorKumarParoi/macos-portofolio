@@ -15,6 +15,28 @@ const DesktopFooter = () => {
             {/* Center / Right: Cross-Portfolio Links & macOS Status */}
             <div className="pointer-events-auto flex items-center gap-2 flex-wrap">
                 <a
+                    href="https://certificate.kishor.tech/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-md border border-teal-500/35 hover:border-teal-400 text-[11px] text-teal-300 hover:text-teal-200 transition-all shadow-sm"
+                    title="Open 34 Verified Certificates Vault (https://certificate.kishor.tech/)"
+                >
+                    <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse"></span>
+                    <span>34 Certs ↗</span>
+                </a>
+
+                <a
+                    href="https://aisoln.biz/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-md border border-sky-500/35 hover:border-sky-400 text-[11px] text-sky-300 hover:text-sky-200 transition-all shadow-sm"
+                    title="Open Omnichannel AI Solutions (https://aisoln.biz/)"
+                >
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse"></span>
+                    <span>aisoln.biz ↗</span>
+                </a>
+
+                <a
                     href="https://kishor.tech/"
                     target="_blank"
                     rel="noopener noreferrer"
